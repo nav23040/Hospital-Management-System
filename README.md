@@ -1,2 +1,2 @@
-# HospitalMgmt
+# Hospital Record Management
 HMS
