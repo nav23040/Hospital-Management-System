@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      paddingLeft : '500px',
+      paddingLeft : '37%',
     },
   },
   input: {
