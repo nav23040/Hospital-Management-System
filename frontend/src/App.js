@@ -10,7 +10,6 @@ import SignIn from "./components/SignIn";
 
 const useStyles = makeStyles({
   appMain : {
-    paddingLeft : '1px',
     width:'100%'
   }
 })
