@@ -33,8 +33,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Hospital Management System
           </Typography>
-         
-<div  class="dropdown" >
+          <div  class="dropdown" >
   <button class="dropbtn" >Patient</button>
   <div class="dropdown-content">
     <a href="#" >Login</a>
@@ -44,12 +43,17 @@ export default function ButtonAppBar() {
 </div>
 
 <div class="dropdown" >
-
-  <button class="dropbtnmain" >Doctor</button>
-  <div class="dropdown-content" marginRight="50px" >
+  <button class="dropbtn" >Doctor</button>
+  <div class="dropdown-content"  >
     <a href="#" >Login</a>
     <a href="#">Register</a>
   </div>
+</div>
+<div class="dropdown" >
+<button class="dropbtn" >Admin Login</button>
+</div>
+<div class="dropdown" >
+<button class="dropbtnmain" >Contact Us</button>
 </div>
         </Toolbar>
       </AppBar>
