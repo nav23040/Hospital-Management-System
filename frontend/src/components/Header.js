@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 2,
@@ -33,10 +32,27 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Hospital Management System
           </Typography>
-          <Button color="h6">Login</Button>
-          <Button color="h6">Register</Button>
+         
+<div  class="dropdown" >
+  <button class="dropbtn" >Patient</button>
+  <div class="dropdown-content">
+    <a href="#" >Login</a>
+
+    <a href="#">Register</a>
+  </div>
+</div>
+
+<div class="dropdown" >
+
+  <button class="dropbtnmain" >Doctor</button>
+  <div class="dropdown-content" marginRight="50px" >
+    <a href="#" >Login</a>
+    <a href="#">Register</a>
+  </div>
+</div>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+
