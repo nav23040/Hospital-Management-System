@@ -51,3 +51,6 @@
   .dropdown:hover .dropbtn {
     background-color: #3e8e41;
   }
+  .dropdown:hover .dropbtnmain{
+    background-color: #3e8e41;
+  }
