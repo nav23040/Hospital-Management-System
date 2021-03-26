@@ -1,6 +1,6 @@
 .dropbtnmain {
     margin-right: 60px;
-    background-color: #4CAF50;
+    background-color: #4caf4f00;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -8,7 +8,7 @@
     cursor: pointer;
   }
   .dropbtn {
-    background-color: #4CAF50;
+    background-color: #4caf4f00;
     color: white;
     padding: 16px;
     font-size: 16px;
