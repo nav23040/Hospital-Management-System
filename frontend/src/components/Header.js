@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import {IconButton} from '@material-ui/core';
 import './dropdown.css';
 // import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles((theme) => ({
@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
 
+  
   return (
     <div className={classes.root}> 
       <AppBar position="auto">
@@ -34,11 +35,10 @@ export default function ButtonAppBar() {
             Hospital Management System
           </Typography>
           <div  class="dropdown" >
-  <button class="dropbtn" >Patient</button>
+  <Button class="dropbtn" >Patient</Button>
   <div class="dropdown-content">
-    <a href="#" >Login</a>
-
-    <a href="#">Register</a>
+    <a href='#' >LogIn </a>
+    <a  href='#' >Register </a>
   </div>
 </div>
 
@@ -46,7 +46,6 @@ export default function ButtonAppBar() {
   <button class="dropbtn" >Doctor</button>
   <div class="dropdown-content"  >
     <a href="#" >Login</a>
-    <a href="#">Register</a>
   </div>
 </div>
 <div class="dropdown" >
