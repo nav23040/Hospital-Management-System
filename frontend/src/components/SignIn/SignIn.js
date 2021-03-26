@@ -41,6 +41,22 @@ export default function SignIn(props) {
 
   function onSubmit(){
     console.log(credential);
+
+    fetch('http://localhost:3000/signin', {
+   		method: 'post',
+   		headers: {'Content-Type': 'application/json'},
+   		body: JSON.stringify({
+   			emailid: credential.emailid,
+   			password: credential.password
+   		})
+   	})
+      .then(response => response.json())
+      .then(data => {
+        if(data === 'success')
+          alert('Succesfully');
+        else 
+          alert('Invalid');  
+      })
   }
 
   return (

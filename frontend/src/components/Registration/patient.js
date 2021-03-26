@@ -47,7 +47,31 @@ export default function Patient(props){
 
     function onSubmit(){
         console.log(values);
-        props.onRouteChange('signin');
+        
+        fetch('http://localhost:3000/register', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                name: values.fullName,
+                email: values.email,
+                password: values.password,
+                age: values.age,
+                gender: values.gender,
+                mobile: values.mobile,
+                address: values.address,
+                fatherName: values.fatherName,
+                motherName: values.motherName,
+                parentMobile: values.parentMobile
+            })
+        })
+       .then(response => response.json())
+       .then(data => {
+           console.log(data);
+         if(data === 'success')
+            props.onRouteChange('signin');
+         else 
+           alert('Invalid');  
+       })
 
     }
 
@@ -109,7 +133,7 @@ export default function Patient(props){
 
                  <TextField required
                  variant = "outlined"
-                 label="Passowrd"
+                 label="Password"
                  name="password"
                  type = 'password'
                  value={values.password}
