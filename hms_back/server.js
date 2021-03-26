@@ -1,25 +1,53 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const path = require("path");
+
+const users = require("./users");
+
 const app = express();
 
+// Bodyparser middleware
+app.use(express.urlencoded);
+
 app.use(express.json());
-app.use(cors());
+require('dotenv').config();
 
 
-app.get('/', (req,res) => { res.send('it is working') });
-app.listen(3000, ()=> { console.log('app is running on port 3000') });
+//connect to MongoDB
+const MongoClient = require('mongodb').MongoClient;
 
-app.post('/signin', (req, res) => {
-	const {emailid, password} = req.body;
-    console.log(emailid);
-    console.log(password);
+    //make sure to check connection string is correct here, since this depends on the whether you are running standalone, replica, sharded cluster 
 
-    res.json('success');
-
+const uri = "mongodb+srv://naveen:naveen@cluster0.e6pk5.mongodb.net/test?retryWrites=true&w=majority";
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
-
-
-app.post('/register', (req,res) => {
-     const{name, email, password, age, gender, mobile, address, fatherName, motherName, parentMobile} = req.body;
-     res.json('success');
+.then(() => {
+  console.log("MongoDB Connected…")
 })
+.catch(err => console.log(err))
+
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Routes
+app.use("/api/users", users);
+
+if(process.env.NODE_ENV === 'production') {
+   
+  app.use(express.static(path.join(__dirname, "client", "build")))
+
+  app.get('*',(req, res) => {
+      res.sendFile(path.join(__dirname,'client','build','index.html'));
+  });
+}
+
+
+const port = process.env.PORT || 5000;
+
+app.listen(port,()=>console.log(`Server up and running on port ${port}`));
