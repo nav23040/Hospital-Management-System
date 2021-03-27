@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {IconButton} from '@material-ui/core';
 import './dropdown.css';
+import Link from '@material-ui/core/Link';
 // import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,8 +23,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar(props) {
   const classes = useStyles();
+  function ChangeRoute1(){
+    props.onRouteChange('signin');
+  }
+  function ChangeRoute(){
+    props.onRouteChange('register');
+ }
 
-  
   return (
     <div className={classes.root}> 
       <AppBar position="auto">
@@ -37,8 +43,8 @@ export default function ButtonAppBar(props) {
           <div  class="dropdown" >
   <Button class="dropbtn" >Patient</Button>
   <div class="dropdown-content">
-    <a href='#' >LogIn </a>
-    <a  href='#' >Register </a>
+    <Link href='#' onClick = {ChangeRoute1}>{'Login'} </Link>
+    <Link  href='#' onClick = {ChangeRoute} >{'Register'} </Link>
   </div>
 </div>
 
@@ -46,6 +52,7 @@ export default function ButtonAppBar(props) {
   <button class="dropbtn" >Doctor</button>
   <div class="dropdown-content"  >
     <a href="#" >Login</a>
+    
   </div>
 </div>
 <div class="dropdown" >
