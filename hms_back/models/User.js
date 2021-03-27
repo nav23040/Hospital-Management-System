@@ -3,13 +3,11 @@ const Schema = mongoose.Schema;
 
 
 const userSchema=new Schema({
-        first_name: String,
-        last_name: String,
+        name: String,
         father_name: String,
         mother_name: String,
         gender: { type: String },
-        date_of_birth: { type: Date, trim: true },
-    profile_role: { type: String },
+        dob: { type: Date, trim: true },
         address: String,
         mobile_number: String,
         father_phone_number: String,

@@ -2,16 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const path = require("path");
-
+const bcrypt = require("bcryptjs");
+const cors = require('cors');
 const users = require("./users");
 
+const jwt = require("jsonwebtoken");
+const keys = require("./config/keys");
+
 const app = express();
-
-// Bodyparser middleware
-app.use(express.urlencoded);
-
 app.use(express.json());
-require('dotenv').config();
+app.use(cors());
+
+const User = require("./models/User");
+
+const validateRegisterInput = require("./validation/register");
+/*
+const port = process.env.PORT || 3000;
+
+app.listen(port,()=>console.log(`Server up and running on port ${port}`));*/
+
+app.listen(3000, ()=> { console.log('app is running on port 3000') });
 
 
 //connect to MongoDB
@@ -33,10 +43,105 @@ mongoose.connect(uri, {
 app.use(passport.initialize());
 
 // Passport config
-require("./config/passport")(passport);
+ require("./config/passport")(passport);
 
+
+app.post("/register", (req, res) => {
+    
+  //Form validation
+  console.log(req.body);
+  /*const {errors, isValid} = validateRegisterInput(req.body.email, req.body.password);
+  
+  if(!isValid){
+      return res.status(400).json(errors);
+  } */
+ 
+  User.findOne({email:req.body.email}).then(user=>{
+
+      if(user){
+          return res.status(400).json({email:"Email already exists"});
+      } else{
+          const newUser = new User({
+              name:req.body.name,
+              father_name:req.body.fatherName,
+              mother_name:req.body.motherName,
+              password:req.body.password,
+              email:req.body.email,
+              dob: Date.parse(req.body.age),gender:req.body.gender,
+              address:req.body.address,mobile_number:req.body.mobile,father_phone_number:req.body.parentMobile
+          });
+
+          // Hash password before storing in database
+          const rounds  = 10;
+          bcrypt.genSalt(rounds, (err, salt) => {
+              bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser
+                  .save()
+                  .then(user => res.json('success'))
+                  .catch(err => console.log(err));
+              });
+          });
+      }
+        
+  });
+    
+});
 // Routes
-app.use("/api/users", users);
+//app.use("/users", users);
+
+app.post("/signin",(req,res) => {
+
+  //Form Valdiation
+ /*  const {errors, isValid} = validateLoginInput(req.body);
+
+  if (!isValid) {
+      return res.status(400).json(errors);
+  } */
+
+  const email = req.body.email;
+  const password = req.body.password;
+ 
+  //Find user by Email
+  User.findOne({email}).then(user=>{
+      if(!user){
+          return res.status(404).json({ emailnotfound: "Email not found" });
+      }
+
+  // Check password
+  bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+          // Create JWT Payload
+          const payload = {
+              id: user.id,
+              name: user.name
+          };
+
+          // Sign token
+          jwt.sign(
+              payload,
+              keys.secretOrKey,
+              {
+               expiresIn: 31556926 
+              },
+              (err, token) => {
+              res.json({
+                  success: true,
+                  token: "Bearer " + token
+              });
+              }
+          );
+
+          res.json('success');
+      }
+      else {
+       res.status(400).json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
+
 
 if(process.env.NODE_ENV === 'production') {
    
@@ -47,7 +152,3 @@ if(process.env.NODE_ENV === 'production') {
   });
 }
 
-
-const port = process.env.PORT || 5000;
-
-app.listen(port,()=>console.log(`Server up and running on port ${port}`));

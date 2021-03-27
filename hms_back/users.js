@@ -3,20 +3,27 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("./config/keys");
+const cors = require('cors');
+
+const app = express();
+app.use(express.json());
+app.use(cors);
+
 
 const User = require("./models/User");
 
 const validateRegisterInput = require("./validation/register");
 const validateLoginInput = require("./validation/login");
 
-router.post("/register", (req, res) => {
+app.post("/register", (req, res) => {
     
     //Form validation
-    const {errors, isValid} = validateRegisterInput(req.body);
+    console.log("@33");
+    /*const {errors, isValid} = validateRegisterInput(req.body);
     
     if(!isValid){
         return res.status(400).json(errors);
-    }
+    } */
 
     User.findOne({email:req.body.email}).then(user=>{
 
@@ -24,15 +31,13 @@ router.post("/register", (req, res) => {
             return res.status(400).json({email:"Email already exists"});
         } else{
             const newUser = new User({
-                first_name:req.body.first_name,
-                last_name:req.body.last_name,
-                father_name:req.body.father_name,
-                mother_name:req.body.mother_name,
+                name:req.body.name,
+                father_name:req.body.fatherName,
+                mother_name:req.body.motherName,
                 password:req.body.password,
                 email:req.body.email,
-                age:req.body.age,gender:req.body.gender,date_of_birth:req.body.date_of_birth,
-                profile_role:req.body.profile_role,
-                address:req.body.address,mobile_number:req.body.mobile_number,father_phone_number:req.body.father_phone_number
+                dob: Date.parse(req.body.age),gender:req.body.gender,
+                address:req.body.address,mobile_number:req.body.mobile,father_phone_number:req.body.parentMobile
             });
 
             // Hash password before storing in database
