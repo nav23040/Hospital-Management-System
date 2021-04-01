@@ -3,11 +3,9 @@ import './App.css';
 import SideMenu from './components/SideMenu';
 import { makeStyles } from "@material-ui/core";
 import Header from './components/Header' ;
-
 import Patient from "./components/Registration/patient";
 import SignIn from "./components/SignIn/SignIn";
-
-
+import Profile from "./components/profile";
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -16,18 +14,18 @@ const useStyles = makeStyles({
 
 function App() {
 
-  const [route, setRoute] = useState('signin');
+   const [route, setRoute] = useState('signin');
   const classes = useStyles();
 
   function onRouteChange(route) {
 		setRoute(route);
   }
-  
   if(route === 'signin') {
      return(
       <div className={classes.appMain}>
          <Header onRouteChange={onRouteChange}/>
          <SignIn onRouteChange={onRouteChange}/>
+         
         </div> 
      );
   }
@@ -39,6 +37,14 @@ function App() {
         <Patient onRouteChange={onRouteChange}/>
        </div> 
     );
+  }
+  if(route === 'patientprofile') {
+   return(
+    <div className={classes.appMain}>
+       <Header onRouteChange={onRouteChange}/>
+       <Profile onRouteChange={onRouteChange}/>
+      </div> 
+   );
  }
  
 }
