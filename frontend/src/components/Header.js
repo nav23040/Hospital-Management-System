@@ -29,7 +29,9 @@ export default function ButtonAppBar(props) {
   function ChangeRoute(){
     props.onRouteChange('register');
  }
-
+ function ChangeRoute2(){
+  props.onRouteChange('patientprofile');
+}
   return (
     <div className={classes.root}> 
       <AppBar position="auto">
@@ -40,8 +42,11 @@ export default function ButtonAppBar(props) {
           <Typography variant="h6" className={classes.title}>
             Hospital Management System
           </Typography>
+          <div class="dropdown" >
+<button class="dropbtn"  onClick = {ChangeRoute2}>{'Profile'}</button>
+</div>
           <div  class="dropdown" >
-  <Button class="dropbtn" >Patient</Button>
+  <Button class="dropbtn" >{'Patient'}</Button>
   <div class="dropdown-content">
     <Link href='#' onClick = {ChangeRoute1}>{'Login'} </Link>
     <Link  href='#' onClick = {ChangeRoute} >{'Register'} </Link>
