@@ -35,9 +35,8 @@ export default function profile(props) {
   
 
   function ChangeRoute(){
-     props.onRouteChange('patientprofile');
-  };
-
+    props.onRouteChange('Start');
+ }
 
   return (
   
@@ -118,7 +117,10 @@ export default function profile(props) {
               <div className="col-sm-6 mb-3">
                 <div className="card h-100">
                 <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
-                  <button className="btn btn-primary"  >Book Appointment</button>
+                  <button className="btn btn-primary" onClick = {ChangeRoute}  >Book Appointment</button>
+                  {/* <Link href="#" variant="body2" onClick = {ChangeRoute}>
+                {"Don't have an account? Sign Up"}
+              </Link> */}
                   </div>
                 </div>
               </div>

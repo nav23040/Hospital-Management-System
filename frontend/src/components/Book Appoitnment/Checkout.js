@@ -97,7 +97,7 @@ export default function Checkout() {
       <CssBaseline />
       
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} style = {{marginLeft:'10px'}}>
           <Typography component="h1" variant="h4" align="center">
             Book Appointment
           </Typography>

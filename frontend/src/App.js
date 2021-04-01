@@ -6,6 +6,8 @@ import Header from './components/Header' ;
 import Patient from "./components/Registration/patient";
 import SignIn from "./components/SignIn/SignIn";
 import Profile from "./components/profile";
+import Start from "./components/Book Appoitnment/Start"
+import Header1 from "./components/Book Appoitnment/Header1"
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -46,7 +48,16 @@ function App() {
       </div> 
    );
  }
- 
+   if(route ==='Start')
+   {
+      return(
+         <div className={classes.appMain}>
+       <Header1 onRouteChange={onRouteChange}/>
+       <Start onRouteChange={onRouteChange}/>
+      </div> 
+      );
+   }
+
 }
 
 export default App;

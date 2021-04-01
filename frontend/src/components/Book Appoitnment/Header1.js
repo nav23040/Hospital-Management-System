@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import {IconButton} from '@material-ui/core';
 import './dropdown.css';
 import Link from '@material-ui/core/Link';
-import Start from './Start'
+
 // import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +44,7 @@ export default function ButtonAppBar(props) {
             Hospital Management System
           </Typography>
           <div class="dropdown" >
-<button class="dropbtn"  onClick = {ChangeRoute1}>{'Start'}</button>
+{/* <button class="dropbtn"  onClick = {ChangeRoute1}>{'Start'}</button> */}
 </div>
           <div  class="dropdown" >
   {/* <Button class="dropbtn" >{'Patient'}</Button> */}
@@ -65,7 +65,7 @@ export default function ButtonAppBar(props) {
 <button class="dropbtn" >Admin Login</button>
 </div> */}
 <div class="dropdown" >
-<button class="dropbtnmain" >Sign Out</button>
+<button class="dropbtnmain" onClick = {ChangeRoute} >Sign Out</button>
 </div>
         </Toolbar>
       </AppBar>

@@ -11,7 +11,7 @@ export default function Start(props)
     <div className="row">
      
     <div className="column">
-    < Pr />
+    {/* < Pr /> */}
     </div>
     <div className="column"  style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
     < Check />
