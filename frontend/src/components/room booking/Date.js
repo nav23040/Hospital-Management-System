@@ -10,14 +10,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      marginBottom: '1%',
+      marginBottom: '0%',
       marginTop : '1%',
       color: 'white',
+      alignItems:'center',
+      marginLeft:'15%',
+      height: '100%',
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -40,28 +44,31 @@ export default function AddressForm() {
      
     <React.Fragment>
      
-      <div className="col-sm-4">
+      <div className="col-sm-16">
           
-         <div >     
-    <form className={classes.container} noValidate>
+         <div >  
+           {/* <Paper> */}
+           <form className={classes.container} noValidate>
     <TextField id="outlined-basic" label="Name" variant="outlined" />
     <TextField id="outlined-basic" label="Age" variant="outlined" />
     <TextField id="outlined-basic" label="Gender" variant="outlined" />
     <TextField id="outlined-basic" label="Mobile Number" variant="outlined" />
     </form>
     <form className={classes.container} noValidate>
-    <TextField id="outlined-basic" label="Nuber of day" variant="outlined" />
+    <TextField id="outlined-basic" label="Number of day" variant="outlined" />
       <TextField
         id="date"
         label="Booking Date"
         type="date"
-        defaultValue="2000-04-23"
+        defaultValue="xxxx-xx-xx"
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
         }}
       />
     </form>
+             {/* </Paper>    */}
+  
     </div>
      
           </div>

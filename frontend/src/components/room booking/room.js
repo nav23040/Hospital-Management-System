@@ -1,9 +1,9 @@
-import React from 'React';
+
 import './room.css';
 import Button from '@material-ui/core/Button';
 import Date from './Date';
-
-function room() {
+// import Sam from './Sample';
+function Room() {
   
   return (
     <div>
@@ -22,7 +22,7 @@ function room() {
       <ul class="showcase">
       <li>
         <div class="seat"></div>
-        <small>N/A</small>
+        <small>Available</small>
       </li>
       <li>
         <div class="seat selected"></div>
@@ -38,7 +38,7 @@ function room() {
 
       <div class="row">
         <div class="seat" value="101">Room 101</div>
-        <div class="seat selected" value="102">Room 102</div>
+        <div class="seat " value="102">Room 102</div>
         <div class="seat" value="103">Room 103</div>
         <div class="seat occupied" value="104">Room 104</div>
         <div class="seat" value="105">Room 105</div>
@@ -46,7 +46,7 @@ function room() {
         <div class="seat" value="107">Room 107</div>
         <div class="seat" value="108">Room 108</div>
         <div class="seat" value="109">Room 109</div>
-        <div div class="seat selected" value="110">Room 110</div>
+        <div div class="seat " value="110">Room 110</div>
       </div>
 
      
@@ -56,7 +56,7 @@ function room() {
         <div class="seat">Room 113</div>
         <div class="seat">Room 114</div>
         <div class="seat">Room 115</div>
-        <div class="seat selected">Room 116</div>
+        <div class="seat">Room 116</div>
         <div class="seat">Room 117</div>
         <div class="seat">Room 118</div>
         <div class="seat">Room 119</div>
@@ -67,7 +67,7 @@ function room() {
         <div class="seat">Room 121</div>
         <div class="seat">Room 122</div>
         <div class="seat">Room 123</div>
-        <div class="seat selected">Room 124</div>
+        <div class="seat ">Room 124</div>
         <div class="seat">Room 125</div>
         <div class="seat">Room 126</div>
         <div class="seat">Room 127</div>
@@ -87,7 +87,12 @@ function room() {
              Submit
             </Button>
       </div>
+    </div>
+    {/* <script src="./Sample.js"></script> */}
+    </div>
+    
+
   );
 }
 
-export default room;
+export default Room;
