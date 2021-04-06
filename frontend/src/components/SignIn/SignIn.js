@@ -41,7 +41,8 @@ export default function SignIn(props) {
 
   function onSubmit(){
     console.log(credential);
-
+    props.onRouteChange('patientprofile');
+    
     fetch('http://localhost:3000/signin', {
    		method: 'post',
    		headers: {'Content-Type': 'application/json'},

@@ -29,46 +29,62 @@ export default function ButtonAppBar(props) {
   function ChangeRoute(){
     props.onRouteChange('register');
  }
- function ChangeRoute2(){
-  props.onRouteChange('patientprofile');
-}
-  return (
-    <div className={classes.root}> 
-      <AppBar position="auto">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            {/* <MenuIcon /> */}
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Hospital Management System
-          </Typography>
-          <div class="dropdown" >
-<button class="dropbtn"  onClick = {ChangeRoute2}>{'Profile'}</button>
-</div>
-          <div  class="dropdown" >
-  <Button class="dropbtn" >{'Patient'}</Button>
-  <div class="dropdown-content">
-    <Link href='#' onClick = {ChangeRoute1}>{'Login'} </Link>
-    <Link  href='#' onClick = {ChangeRoute} >{'Register'} </Link>
-  </div>
-</div>
 
-<div class="dropdown" >
-  <button class="dropbtn" >Doctor</button>
-  <div class="dropdown-content"  >
-    <a href="#" >Login</a>
-    
-  </div>
-</div>
-<div class="dropdown" >
-<button class="dropbtn" >Admin Login</button>
-</div>
-<div class="dropdown" >
-<button class="dropbtnmain" >Contact Us</button>
-</div>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-}
+  if(props.route === 'signin' || props.route === 'register'){
+      return (
+        <div className={classes.root}> 
+          <AppBar position="auto">
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                {/* <MenuIcon /> */}
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                Hospital Management System
+              </Typography>
+              <div  class="dropdown" >
+              <Button class="dropbtn" >{'Patient'}</Button>
+              <div class="dropdown-content">
+                <Link href='#' onClick = {ChangeRoute1}>{'Login'} </Link>
+                <Link  href='#' onClick = {ChangeRoute} >{'Register'} </Link>
+              </div>
+            </div>
+
+            <div class="dropdown" >
+              <button class="dropbtn" >Doctor</button>
+              <div class="dropdown-content"  >
+                <a href="#" >Login</a>
+                
+              </div>
+            </div>
+            <div class="dropdown" >
+            <button class="dropbtn" >Admin Login</button>
+            </div>
+            <div class="dropdown" >
+            <button class="dropbtnmain" >Contact Us</button>
+            </div>
+                    </Toolbar>
+                  </AppBar>
+                </div>
+              );
+           }
+  
+  else{
+    return (
+      <div className={classes.root}> 
+        <AppBar position="auto">
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Hospital Management System
+            </Typography>
+              <div class="dropdown" >
+              <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
+              </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
+ }
 

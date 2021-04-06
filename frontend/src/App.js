@@ -6,8 +6,9 @@ import Header from './components/Header' ;
 import Patient from "./components/Registration/patient";
 import SignIn from "./components/SignIn/SignIn";
 import Profile from "./components/profile";
-import Start from "./components/Book Appoitnment/Start"
-import Header1 from "./components/Book Appoitnment/Header1"
+import Start from "./components/Book Appoitnment/Start";
+import BookRoom from "./components/room booking/room";
+
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -22,38 +23,50 @@ function App() {
   function onRouteChange(route) {
 		setRoute(route);
   }
+
   if(route === 'signin') {
      return(
       <div className={classes.appMain}>
-         <Header onRouteChange={onRouteChange}/>
+         <Header onRouteChange={onRouteChange} route ={route}/>
          <SignIn onRouteChange={onRouteChange}/>
          
         </div> 
      );
   }
 
-  if(route === 'register') {
+ else if(route === 'register') {
     return(
      <div className={classes.appMain}>
-        <Header onRouteChange={onRouteChange}/>
+        <Header onRouteChange={onRouteChange} route ={route} />
         <Patient onRouteChange={onRouteChange}/>
        </div> 
     );
   }
-  if(route === 'patientprofile') {
+
+  else if(route === 'patientprofile') {
    return(
     <div className={classes.appMain}>
-       <Header onRouteChange={onRouteChange}/>
+       <Header onRouteChange={onRouteChange} route ={route}/>
        <Profile onRouteChange={onRouteChange}/>
       </div> 
-   );
- }
-   if(route ==='Start')
+    );
+   }
+
+   else if(route ==='BookAppointment')
    {
       return(
          <div className={classes.appMain}>
-       <Header1 onRouteChange={onRouteChange}/>
+       <Header onRouteChange={onRouteChange} route ={route}/>
        <Start onRouteChange={onRouteChange}/>
+      </div> 
+      );
+   }
+
+   else if(route === 'BookRoom'){
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <BookRoom onRouteChange={onRouteChange}/>
       </div> 
       );
    }

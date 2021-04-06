@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'React';
+import './room.css';
 import Button from '@material-ui/core/Button';
 import Date from './Date';
-import Sam from './Sample';
-function App() {
+
+function room() {
   
   return (
     <div>
@@ -87,12 +87,7 @@ function App() {
              Submit
             </Button>
       </div>
-    </div>
-    <script src="./Sample.js"></script>
-    </div>
-    
-
   );
 }
 
-export default App;
+export default room;

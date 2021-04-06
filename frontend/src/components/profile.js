@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+/*import Avatar from '@material-ui/core/Avatar';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+*/
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+//import Container from '@material-ui/core/Container';
 import './profile_style.css';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -32,14 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function profile(props) {
-  
-
-  function ChangeRoute(){
-    props.onRouteChange('Start');
- }
-
   return (
-  
 
     <div className="container">
       <div className="main-body">
@@ -117,7 +112,7 @@ export default function profile(props) {
               <div className="col-sm-6 mb-3">
                 <div className="card h-100">
                 <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
-                  <button className="btn btn-primary" onClick = {ChangeRoute}  >Book Appointment</button>
+                  <button className="btn btn-primary" onClick = { () => props.onRouteChange('BookAppointment')}  >Book Appointment</button>
                   {/* <Link href="#" variant="body2" onClick = {ChangeRoute}>
                 {"Don't have an account? Sign Up"}
               </Link> */}
@@ -127,7 +122,7 @@ export default function profile(props) {
               <div className="col-sm-6 mb-3">
                 <div className="card h-100">
                   <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
-                  <button className="btn btn-primary"  >Book Room</button>
+                  <button className="btn btn-primary" onClick = {() => props.onRouteChange('BookRoom')} >Book Room</button>
                     {/* <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
                     <small>Web Design</small>
                     <div className="progress mb-3" style={{height: '5px'}}>
