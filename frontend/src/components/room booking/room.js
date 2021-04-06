@@ -2,7 +2,7 @@
 import './room.css';
 import Button from '@material-ui/core/Button';
 import Date from './Date';
-// import Sam from './Sample';
+import Sam from './Sample';
 function Room() {
   
   return (
@@ -88,7 +88,7 @@ function Room() {
             </Button>
       </div>
     </div>
-    {/* <script src="./Sample.js"></script> */}
+    <script src="./Sample.js"></script>
     </div>
     
 
