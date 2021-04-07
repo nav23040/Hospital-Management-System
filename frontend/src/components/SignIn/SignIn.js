@@ -41,9 +41,9 @@ export default function SignIn(props) {
 
   function onSubmit(){
     console.log(credential);
-    props.onRouteChange('patientprofile');
+
     
-    fetch('http://localhost:3000/signin', {
+    fetch('http://localhost:3000/login', {
    		method: 'post',
    		headers: {'Content-Type': 'application/json'},
    		body: JSON.stringify({
@@ -53,11 +53,16 @@ export default function SignIn(props) {
    	})
       .then(response => response.json())
       .then(data => {
-        if(data === 'success')
-          alert('Succesfully');
+        console.log(data);
+        if (data==='success')
+        {
+          alert('Valid');
+
+        }
         else 
           alert('Invalid');  
       })
+
   }
 
   return (

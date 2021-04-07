@@ -6,13 +6,13 @@ module.exports = function validateLoginInput(data){
 
     let errors = {};
 
-    data.email = !isEmpty(data.email) ? data.email : '';
+    data.emailid = !isEmpty(data.emailid) ? data.emailid : '';
     data.password = !isEmpty(data.password) ? data.password : '';
 
     //Email checks
-    if(isEmpty(data.email)){
+    if(isEmpty(data.emailid)){
         errors.email = "Email field is required";
-    } else if(!isEmail(data.email)){
+    } else if(!isEmail(data.emailid)){
         errors.email = "Email is invalid";
     }
 
