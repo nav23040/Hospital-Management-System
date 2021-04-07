@@ -4,16 +4,23 @@ const passport = require("passport");
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const cors = require('cors');
-const users = require("./users");
+const User = require("./models/User");
+const users=require('../hms_back/routes/users')
+
+// Passport config
 
 const jwt = require("jsonwebtoken");
 const keys = require("./config/keys");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
+app.use(cors({credentials:true}));
 
-const User = require("./models/User");
 
 const validateRegisterInput = require("./validation/register");
 /*
@@ -41,12 +48,13 @@ mongoose.connect(uri, {
 
 // Passport middleware
 app.use(passport.initialize());
-
-// Passport config
- require("./config/passport")(passport);
+require("./config/passport")(passport);
 
 
-app.post("/register", (req, res) => {
+app.use('', users);
+
+
+/*app.post("/register", (req, res) => {
     
   //Form validation
   console.log(req.body);
@@ -54,7 +62,7 @@ app.post("/register", (req, res) => {
   
   if(!isValid){
       return res.status(400).json(errors);
-  } */
+  } 
  
   User.findOne({email:req.body.email}).then(user=>{
 
@@ -98,7 +106,7 @@ app.post("/signin",(req,res) => {
 
   if (!isValid) {
       return res.status(400).json(errors);
-  } */
+  } 
 
   const email = req.body.email;
   const password = req.body.password;
@@ -140,7 +148,7 @@ app.post("/signin",(req,res) => {
       }
     });
   });
-});
+});*/
 
 
 if(process.env.NODE_ENV === 'production') {
