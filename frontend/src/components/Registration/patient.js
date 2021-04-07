@@ -68,9 +68,11 @@ export default function Patient(props){
        .then(data => {
            console.log(data);
          if(data === 'success')
-            props.onRouteChange('signin');
-         else 
-           alert('Invalid');  
+         props.onRouteChange('signin');
+         
+         else
+           alert('Invalid');
+              
        })
 
     }

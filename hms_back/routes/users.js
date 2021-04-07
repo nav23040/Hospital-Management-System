@@ -13,7 +13,7 @@ const app = router;
 app.post("/register", (req, res) => {
     
     //Form validation
-    console.log("@33");
+ 
     /*const {errors, isValid} = validateRegisterInput(req.body);
     
     if(!isValid){
@@ -43,8 +43,8 @@ app.post("/register", (req, res) => {
                 newUser.password = hash;
                 newUser
                     .save()
-                    .then(user => res.json(user))
-                    .catch(err => console.log(err));
+                    .then(user => res.json('success'))
+                    .catch(err => res.json('Invalid'));
                 });
             });
         }

@@ -44,8 +44,8 @@ export default function ButtonAppBar(props) {
               <div  class="dropdown" >
               <Button class="dropbtn" >{'Patient'}</Button>
               <div class="dropdown-content">
-                <Link href='#' onClick = {ChangeRoute1}>{'Login'} </Link>
-                <Link  href='#' onClick = {ChangeRoute} >{'Register'} </Link>
+                <Link href='#' onClick = {ChangeRoute1}>Login</Link>
+                <Link  href='#' onClick = {ChangeRoute} >Register</Link>
               </div>
             </div>
 
@@ -68,7 +68,7 @@ export default function ButtonAppBar(props) {
               );
            }
   
-  else{
+  else if (props.route === 'patientprofile'){
     return (
       <div className={classes.root}> 
         <AppBar position="auto">
@@ -85,6 +85,29 @@ export default function ButtonAppBar(props) {
         </AppBar>
       </div>
     );
+  }
+
+  else{
+    return (
+      <div className={classes.root}> 
+        <AppBar position="auto">
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Hospital Management System
+            </Typography>
+              <div class="dropdown" >
+              <button class="dropbtnmain" onClick = {() => props.onRouteChange('patientprofile')} >Go Back</button>
+              </div>
+              <div class="dropdown" >
+              <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
+              </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+
   }
  }
 
