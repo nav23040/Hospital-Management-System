@@ -7,6 +7,7 @@ const cors = require('cors');
 const User = require("../models/User");
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
+const verifyToken = require("../auth/verifytoken");
 
 const app = router;
 
@@ -35,10 +36,10 @@ app.post("/register", (req, res) => {
                 address: req.body.address, mobile_number: req.body.mobile, father_phone_number: req.body.parentMobile
             });
             newUser.save()
-            .then(user => res.json('success'))
-            .catch(err => res.json('Invalid'));
-            // Hash password before storing in database
-            /*const rounds = 10;
+                .then(user => res.json('success'))
+                .catch(err => res.json('Invalid'));
+            //Hash password before storing in database
+            const rounds = 10;
             bcrypt.genSalt(rounds, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
@@ -48,7 +49,7 @@ app.post("/register", (req, res) => {
                         .then(user => res.json('success'))
                         .catch(err => res.json('Invalid'));
                 });
-            });*/
+            });
         }
 
     });
@@ -59,7 +60,7 @@ app.post("/register", (req, res) => {
 // @desc Login user and return JWT token
 // @access Public
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
 
     //Form Valdiation
     /*const { errors, isValid } = validateLoginInput(req.body);
@@ -72,23 +73,16 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
 
     //Find user by Email
-    User.findOne({ email }).then(user => {
+    await User.findOne({ email }).then(user => {
         if (!user) {
             return res.status(404).json({ emailnotfound: "Email not found" });
         }
-        if (user.password === password)
-        {
-            res.send('success');
-        }
-        else
-        {
-            res.send('error');
-            }
+
         // Check password
-        /*bcrypt.compare(password, user.password).then(isMatch => {
+        bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
                 // Create JWT Payload
-                /*const payload = {
+                const payload = {
                     id: user.id,
                     name: user.name
                 };
@@ -101,19 +95,30 @@ app.post("/login", (req, res) => {
                         expiresIn: 31556926
                     },
                     (err, token) => {
-                        res.json(
-                            'success'
-                        );
+                        res.json({
+                            success: true,
+                            token: token,
+                            auth: true
+                        });
                     }
                 );
-                res.send('success');
             } else {
                 return res
                     .status(400)
                     .json({ passwordincorrect: "Password incorrect" });
             }
-        });*/
+        });
     });
+});
+
+app.get('/me', verifyToken, (req, res) => {
+    User.findById(req.userId, { password: 0 }, function (err, user) {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
+
+        res.status(200).send(user);
+    });
+
 });
 
 module.exports = app;

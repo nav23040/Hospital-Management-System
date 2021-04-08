@@ -32,36 +32,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn(props) {
-  const [credential, setCred] = useState({emailid: '', password: ''});
+  const [values, setCred] = useState({email: '', password: ''});
   const classes = useStyles();
+  const [mess, setmess] = useState({ mess: '' });
 
   function ChangeRoute(){
      props.onRouteChange('register');
   }
 
-  function onSubmit(){
-    console.log(credential);
+  function onSubmit(e){
+    console.log(values);
+    e.preventDefault();
 
     
     fetch('http://localhost:3000/login', {
-   		method: 'post',
-   		headers: {'Content-Type': 'application/json'},
+      method: 'post',
+      
+      headers: { 'Content-Type': 'application/json' },
    		body: JSON.stringify({
-   			emailid: credential.emailid,
-   			password: credential.password
+   			emailid: values.email,
+   			password: values.password
    		})
    	})
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        if (data==='success')
+        if (data.success===true)
         {
-          alert('Valid');
-
+          props.onRouteChange('patientprofile');
         }
         else 
           alert('Invalid');  
       })
+
 
   }
 
@@ -89,10 +92,11 @@ export default function SignIn(props) {
             onChange = {e => {
               const val = e.target.value;
               setCred(prevState => {
-               return { ...prevState, emailid: val }
+               return { ...prevState, email: val }
                });
               }
              }
+
           />
           <TextField
             variant="outlined"
@@ -111,15 +115,16 @@ export default function SignIn(props) {
                });
               }
              }
+
           />
     
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             onClick={onSubmit}
+            type="submit"
           >
             Sign In
           </Button>
