@@ -8,6 +8,8 @@ import SignIn from "./components/SignIn/SignIn";
 import Profile from "./components/profile";
 import Start from "./components/Book Appoitnment/Start";
 import BookRoom from "./components/room booking/room";
+import Admin from "./components/Admin/admin"
+import Data from "./components/Admin/data"
 
 const useStyles = makeStyles({
   appMain : {
@@ -28,6 +30,7 @@ function App() {
      return(
       <div className={classes.appMain}>
          <Header onRouteChange={onRouteChange} route ={route}/>
+         {/* <Admin/> */}
          <SignIn onRouteChange={onRouteChange}/>
          
         </div> 
@@ -67,6 +70,15 @@ function App() {
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
             <BookRoom onRouteChange={onRouteChange}/>
+      </div> 
+      );
+   }
+   else if(route === 'admin'){
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <Admin  onRouteChange={onRouteChange}/>
+            <Data/>
       </div> 
       );
    }

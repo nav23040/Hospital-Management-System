@@ -29,6 +29,9 @@ export default function ButtonAppBar(props) {
   function ChangeRoute(){
     props.onRouteChange('register');
  }
+ function ChangeRoute2(){
+  props.onRouteChange('admin');
+}
 
   if(props.route === 'signin' || props.route === 'register'){
       return (
@@ -57,10 +60,10 @@ export default function ButtonAppBar(props) {
               </div>
             </div>
             <div class="dropdown" >
-            <button class="dropbtn" >Admin Login</button>
+            <button class="dropbtn"  onClick ={ChangeRoute2}>Admin Login</button>
             </div>
             <div class="dropdown" >
-            <button class="dropbtnmain" >Contact Us</button>
+            <button class="dropbtnmain"  >Contact Us</button>
             </div>
                     </Toolbar>
                   </AppBar>
