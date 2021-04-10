@@ -9,7 +9,7 @@ import Start from "./components/Book Appoitnment/Start";
 import BookRoom from "./components/room booking/room";
 import Admin from "./components/Admin/admin"
 import Data from "./components/Admin/data"
-
+import Docreg from "./components/Registration/doctorregistration";
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -44,7 +44,14 @@ function App() {
        </div> 
     );
   }
-
+  else if(route === 'doctorregistration') {
+   return(
+    <div className={classes.appMain}>
+       <Header onRouteChange={onRouteChange} route ={route} />
+       <Docreg onRouteChange={onRouteChange}/>
+      </div> 
+   );
+ }
   else if(route === 'patientprofile') {
    return(
     <div className={classes.appMain}>

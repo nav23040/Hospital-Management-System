@@ -5,6 +5,7 @@ npm install @material-ui/icons
 
 npm install react-profile-card --save
 
+npm install @material-ui/lab
 
 ## How to run
 
