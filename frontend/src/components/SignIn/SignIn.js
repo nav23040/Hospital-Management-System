@@ -68,7 +68,43 @@ export default function SignIn(props) {
 
   }
 
-  return (
+  function onSubmit2(e){
+    //console.log(values);
+    e.preventDefault();
+   
+    if(props.route === 'adminlogin'){
+      if(values.email === 'admin' && values.password === 'admin')
+        props.onRouteChange('admin');
+      else
+        alert('Wrong Credentials')
+       
+    }
+
+    else{
+    fetch('http://localhost:3000/logindoctor', {
+      method: 'post',
+      
+      headers: { 'Content-Type': 'application/json' },
+   		body: JSON.stringify({
+   			emailid: values.email,
+   			password: values.password
+   		})
+   	})
+      .then(response => response.json())
+      .then(data => {
+       // console.log(data);
+        if (data.success===true)
+        {
+          props.onRouteChange('patientprofile');
+        }
+        else 
+          alert('Invalid');  
+      })
+    }
+  }
+
+  if(props.route === 'signin'){
+   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -143,5 +179,81 @@ export default function SignIn(props) {
         </form>
       </div>
     </Container>
-  );
+     );
+    }
+  
+    else{
+      return(
+        <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          {  
+           props.route === 'doctorsignin'
+            ?
+              <Typography component="h1" variant="h5">
+                Doctor Sign in
+              </Typography>
+            :  
+              <Typography component="h1" variant="h5">
+               Admin Sign in
+              </Typography>
+           }
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange = {e => {
+                const val = e.target.value;
+                setCred(prevState => {
+                 return { ...prevState, email: val }
+                 });
+                }
+               }
+  
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange = {e => {
+                const val = e.target.value;
+                setCred(prevState => {
+                 return { ...prevState, password: val }
+                 });
+                }
+               }
+  
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={onSubmit2}
+              type="submit"
+            >
+              Sign In
+            </Button>
+          </form>
+        </div>
+      </Container>
+       );
+    }
+
 }

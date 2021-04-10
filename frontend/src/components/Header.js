@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -36,7 +35,7 @@ function ChangeRoute3(){
   props.onRouteChange('doctorregistration');
 }
 
-  if(props.route === 'signin' || props.route === 'register'){
+  if(props.route === 'signin' || props.route === 'register' || props.route === 'adminlogin' || props.route === 'doctorsignin'){
       return (
         <div className={classes.root}> 
           <AppBar position="auto">
@@ -64,7 +63,7 @@ function ChangeRoute3(){
               </div>
             </div>
             <div class="dropdown" >
-            <button class="dropbtn"  onClick ={ChangeRoute2}>Admin Login</button>
+            <button class="dropbtn"  onClick = {() => props.onRouteChange('adminlogin')}>Admin</button>
             </div>
             <div class="dropdown" >
             <button class="dropbtnmain"  >Contact Us</button>

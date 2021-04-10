@@ -1,6 +1,5 @@
 import  React, {useState} from "react";
 import './App.css';
-import SideMenu from './components/SideMenu';
 import { makeStyles } from "@material-ui/core";
 import Header from './components/Header' ;
 import Patient from "./components/Registration/patient";
@@ -26,12 +25,12 @@ function App() {
 		setRoute(route);
   }
 
-  if(route === 'signin') {
+  if(route === 'signin' || route === 'adminlogin' || route === 'doctorsignin') {
      return(
       <div className={classes.appMain}>
          <Header onRouteChange={onRouteChange} route ={route}/>
          {/* <Admin/> */}
-         <SignIn onRouteChange={onRouteChange}/>
+         <SignIn onRouteChange={onRouteChange} route={route} />
          
         </div> 
      );
