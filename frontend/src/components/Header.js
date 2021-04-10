@@ -110,9 +110,13 @@ export default function ButtonAppBar(props) {
                 </div>
                 </div>
               : 
+                <div>
                 <div class="dropdown" >
                 <button class="dropbtnmain" onClick = {() => props.onRouteChange('patientprofile')} >Go Back</button>
+                </div> 
+                <div class="dropdown" >
                 <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
+                </div>
                 </div>
               }
           </Toolbar>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -10,8 +8,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
+import DoctorForm from './DateandDoctorForm';
+import PersonalDetailsForm from './PersonalDetailsForm';
 import Review from './Review';
 
 function Copyright() {
@@ -67,21 +65,11 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Search Doctor', 'Personal Details', 'Review'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
 export default function Checkout() {
   const classes = useStyles();
+  const doctor = React.useState({date: '', time: '', name: ''});
+  const patient = React.useState({name: '', age: '', gender: ''});
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -91,6 +79,19 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <DoctorForm doctor={doctor} />;
+      case 1:
+        return <PersonalDetailsForm patient={patient}/>;
+      case 2:
+        return <Review doctor={doctor} patient={patient}/>;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
 
   return (
     <React.Fragment>

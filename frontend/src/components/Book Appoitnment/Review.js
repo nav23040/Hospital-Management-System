@@ -12,7 +12,7 @@ const products = [
 //   { name: 'Date', desc: '1st April 2020', },
 //   { name: 'Time', desc: '11AM' },
 ];
-const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
+
 const payments = [
   { name: 'Name', detail: 'Nikhil' },
   { name: 'Gender', detail: 'Male' },

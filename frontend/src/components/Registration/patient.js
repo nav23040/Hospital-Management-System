@@ -35,7 +35,7 @@ const initialFValues={
 
 export default function Patient(props){
 
-    const[values,setvalues]=useState(initialFValues);
+    const[values, setvalues]=useState(initialFValues);
     const classes = useStyles();
     const handleInputChange = e =>{
         const{ name,value} =e.target

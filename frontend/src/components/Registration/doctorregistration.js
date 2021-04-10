@@ -4,6 +4,7 @@ import { makeStyles, Paper } from "@material-ui/core";
 import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from "@material-ui/core";
 import UploadButtons from './submitbutton';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+
 const list = [
     { title: 'Pediatrician' },
     { title: 'Surgeon' },
@@ -92,7 +93,7 @@ export default function Docreg(props){
 
     const[values,setvalues]=useState(initialDoctorValues);
     const classes = useStyles();
-    const handleInputChange = e =>{
+    const handleInputChange = e => {
         const{ name,value} = e.target
         setvalues({
             ...values,
