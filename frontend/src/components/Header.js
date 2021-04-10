@@ -27,13 +27,7 @@ export default function ButtonAppBar(props) {
   }
   function ChangeRoute(){
     props.onRouteChange('register');
- }
- function ChangeRoute2(){
-  props.onRouteChange('admin');
-}
-function ChangeRoute3(){
-  props.onRouteChange('doctorregistration');
-}
+   }
 
   if(props.route === 'signin' || props.route === 'register' || props.route === 'adminlogin' || props.route === 'doctorsignin'){
       return (
@@ -55,12 +49,7 @@ function ChangeRoute3(){
             </div>
 
             <div class="dropdown" >
-              <button class="dropbtn" >Doctor</button>
-              <div class="dropdown-content"  >
-              <Link href='#' onClick = {ChangeRoute1}>Login</Link>
-                <Link  href='#' onClick = {ChangeRoute3} >Register</Link>
-                
-              </div>
+              <button class="dropbtn"  onClick = {() => props.onRouteChange('doctorsignin')}>Doctor</button>
             </div>
             <div class="dropdown" >
             <button class="dropbtn"  onClick = {() => props.onRouteChange('adminlogin')}>Admin</button>
@@ -74,7 +63,7 @@ function ChangeRoute3(){
               );
            }
   
-  else if (props.route === 'patientprofile'){
+  else if (props.route === 'patientprofile' || props.route === 'admin'){
     return (
       <div className={classes.root}> 
         <AppBar position="auto">
@@ -84,9 +73,16 @@ function ChangeRoute3(){
             <Typography variant="h6" className={classes.title}>
               Hospital Management System
             </Typography>
-              <div class="dropdown" >
-              <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
-              </div>
+            { props.route === 'admin'
+              ?  
+                <div class="dropdown" >
+                <button class="dropbtnmain" onClick = {() => props.onRouteChange('adminlogin')} >Sign Out</button>
+                </div>
+              :
+                <div class="dropdown" >
+                <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
+                </div>
+              }
           </Toolbar>
         </AppBar>
       </div>
@@ -103,12 +99,22 @@ function ChangeRoute3(){
             <Typography variant="h6" className={classes.title}>
               Hospital Management System
             </Typography>
-              <div class="dropdown" >
-              <button class="dropbtnmain" onClick = {() => props.onRouteChange('patientprofile')} >Go Back</button>
-              </div>
-              <div class="dropdown" >
-              <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
-              </div>
+            { props.route === 'doctorregistration'
+              ? 
+                <div> 
+                <div class="dropdown" >
+                <button class="dropbtnmain" onClick = {() => props.onRouteChange('admin')} >Go Back</button>
+                </div>
+                <div class="dropdown" >
+                <button class="dropbtnmain" onClick = {() => props.onRouteChange('adminlogin')}  >Sign Out</button>
+                </div>
+                </div>
+              : 
+                <div class="dropdown" >
+                <button class="dropbtnmain" onClick = {() => props.onRouteChange('patientprofile')} >Go Back</button>
+                <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
+                </div>
+              }
           </Toolbar>
         </AppBar>
       </div>

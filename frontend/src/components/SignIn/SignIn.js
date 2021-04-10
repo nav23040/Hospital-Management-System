@@ -40,7 +40,6 @@ export default function SignIn(props) {
   }
 
   function onSubmit(e){
-    console.log(values);
     e.preventDefault();
 
     
@@ -80,7 +79,7 @@ export default function SignIn(props) {
     }
 
     else{
-    fetch('http://localhost:3000/logindoctor', {
+    fetch('http://localhost:3000/doctor/login', {
       method: 'post',
       
       headers: { 'Content-Type': 'application/json' },

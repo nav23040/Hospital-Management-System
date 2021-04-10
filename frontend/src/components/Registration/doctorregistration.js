@@ -74,29 +74,26 @@ const useStyles = makeStyles(theme=>({
         }
     }
 }))
-var searchNames = ['Sydney', 'Melbourne', 'Brisbane', 
-'Adelaide', 'Perth', 'Hobart'];
-const initialFValues={
-    id:0,
-    fullName:'',
-    age:'',
-    mobile:'',
+
+const initialDoctorValues={
+    registrationid: '',
+    name:'',
+    dob:'',
+    mobile_number:'',
     email: '',
     password: '',
     address:'',
-    gender:'male',
-    fatherName:'',
-    motherName:'',
-    parentMobile:'',
-  
+    gender: 'male',
+    state: '',
+    specialization: ''
 }
 
 export default function Docreg(props){
 
-    const[values,setvalues]=useState(initialFValues);
+    const[values,setvalues]=useState(initialDoctorValues);
     const classes = useStyles();
     const handleInputChange = e =>{
-        const{ name,value} =e.target
+        const{ name,value} = e.target
         setvalues({
             ...values,
             [name]:value
@@ -104,34 +101,22 @@ export default function Docreg(props){
     }
 
     function onSubmit(){
-        console.log(values);
-        
-    //     fetch('http://localhost:3000/register', {
-    //         method: 'post',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({
-    //             name: values.fullName,
-    //             email: values.email,
-    //             password: values.password,
-    //             age: values.age,
-    //             gender: values.gender,
-    //             mobile: values.mobile,
-    //             address: values.address,
-    //             fatherName: values.fatherName,
-    //             motherName: values.motherName,
-    //             parentMobile: values.parentMobile
-    //         })
-    //     })
-    //    .then(response => response.json())
-    //    .then(data => {
-    //        console.log(data);
-    //      if(data === 'success')
-    //      props.onRouteChange('signin');
-         
-    //      else
-    //        alert('Invalid');
-              
-    //    })
+        //console.log(values);
+
+         fetch('http://localhost:3000/admin/register_doctor', {
+             method: 'post',
+             headers: {'Content-Type': 'application/json'},
+             body: JSON.stringify({
+                  data: values
+             })
+         })
+        .then(response => response.json())
+       .then(data => {
+        if(data === 'success')
+          alert('New Doctor added in the database');
+        else
+            alert('Error in adding new doctor!!! Kindly do it again');       
+        })
 
     }
 
@@ -154,9 +139,9 @@ export default function Docreg(props){
             <TextField required
                  variant = "outlined"
                  label="Full Name"
-                 name="fullName"
+                 name="name"
                  type = 'text'
-                 value={values.fullName}
+                 value={values.name}
                  onChange={handleInputChange}
                  />
 
@@ -172,9 +157,9 @@ export default function Docreg(props){
              <TextField required
                   variant="outlined"
                   label="Date of Birth"
-                  name='age'
+                  name='dob'
                   type="date"
-                  value={values.age}
+                  value={values.dob}
                   onChange={handleInputChange}
                   className={classes.textField}
                   InputLabelProps={{
@@ -200,20 +185,13 @@ export default function Docreg(props){
                  onChange={handleInputChange}
                  /> 
 
-                {/* <TextField required
-                 variant = "outlined"
-                 label="specialization"
-                 name="specialization"
-                 type = 'text'
-                 value={values.spez}
-                 onChange={handleInputChange}
-                 />    */}
                 <Autocomplete
                 id="specialization"
                 options={list}
                 getOptionLabel={(option) => option.title}
                 style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Specialization" variant="outlined" />}
+                onChange={(event, value) => setvalues({...values, specialization: value.title })}
+                renderInput={(params) => <TextField {...params} label="Specialization" variant="outlined"/>}
                 />
             </Grid>
         </Grid>
@@ -222,51 +200,41 @@ export default function Docreg(props){
             <Grid item xs ={6}>
             <TextField required
                  variant = "outlined"
-                 label="Consultation Fee"
-                 name="cfee"
-                 type = 'numer'
-                 value={values.cfee}
+                 label="Registration ID"
+                 name="registrationid"
+                 type = 'text'
+                 value={values.registrationid}
                  onChange={handleInputChange}
                  />
 
                 <TextField required
                  variant = "outlined"
                  label="Phone Number "
-                 name="parentMobile"
+                 name="mobile_number"
                  type = 'number'
-                 value={values.parentMobile}
+                 value={values.mobile_number}
                  onChange={handleInputChange}
                  />   
             </Grid>
             <Grid item xs ={6}>
-            {/* <TextField required
+          <TextField required
                  variant = "outlined"
-                 label="State"
-                 name="State"
+                 label = "Address "
+                 name = "address"
                  type = 'text'
-                 value={values.state}
+                 value={values.address}
                  onChange={handleInputChange}
-                 /> */}
+                 />
                 <  Autocomplete
                 id="State"
                 options={liststate}
                 getOptionLabel={(option) => option.title}
                 style={{ width: 300 }}
+                onChange={(event, value) => setvalues({...values, state: value.title })}
                 renderInput={(params) => <TextField {...params} label="State" variant="outlined" />}
                 />
-                <TextField required
-                 variant = "outlined"
-                 label="City "
-                 name="city"
-                 type = 'text'
-                 value={values.city}
-                 onChange={handleInputChange}
-                 /> 
-                
             
             </Grid>
-
-  
 
         </Grid>
         <UploadButtons onSubmit={onSubmit}/>
