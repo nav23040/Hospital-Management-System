@@ -142,14 +142,14 @@ export default function Patient(props){
                  onChange={handleInputChange}
                  /> 
 
-                <TextField required
+                {/* <TextField required
                  variant = "outlined"
                  label="Phone Number"
                  name="mobile"
                  type = 'number'
                  value={values.mobile}
                  onChange={handleInputChange}
-                 />   
+                 />    */}
             </Grid>
         </Grid>
         <PageHeader
