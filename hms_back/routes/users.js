@@ -10,6 +10,7 @@ const validateLoginInput = require("../validation/login");
 const verifyToken = require("../auth/verifytoken");
 
 const app = router;
+/*app.use(cookieParser);*/
 
 app.post("/register", (req, res) => {
 
@@ -35,9 +36,6 @@ app.post("/register", (req, res) => {
                 dob: Date.parse(req.body.age), gender: req.body.gender,
                 address: req.body.address, mobile_number: req.body.mobile, father_phone_number: req.body.parentMobile
             });
-            newUser.save()
-                .then(user => res.json('success'))
-                .catch(err => res.json('Invalid'));
             //Hash password before storing in database
             const rounds = 10;
             bcrypt.genSalt(rounds, (err, salt) => {
@@ -95,6 +93,7 @@ app.post("/login", async (req, res) => {
                         expiresIn: 31556926
                     },
                     (err, token) => {
+                        //res.cookie("xaccesstoken", token, { httpOnly: true });
                         res.json({
                             success: true,
                             token: token,

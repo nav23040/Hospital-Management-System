@@ -5,12 +5,14 @@ const path = require("path");
 const bcrypt = require("bcryptjs");
 const cors = require('cors');
 const User = require("./models/User");
-const users=require('../hms_back/routes/users')
+const users = require('../hms_back/routes/users')
+const cookieParser = require('cookie-parser');
 
 // Passport config
 
 const jwt = require("jsonwebtoken");
 const keys = require("./config/keys");
+
 
 const app = express();
 app.use(express.json());
@@ -19,8 +21,9 @@ app.use(
         extended: true,
     })
 );
-app.use(cors({credentials:true}));
-
+app.use(cors(
+    {origin: true ,credentials: true }
+    ));
 
 const validateRegisterInput = require("./validation/register");
 /*

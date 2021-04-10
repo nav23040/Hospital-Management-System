@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 */
 import { makeStyles } from '@material-ui/core/styles';
+import { useEffect } from 'react';
 //import Container from '@material-ui/core/Container';
 import './profile_style.css';
 
@@ -33,7 +34,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function profile(props) {
+export default function Profile(props) {
+  var token = sessionStorage.getItem('jwtToken');
+  useEffect(() =>{
+    fetch('http://localhost:3000/me', {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json','jwttoken' : token},
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      });
+}, []);
+
+
+
   return (
 
     <div className="container">

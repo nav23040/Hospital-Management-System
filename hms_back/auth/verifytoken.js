@@ -1,8 +1,16 @@
 var jwt = require('jsonwebtoken');
+var express = require('express');
 var config = require('../config/keys');
+var cookieParser = require('cookie-parser');
+
+/*var app = express();
+app.use(cookieParser);*/
 
 function verifyToken(req, res, next) {
-  var token = req.headers['x-access-token'];
+  console.log(req.headers);
+  //console.log(req.cookies);
+
+  var token = req.headers['jwttoken'];
   if (!token)
     return res.status(403).send({ auth: false, message: 'No token provided.' });
     

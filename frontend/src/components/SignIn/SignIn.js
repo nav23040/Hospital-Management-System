@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const [values, setCred] = useState({email: '', password: ''});
   const classes = useStyles();
-  const [mess, setmess] = useState({ mess: '' });
 
   function ChangeRoute(){
      props.onRouteChange('register');
@@ -47,23 +46,23 @@ export default function SignIn(props) {
     
     fetch('http://localhost:3000/login', {
       method: 'post',
-      
       headers: { 'Content-Type': 'application/json' },
-   		body: JSON.stringify({
-   			emailid: values.email,
-   			password: values.password
-   		})
-   	})
+      body: JSON.stringify({
+        emailid: values.email,
+        password: values.password
+      })
+    })
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        if (data.success===true)
-        {
+
+        if (data.success === true) {
+          sessionStorage.setItem('jwtToken', data.token);
           props.onRouteChange('patientprofile');
         }
-        else 
-          alert('Invalid');  
-      })
+        else
+          alert('Invalid');
+      });
 
 
   }
