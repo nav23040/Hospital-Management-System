@@ -59,6 +59,10 @@ export default function SignIn(props) {
           sessionStorage.setItem('jwtToken', data.token);
           props.onRouteChange('patientprofile');
         }
+        else if (data.emailnotfound)
+          alert(data.emailnotfound);
+        else if (data.passwordincorrect)
+          alert('Incorrect Password');
         else
           alert('Invalid');
       });
@@ -84,7 +88,7 @@ export default function SignIn(props) {
       
       headers: { 'Content-Type': 'application/json' },
    		body: JSON.stringify({
-   			emailid: values.email,
+   			email: values.email,
    			password: values.password
    		})
    	})
@@ -93,10 +97,16 @@ export default function SignIn(props) {
        // console.log(data);
         if (data.success===true)
         {
+          sessionStorage.setItem('jwtToken', data.token);
+
           props.onRouteChange('patientprofile');
         }
-        else 
-          alert('Invalid');  
+        else if (data.emailnotfound)
+          alert(data.emailnotfound);
+        else if (data.passwordincorrect)
+          alert('Incorrect Password');
+        else
+          alert('Invalid');
       })
     }
   }
@@ -141,7 +151,7 @@ export default function SignIn(props) {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            //autoComplete="current-password"
             onChange = {e => {
               const val = e.target.value;
               setCred(prevState => {
@@ -228,7 +238,7 @@ export default function SignIn(props) {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              //autoComplete="current-password"
               onChange = {e => {
                 const val = e.target.value;
                 setCred(prevState => {

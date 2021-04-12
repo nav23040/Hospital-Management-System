@@ -70,8 +70,10 @@ export default function Patient(props){
          if(data === 'success')
          props.onRouteChange('signin');
          
+         else if(data==='Email already exists')
+             alert('Email already exists');
          else
-           alert('Invalid');
+             alert('Registration Failed! Please try again.')
               
        })
 

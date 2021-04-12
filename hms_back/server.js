@@ -6,12 +6,14 @@ const bcrypt = require("bcryptjs");
 const cors = require('cors');
 const User = require("./models/User");
 const users = require('../hms_back/routes/users')
+const admin = require('../hms_back/routes/admin')
+const doctor=require('../hms_back/routes/doctor')
 const cookieParser = require('cookie-parser');
-
-// Passport config
-
+const dotenv = require('dotenv');
 const jwt = require("jsonwebtoken");
 const keys = require("./config/keys");
+dotenv.config();
+
 
 
 const app = express();
@@ -39,7 +41,7 @@ const MongoClient = require('mongodb').MongoClient;
 
     //make sure to check connection string is correct here, since this depends on the whether you are running standalone, replica, sharded cluster 
 
-const uri = "mongodb+srv://naveen:naveen@cluster0.e6pk5.mongodb.net/test?retryWrites=true&w=majority";
+const uri = process.env.DBURL;
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -55,6 +57,10 @@ require("./config/passport")(passport);
 
 
 app.use('', users);
+
+app.use('/admin', admin);
+
+app.use('/doctor', doctor);
 
 
 /*app.post("/register", (req, res) => {
@@ -162,4 +168,3 @@ if(process.env.NODE_ENV === 'production') {
       res.sendFile(path.join(__dirname,'client','build','index.html'));
   });
 }
-
