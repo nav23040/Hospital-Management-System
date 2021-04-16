@@ -14,8 +14,6 @@ const jwt = require("jsonwebtoken");
 const keys = require("./config/keys");
 dotenv.config();
 
-
-
 const app = express();
 app.use(express.json());
 app.use(
@@ -41,7 +39,9 @@ const MongoClient = require('mongodb').MongoClient;
 
     //make sure to check connection string is correct here, since this depends on the whether you are running standalone, replica, sharded cluster 
 
-const uri = process.env.DBURL;
+//const uri = process.env.DBURL;
+
+const uri = "mongodb+srv://naveen:naveen@cluster0.e6pk5.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
