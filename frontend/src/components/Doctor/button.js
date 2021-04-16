@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 
 
 const TablePage = (props) => {
+  
   const columns= [
     
     {
@@ -42,6 +43,11 @@ const TablePage = (props) => {
       label: 'Cancel',
       field: 'Cancel',
     }
+    ,
+    {
+      label: 'View Profile',
+      field: 'View',
+    }
   ];
 
   const rows_regular_btn = [
@@ -56,9 +62,12 @@ const TablePage = (props) => {
       'Action':  <Button variant="contained" color="primary">
       Confirm
     </Button>,
-    'Reaction':   <Button variant="contained" color="secondary">
+    'Cancel':   <Button variant="contained" color="secondary" >
     Cancel
-  </Button>
+  </Button>,
+  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patientdetailbydoctor')}>
+  View
+</Button>
 
     },
     {
@@ -72,9 +81,12 @@ const TablePage = (props) => {
       'Action': <Button variant="contained" color="primary">
       Confirm
     </Button>,
-    'Reaction':   <Button variant="contained" color="secondary">
+    'Cancel':   <Button variant="contained" color="secondary">
     Cancel
-  </Button>
+  </Button>,
+  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patientdetailbydoctor')}>
+  View
+</Button>
     },
     {
 
@@ -86,11 +98,14 @@ const TablePage = (props) => {
       'Date' : '23-04-2021',
       'Time' : '12-00 PM',
       'Action':<Button variant="contained" color="primary">
-      COnfirm
+      Confirm
     </Button>,
-    'Reaction':   <Button variant="contained" color="secondary">
+    'Cancel':   <Button variant="contained" color="secondary">
     Cancel
-  </Button>
+  </Button>,
+  'View':   <Button variant="contained" color="lightsecondary " onClick = {() => props.onRouteChange('patientdetailbydoctor')}>
+  View
+</Button>
     }
   ];
 

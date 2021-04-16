@@ -10,10 +10,9 @@ import BookRoom from "./components/room booking/room";
 import Admin from "./components/Admin/admin"
 import Data from "./components/Admin/data"
 import Docreg from "./components/Registration/doctorregistration";
-import Bt from './components/Admin/button'
-import Dr from './components/Admin/dr'
-import Roh from './components/Admin/rohan'
-import User from './components/userprofile'
+import Diagnosis from "./components/Doctor/diagnosis";
+import Dr from "./components/Doctor/dr"
+import PatientDetails from"./components/userprofile"
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -28,18 +27,14 @@ function App() {
   function onRouteChange(route) {
 		setRoute(route);
   }
-
   function onProfileChange(data) {
-     setData(data);
-  }
-
+   setData(data);
+}
   if(route === 'signin' || route === 'adminlogin' || route === 'doctorsignin') {
      return(
       <div className={classes.appMain}>
          <Header onRouteChange={onRouteChange} route ={route}/>
-         {/* <Admin/> */}
          <SignIn onRouteChange={onRouteChange} route={route} />
-        
         </div> 
      );
   }
@@ -48,7 +43,7 @@ function App() {
     return(
      <div className={classes.appMain}>
         <Header onRouteChange={onRouteChange} route ={route} />
-        <Patient onRouteChange={onRouteChange}/>
+        <Profile onRouteChange={onRouteChange}  />
        </div> 
     );
   }
@@ -64,7 +59,7 @@ function App() {
    return(
     <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Profile onRouteChange={onRouteChange} onProfileChange={onProfileChange} data={userdata} />
+       <Profile onRouteChange={onRouteChange} onProfileChange={onProfileChange} data={userdata}/>
       </div> 
     );
    }
@@ -96,6 +91,38 @@ function App() {
       </div> 
       );
    }
+   else if(route==='diagnosis')
+   {
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <Diagnosis onRouteChange={onRouteChange}/>
+         </div> 
+      )
+   }
+   else if(route==='patientdetailbydoctor')
+   {
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <PatientDetails onRouteChange={onRouteChange}/>
+         </div> 
+      )
+   }
+   else if(route==='patientdetailbypatient')
+   {
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <PatientDetails onRouteChange={onRouteChange}/>
+         </div> 
+      )
+   }
+ 
+   
+  
+   
+ 
 
 }
 

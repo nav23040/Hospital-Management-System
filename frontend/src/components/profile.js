@@ -68,7 +68,7 @@ export default function Profile(props) {
                     {/* <p className="text-secondary mb-1"></p> */}
                     <p className="text-muted font-size-sm">New Delhi</p>
                     <div className='button1'>
-                    <button className="btn btn-primary">User Profile</button>
+                    <button className="btn btn-primary" onClick = {() => props.onRouteChange('patientdetailbypatient')}>User Profile</button>
                     </div>
                    <div className='button2'>
                    <button className="btn btn-primary">Previous Report</button>

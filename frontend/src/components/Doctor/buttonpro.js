@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 
 
 const TablePage = (props) => {
+  
   const columns= [
     
     {
@@ -38,6 +39,10 @@ const TablePage = (props) => {
       label: 'Action',
       field: 'Action',
     },
+    {
+      label: 'Add Prescription',
+      field: 'Add ',
+    },
   ];
 
   const rows_regular_btn = [
@@ -51,7 +56,10 @@ const TablePage = (props) => {
       'Time' : '12-00 PM',
       'Action':  <Button variant="contained" color="primary">
       Confirmed
-    </Button>
+    </Button>,
+    'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange('diagnosis')}>
+    Add
+  </Button>,
 
     },
     {
@@ -64,7 +72,10 @@ const TablePage = (props) => {
       'Time' : '12-00 PM',
       'Action': <Button variant="contained" color="primary">
       Confirmed
-    </Button>
+    </Button>,
+    'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange('diagnosis')}>
+    Add
+  </Button>,
     },
     {
 
@@ -77,12 +88,15 @@ const TablePage = (props) => {
       'Time' : '12-00 PM',
       'Action':<Button variant="contained" color="primary">
       COnfirmed
-    </Button>
+    </Button>,
+  'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange('diagnosis')}>
+    Add
+  </Button>,
     }
   ];
 
   return(
-    <MDBTable btn>
+    <MDBTable btn >
       <MDBTableHead columns={columns} />
       <MDBTableBody rows={rows_regular_btn} />
     </MDBTable>
