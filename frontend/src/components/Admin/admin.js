@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles({
   root: {
@@ -34,6 +35,11 @@ const useStyles = makeStyles({
 export default function SimpleCard(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  const [name, setName] = React.useState('');
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
 
   return (
 
@@ -81,11 +87,34 @@ export default function SimpleCard(props) {
           Book Room Requests
         </Typography>
         <Typography variant="h5" component="h2">
-          3
+       4
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Confirm Requests</Button>
+      </CardActions>
+    </Card>
+    </div>
+        </Grid>
+        <Grid item md={3} >
+        <div className="doctor" style={{marginLeft:"3"}} > 
+    <Card className={classes.root} style={{backgroundColor:'lightgreen'}}>
+      <CardContent >
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          Add Room Number
+        </Typography>
+        <Typography variant="h5" component="h2">
+        <TextField
+         id="outlined-name"
+         label="Enter Room Number"
+         value={name}
+           onChange={handleChange}
+         />
+        </Typography>
+      </CardContent>
+      <CardActions>
+     
+        <Button size="small" >Submit</Button>
       </CardActions>
     </Card>
     </div>

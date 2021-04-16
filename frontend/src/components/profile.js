@@ -44,8 +44,11 @@ export default function Profile(props) {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        props.onProfileChange(data);
       });
 }, []);
+
+
 
 
 
@@ -61,10 +64,16 @@ export default function Profile(props) {
                 <div className="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
                   <div className="mt-3">
-                    <h4>Dilpreet Singh</h4>
+                    <h4>{props.data.name}</h4>
                     {/* <p className="text-secondary mb-1"></p> */}
                     <p className="text-muted font-size-sm">New Delhi</p>
-                    <button className="btn btn-primary">View Previous Reports</button>
+                    <div className='button1'>
+                    <button className="btn btn-primary" onClick = {() => props.onRouteChange('patientdetailbypatient')}>User Profile</button>
+                    </div>
+                   <div className='button2'>
+                   <button className="btn btn-primary">Previous Report</button>
+                   </div>
+                    
                     
                   </div>
                 </div>
@@ -127,7 +136,9 @@ export default function Profile(props) {
               <div className="col-sm-6 mb-3">
                 <div className="card h-100">
                 <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
+                  <div className="button3">
                   <button className="btn btn-primary" onClick = { () => props.onRouteChange('BookAppointment')}  >Book Appointment</button>
+                  </div>
                   {/* <Link href="#" variant="body2" onClick = {ChangeRoute}>
                 {"Don't have an account? Sign Up"}
               </Link> */}
