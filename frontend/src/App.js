@@ -10,6 +10,10 @@ import BookRoom from "./components/room booking/room";
 import Admin from "./components/Admin/admin"
 import Data from "./components/Admin/data"
 import Docreg from "./components/Registration/doctorregistration";
+import Bt from './components/Admin/button'
+import Dr from './components/Admin/dr'
+import Roh from './components/Admin/rohan'
+import User from './components/userprofile'
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -17,12 +21,16 @@ const useStyles = makeStyles({
 })
 
 function App() {
-
+   const[userdata,setData] = useState([]);
    const [route, setRoute] = useState('signin');
   const classes = useStyles();
 
   function onRouteChange(route) {
 		setRoute(route);
+  }
+
+  function onProfileChange(data) {
+     setData(data);
   }
 
   if(route === 'signin' || route === 'adminlogin' || route === 'doctorsignin') {
@@ -31,7 +39,7 @@ function App() {
          <Header onRouteChange={onRouteChange} route ={route}/>
          {/* <Admin/> */}
          <SignIn onRouteChange={onRouteChange} route={route} />
-         
+        
         </div> 
      );
   }
@@ -56,7 +64,7 @@ function App() {
    return(
     <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Profile onRouteChange={onRouteChange}/>
+       <Profile onRouteChange={onRouteChange} onProfileChange={onProfileChange} data={userdata} />
       </div> 
     );
    }
