@@ -6,26 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
-const products = [
-  { name: 'Dr. ', desc: 'RasanPreet Singh', price: 'Neuro Surgeon' },
-//   { name: 'Patient', desc: 'Nikhil', price: '20 years' },
-//   { name: 'Date', desc: '1st April 2020', },
-//   { name: 'Time', desc: '11AM' },
-];
-
-const payments = [
-  { name: 'Name', detail: 'Nikhil' },
-  { name: 'Gender', detail: 'Male' },
-  { name: 'Age', detail: '20' },
-//   { name: '', detail: '04/2024' },
-];
-const time = [
-    { name: 'Date', detail: '1 April 2021' },
-    { name: 'Day', detail: 'Sunday' },
-    { name: 'Time', detail: '11:00 AM' },
-  //   { name: '', detail: '04/2024' },
-  ];
-
 const useStyles = makeStyles((theme) => ({
   listItem: {
     padding: theme.spacing(1, 0),
@@ -38,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review() {
+export default function Review(props) {
   const classes = useStyles();
 
   return (
@@ -47,18 +27,10 @@ export default function Review() {
         Review
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+        <ListItem className={classes.listItem} key='Dr'>
+            <ListItemText primary={props.doctorname} />
+            <Typography variant="body2">Specialization</Typography>
           </ListItem>
-        ))}
-        {/* <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            $34.06
-          </Typography>
-        </ListItem> */}
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -66,16 +38,16 @@ export default function Review() {
             Patient Details
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
+                  <Typography gutterBottom>Name</Typography>
+                  <Typography gutterBottom>Age</Typography>
+                  <Typography gutterBottom>Gender</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
+                  <Typography gutterBottom>{props.name}</Typography>
+                  <Typography gutterBottom>{props.age}</Typography>
+                  <Typography gutterBottom>{props.gender}</Typography>
+           </Grid>
           </Grid>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
@@ -84,16 +56,14 @@ export default function Review() {
             Appointment Time
           </Typography>
            <Grid container>
-            {time.map((time) => (
-              <React.Fragment key={time.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{time.name}</Typography>
+           <Grid item xs={6}>
+                  <Typography gutterBottom>Date</Typography>
+                  <Typography gutterBottom>Time</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{time.detail}</Typography>
+                  <Typography gutterBottom>{props.date}</Typography>
+                  <Typography gutterBottom>{props.time}</Typography>
                 </Grid>
-              </React.Fragment>
-            ))}
           </Grid>
         </Grid>
       </Grid>

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     { name: 'Dr Naveen' }
   ];
 
-export default function AddressForm(doctor) {
+export default function AddressForm(props) {
     const classes = useStyles();
 
   return (
@@ -51,9 +51,10 @@ export default function AddressForm(doctor) {
         id="date"
         label="Appointment Date"
         type="date"
+        name='date'
         defaultValue="yyyy-MM-dd"
-     //  onChange={(e) => date = e.target.value}
-     //  onChange={onDateChange}
+        value={props.patient.date}
+        onChange={props.handleInputChange}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
@@ -68,7 +69,9 @@ export default function AddressForm(doctor) {
         label="Appointment Time"
         type="time"
         defaultValue="07:30"
-       // onChange={(e) => doctor[0].time = e.target.value}
+        name='time'
+        value={props.patient.time}
+        onChange={props.handleInputChange}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
@@ -86,7 +89,7 @@ export default function AddressForm(doctor) {
           options={list}
           getOptionLabel={(option) => option.name}
           style={{ width: 300 }}
-        //  onChange={(event, value) => doctor[0].name = value.name }
+          onChange={(event, value) => props.handleDoctorName(value)}
           renderInput={(params) => <TextField {...params} label="Search Doctor" variant="outlined"/>}
            />
        </Grid>
@@ -95,27 +98,4 @@ export default function AddressForm(doctor) {
   );
 }
 
-
-/*<Button className={classes.button} onClick={handleOpen}>
-        Select Doctor
-      </Button>
-      <FormControl className={classes.drop}>
-        <InputLabel id="demo-controlled-open-select-label">Doctor</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>Dr. RasanPreet Singh</em>
-          </MenuItem>
-          <MenuItem value={10}>Dr. DillPreet Singh</MenuItem>
-          <MenuItem value={20}>Dr. Abhisekh</MenuItem>
-          <MenuItem value={30}>Dr. Naveen</MenuItem>
-          <MenuItem value={30}>Dr. Nikhil</MenuItem>
-        </Select>
-      </FormControl> */
+ 

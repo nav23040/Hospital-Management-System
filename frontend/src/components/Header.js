@@ -63,7 +63,7 @@ export default function ButtonAppBar(props) {
               );
            }
   
-  else if (props.route === 'patientprofile' || props.route === 'admin'){
+  else if (props.route === 'patientprofile' || props.route === 'admin' || props.route === 'doctorProfile'){
     return (
       <div className={classes.root}> 
         <AppBar position="auto">
@@ -79,6 +79,12 @@ export default function ButtonAppBar(props) {
                 <button class="dropbtnmain" onClick = {() => props.onRouteChange('adminlogin')} >Sign Out</button>
                 </div>
               :
+               props.route === 'doctorProfile'
+               ? 
+               <div class="dropdown" >
+               <button class="dropbtnmain" onClick = {() => props.onRouteChange('doctorsignin')} >Sign Out</button>
+               </div>
+               :
                 <div class="dropdown" >
                 <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
                 </div>
@@ -115,7 +121,7 @@ export default function ButtonAppBar(props) {
                 <button class="dropbtnmain" onClick = {() => props.onRouteChange('patientprofile')} >Go Back</button>
                 </div> 
                 <div class="dropdown" >
-                <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
+                <button class="dropbtnmain" style={{marginRight: 50}}onClick = {ChangeRoute1} >Sign Out</button>
                 </div>
                 </div>
               }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect } from 'react';
-
+import Appointments from './appointment';
 import './profile_style.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,18 +48,18 @@ export default function Profile(props) {
       <div className="main-body">
        
         <div className="row gutters-sm">
-          <div className="col-md-4 mb-3">
+          <div className="col-md-3 mb-3">
             <div className="card">
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
                   <div className="mt-3">
                     <h4>{name}</h4>
-                    <div className='button1' style={{paddingTop: '20px'}}>
-                    <button className="btn btn-primary" onClick = {() => props.onRouteChange('patientdetailbypatient')}>User Profile</button>
+                    <div className='button1' style={{padding: '20px', marginRight:150}}>
+                    <button className="btn btn-primary" style={{height: 40, width: 165}} onClick = {() => props.onRouteChange('patientdetailbypatient')}>User Profile</button>
                     </div>
-                   <div className='button2'>
-                   <button className="btn btn-primary">Previous Report</button>
+                   <div className='button2' style={{marginRight:150}}>
+                   <button className="btn btn-primary" style={{height: 40, width: 165}}>Previous Reports</button>
                    </div>
                   </div>
                 </div>
@@ -70,60 +70,16 @@ export default function Profile(props) {
           <div className="col-md-8">
             <div className="card mb-3">
               <div className="card-body">
-                { /*<div className="row">
-                  <div className="col-sm-3">
-                    <h6 className="mb-0">Full Name</h6>
-                  </div>
-                  <div className="col-sm-9 text-secondary">
-                    Kenneth Valdez
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <h6 className="mb-0">Email</h6>
-                  </div>
-                  <div className="col-sm-9 text-secondary">
-                    fip@jukmuh.al
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <h6 className="mb-0">Phone</h6>
-                  </div>
-                  <div className="col-sm-9 text-secondary">
-                    (239) 816-9029
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <h6 className="mb-0">Mobile</h6>
-                  </div>
-                  <div className="col-sm-9 text-secondary">
-                    (320) 380-4539
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <h6 className="mb-0">Address</h6>
-                  </div>
-                  <div className="col-sm-9 text-secondary">
-                    Bay Area, San Francisco, CA
-                  </div>
-  </div> */}
+                <Appointments appoint={props.appoint}/>
               </div>
 
-             
             </div>
             <div className="row gutters-sm">
               <div className="col-sm-6 mb-3">
                 <div className="card h-100">
                 <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
-                  <div className="button3">
-                  <button className="btn btn-primary" onClick = { () => props.onRouteChange('BookAppointment')}  >Book Appointment</button>
+                  <div className="button3" style={{padding: '20px', marginRight:150}}>
+                  <button className="btn btn-primary" style={{height: 50, width: 200}} onClick = { () => props.onRouteChange('BookAppointment')}  >Book Appointment</button>
                   </div>
                 
                   </div>
@@ -131,8 +87,10 @@ export default function Profile(props) {
               </div>
               <div className="col-sm-6 mb-3">
                 <div className="card h-100">
-                  <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
-                  <button className="btn btn-primary" onClick = {() => props.onRouteChange('BookRoom')} >Book Room</button>
+                <div className="card-body" style = {{display: "flex",justifyContent: "center",alignItems: "center" }}>
+                  <div className="button3" style={{padding: '20px', marginRight:150}}>
+                  <button className="btn btn-primary" style={{height: 50, width: 200}} onClick = {() => props.onRouteChange('BookRoom')} >Book Room</button>
+                  </div>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
 import Carrd from './carddd'
 import Doc from './button'
-import Doc2 from './buttonpro'
+import Doc2 from './buttonpro';
+import Diagnosis from './diagnosis';
 import Grid from '@material-ui/core/Grid';
 
 function App () {
@@ -10,6 +11,7 @@ function App () {
   function onRouteChange22(route) {
 		setRoute(route);
   }
+
   if(route==='pendings'){
     return (
       <div >
@@ -68,10 +70,16 @@ function App () {
           
          </Grid>
          <div>
-             <Doc2 />
+             <Doc2 onRouteChange22={onRouteChange22}/>
              
          </div>
       </div>
+    );
+  }
+
+  else if(route === 'diagnosis'){
+    return(
+        <Diagnosis  onRouteChange22={onRouteChange22}/>
     );
   }
    

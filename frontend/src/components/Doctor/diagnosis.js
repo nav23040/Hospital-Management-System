@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import PageHeader from "../Registration/PageHeader"
 import { makeStyles, Paper } from "@material-ui/core";
-import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from "@material-ui/core";
+import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Button } from "@material-ui/core";
 import UploadButtons from '../Registration/submitbutton';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
@@ -72,9 +72,10 @@ export default function Docreg(props) {
     
 
     function onSubmit() {
+        props.onRouteChange22('bookappointment');
         //console.log(values);
 
-        fetch('http://localhost:3000/doctor/diagnosis', {
+       /* fetch('http://localhost:3000/doctor/diagnosis', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -94,7 +95,7 @@ export default function Docreg(props) {
                     alert('Error in registering doctor! Please try again');
 
             })
-
+            */
     }
 
     
@@ -193,6 +194,9 @@ export default function Docreg(props) {
 
                 </Grid>
                 <UploadButtons onSubmit={onSubmit} />
+                <Button variant="contained" color="primary" component="span" onClick = {() => props.onRouteChange22('bookappointment')} >
+                 GO Back
+                </Button>
 
             </form>
 

@@ -65,15 +65,66 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Search Doctor', 'Personal Details', 'Review'];
 
-export default function Checkout() {
+const initialPatientValues={
+  name:'',
+  age:'',
+  gender:'male',
+  doctorname: '',
+  time: '',
+  date: ''
+
+}
+
+export default function Checkout(props) {
   const classes = useStyles();
-  const doctor = React.useState({date: '', time: '', name: ''});
-  const patient = React.useState({name: '', age: '', gender: ''});
+  const [patient, setPatientData] = React.useState(initialPatientValues);
+
+  const handleInputChange = e =>{
+    const{name,value} = e.target
+    setPatientData({
+        ...patient,
+        [name]:value
+    })
+  } 
+  
+  const handleDoctorName = e => {
+    
+    if(e===null){
+      setPatientData({
+        ...patient,
+        doctorname:''
+      }) 
+    }
+      
+    else{
+    setPatientData({
+      ...patient,
+      doctorname:e.name
+     }) 
+    } 
+  }
 
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if(activeStep === steps.length - 1){
+      alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
+      props.onAppointChange(patient);
+      props.onRouteChange('patientprofile');
+      
+     /* fetch('http://localhost:3000/bookappointment', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            data: patient
+        })
+        })
+      .then(response => response.json())
+      .then(data => {
+        })*/
+    }
+    else
+     setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
@@ -83,11 +134,11 @@ export default function Checkout() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <DoctorForm doctor={doctor} />;
+        return <DoctorForm patient={patient} handleInputChange={handleInputChange} handleDoctorName={handleDoctorName}/>;
       case 1:
-        return <PersonalDetailsForm patient={patient}/>;
+        return <PersonalDetailsForm patient={patient} handleInputChange={handleInputChange}/>;
       case 2:
-        return <Review doctor={doctor} patient={patient}/>;
+        return <Review name={patient.name} age={patient.age} gender={patient.gender} doctorname={patient.doctorname} date={patient.date} time={patient.time} />;
       default:
         throw new Error('Unknown step');
     }
@@ -99,7 +150,7 @@ export default function Checkout() {
       
       <main className={classes.layout}>
         <Paper className={classes.paper} style = {{marginLeft:'10px'}}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component="h1" variant="h4" align="center" >
             Book Appointment
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>

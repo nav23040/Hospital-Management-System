@@ -2,7 +2,6 @@ import React from 'react';
 import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
 import Button from '@material-ui/core/Button';
 
-
 const TablePage = (props) => {
   
   const columns= [
@@ -57,7 +56,7 @@ const TablePage = (props) => {
       'Action':  <Button variant="contained" color="primary">
       Confirmed
     </Button>,
-    'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange('diagnosis')}>
+    'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
     Add
   </Button>,
 
@@ -89,7 +88,7 @@ const TablePage = (props) => {
       'Action':<Button variant="contained" color="primary">
       COnfirmed
     </Button>,
-  'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange('diagnosis')}>
+  'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange('diagnosis')}>
     Add
   </Button>,
     }

@@ -4,15 +4,15 @@ import { makeStyles } from "@material-ui/core";
 import Header from './components/Header' ;
 import Patient from "./components/Registration/patient";
 import SignIn from "./components/SignIn/SignIn";
-import Profile from "./components/profile";
-import Start from "./components/Book Appoitnment/Start";
+import Profile from "./components/UserProfile/profile";
+import Start from "./components/Book Appoitnment/Checkout";
 import BookRoom from "./components/room booking/room";
 import Admin from "./components/Admin/admin"
 import Data from "./components/Admin/data"
 import Docreg from "./components/Registration/doctorregistration";
 import Diagnosis from "./components/Doctor/diagnosis";
 import Dr from "./components/Doctor/dr"
-import PatientDetails from"./components/userprofile"
+import PatientDetails from"./components/UserProfile/userprofile"
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -20,16 +20,23 @@ const useStyles = makeStyles({
 })
 
 function App() {
-   const[userdata,setData] = useState([]);
+   const[userdata, setData] = useState([]);
+   const[appoint, setAppoint] = useState([]);
    const [route, setRoute] = useState('signin');
-  const classes = useStyles();
+   const classes = useStyles();
 
   function onRouteChange(route) {
 		setRoute(route);
   }
+
   function onProfileChange(data) {
-   setData(data);
-}
+      setData(data);
+  }
+
+  function onAppointChange(data){
+      setAppoint(data);
+  }
+
   if(route === 'signin' || route === 'adminlogin' || route === 'doctorsignin') {
      return(
       <div className={classes.appMain}>
@@ -43,7 +50,7 @@ function App() {
     return(
      <div className={classes.appMain}>
         <Header onRouteChange={onRouteChange} route ={route} />
-        <Profile onRouteChange={onRouteChange}  />
+        <Patient onRouteChange={onRouteChange}  />
        </div> 
     );
   }
@@ -59,7 +66,7 @@ function App() {
    return(
     <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Profile onRouteChange={onRouteChange} onProfileChange={onProfileChange} data={userdata}/>
+       <Profile onRouteChange={onRouteChange} onProfileChange={onProfileChange} data={userdata} appoint={appoint}/>
       </div> 
     );
    }
@@ -69,7 +76,7 @@ function App() {
       return(
          <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Start onRouteChange={onRouteChange}/>
+       <Start onRouteChange={onRouteChange} onAppointChange={onAppointChange}/>
       </div> 
       );
    }
@@ -104,8 +111,9 @@ function App() {
    {
       return(
          <div className={classes.appMain}>
-            <Header onRouteChange={onRouteChange} route ={route}/>
-            <PatientDetails onRouteChange={onRouteChange}/>
+
+            <Header onRouteChange={onRouteChange} route={route}/>
+            <PatientDetails onRouteChange={onRouteChange}  />
          </div> 
       )
    }
@@ -114,7 +122,17 @@ function App() {
       return(
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
-            <PatientDetails onRouteChange={onRouteChange}/>
+            <PatientDetails onRouteChange={onRouteChange} userdata={userdata}/>
+         </div> 
+      )
+   }
+   
+   else if(route==='doctorProfile')
+   {
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <Dr onRouteChange={onRouteChange}/>
          </div> 
       )
    }

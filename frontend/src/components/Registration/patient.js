@@ -38,7 +38,7 @@ export default function Patient(props){
     const[values, setvalues]=useState(initialFValues);
     const classes = useStyles();
     const handleInputChange = e =>{
-        const{ name,value} =e.target
+        const{name,value} =e.target
         setvalues({
             ...values,
             [name]:value
@@ -128,11 +128,11 @@ export default function Patient(props){
                  
             </Grid>
             <Grid item xs ={6}>
-                <FormLabel required>Gender</FormLabel>
-                <RadioGroup row>
-                    <FormControlLabel value= "male"  control = {<Radio/>} label="Male"/>
-                    <FormControlLabel value= "female" control = {<Radio/>} label="Female"/>
-                    <FormControlLabel value= "others" control = {<Radio/>} label="Others"/>
+                <FormLabel required >Gender</FormLabel>
+                <RadioGroup row  onChange={handleInputChange}>
+                    <FormControlLabel value= "male" name='gender' control = {<Radio/>} label="Male"/>
+                    <FormControlLabel value= "female" name='gender' control = {<Radio/>} label="Female"/>
+                    <FormControlLabel value= "others" name='gender' control = {<Radio/>} label="Others"/>
                 </RadioGroup>
 
                  <TextField required

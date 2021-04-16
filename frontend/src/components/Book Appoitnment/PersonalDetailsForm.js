@@ -6,23 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {  FormLabel, Radio, RadioGroup } from "@material-ui/core";
 
-const initialPatientValues={
-  name:'',
-  age:'',
-  gender:'male',
 
-}
 
-export default function PaymentForm() {
-  const[values,setvalues]=useState(initialPatientValues);
-
-  const handleInputChange = e =>{
-      const{name,value} =e.target
-      setvalues({
-          ...values,
-          [name]:value
-      })
-  }
+export default function PaymentForm(props) {
   
   return (
     <>
@@ -34,10 +20,11 @@ export default function PaymentForm() {
           <TextField required
           id="cardName" 
           label="Name"
-          name="name" 
-          fullWidth autoComplete="cc-name"
-          value={values.name}
-           onChange={handleInputChange}
+          name="name"
+          type = 'text' 
+         // fullWidth autoComplete="cc-name"
+          value={props.patient.name}
+          onChange={props.handleInputChange}
            />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -46,19 +33,18 @@ export default function PaymentForm() {
             id="cardNumber"
             label="Age"
             name="age"
-            fullWidth
-            autoComplete="cc-number"
-            value={values.age}
-           onChange={handleInputChange}
+            type = 'number'
+            value={props.patient.age}
+            onChange={props.handleInputChange}
           />
         </Grid>
         
         <Grid item xs={12} md={6}>
         <FormLabel required>Gender</FormLabel>
-                <RadioGroup row>
-                    <FormControlLabel value= "male"  control = {<Radio/>} label="Male"/>
-                    <FormControlLabel value= "female" control = {<Radio/>} label="Female"/>
-                    <FormControlLabel value= "others" control = {<Radio/>} label="Others"/>
+                <RadioGroup onClick={props.handleInputChange}  row>
+                    <FormControlLabel value= "Male" name='gender' control = {<Radio/>} label="Male"/>
+                    <FormControlLabel value= "Female" name='gender' control = {<Radio/>} label="Female"/>
+                    <FormControlLabel value= "Others" name='gender' control = {<Radio/>} label="Others"/>
                 </RadioGroup>
         </Grid>
         <Grid item xs={12}>
