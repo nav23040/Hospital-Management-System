@@ -98,25 +98,7 @@ function App() {
       </div> 
       );
    }
-   else if(route==='diagnosis')
-   {
-      return(
-         <div className={classes.appMain}>
-            <Header onRouteChange={onRouteChange} route ={route}/>
-            <Diagnosis onRouteChange={onRouteChange}/>
-         </div> 
-      )
-   }
-   else if(route==='patientdetailbydoctor')
-   {
-      return(
-         <div className={classes.appMain}>
 
-            <Header onRouteChange={onRouteChange} route={route}/>
-            <PatientDetails onRouteChange={onRouteChange}  />
-         </div> 
-      )
-   }
    else if(route==='patientdetailbypatient')
    {
       return(

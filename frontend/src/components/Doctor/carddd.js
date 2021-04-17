@@ -65,7 +65,7 @@ Report</Button>
               </Card.Footer>
             </Card>
           </Col>
-          <Col lg="3" sm="6" >
+          <Col lg="5" sm="6" >
             <Card className="card-stats">
               <Card.Body>
                 <Row>
@@ -99,7 +99,7 @@ Report</Button>
             </Card>
           </Col>
         
-          <Col lg="3" sm="6">
+          <Col lg="4" sm="6">
             <Card className="card-stats">
               <Card.Body>
                 <Row>

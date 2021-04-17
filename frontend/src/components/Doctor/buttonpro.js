@@ -35,8 +35,8 @@ const TablePage = (props) => {
          field: 'Time',
     },
     {
-      label: 'Action',
-      field: 'Action',
+      label: 'Status',
+      field: 'Status',
     },
     {
       label: 'Add Prescription',
@@ -53,12 +53,10 @@ const TablePage = (props) => {
       'mail' : 'nikhil@xyz.com',
       'Date' : '23-04-2021',
       'Time' : '12-00 PM',
-      'Action':  <Button variant="contained" color="primary">
-      Confirmed
-    </Button>,
-    'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
-    Add
-  </Button>,
+      'Status':  'Confirmed',
+      'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
+       Add
+       </Button>,
 
     },
     {
@@ -69,12 +67,10 @@ const TablePage = (props) => {
       'mail' : 'nikhil@xyz.com',
       'Date' : '23-04-2021',
       'Time' : '12-00 PM',
-      'Action': <Button variant="contained" color="primary">
-      Confirmed
-    </Button>,
-    'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange('diagnosis')}>
-    Add
-  </Button>,
+      'Status': 'Confirmed',
+     'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
+       Add
+      </Button>,
     },
     {
 
@@ -85,12 +81,10 @@ const TablePage = (props) => {
       'mail' : 'nikhil@xyz.com',
       'Date' : '23-04-2021',
       'Time' : '12-00 PM',
-      'Action':<Button variant="contained" color="primary">
-      COnfirmed
-    </Button>,
-  'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange('diagnosis')}>
-    Add
-  </Button>,
+      'Status':'Confirmed',
+      'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange22('diagnosis')}>
+       Add
+       </Button>,
     }
   ];
 

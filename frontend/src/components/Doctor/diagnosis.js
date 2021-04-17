@@ -64,6 +64,7 @@ export default function Docreg(props) {
     const classes = useStyles();
     const handleInputChange = e => {
         const{ name,value} = e.target
+        
         setvalues({
             ...values,
             [name]: value
@@ -100,7 +101,7 @@ export default function Docreg(props) {
 
     
     return (
-        <Paper >
+        <Paper style={{marginTop:"3%",marginLeft:"4"}}>
             <PageHeader
                 title=" PATIENT DIAGNOSIS FORM  :"
                 subTitle=" (All the fields marked with (*) are mandatory)  "
@@ -193,10 +194,14 @@ export default function Docreg(props) {
                     </Grid>
 
                 </Grid>
-                <UploadButtons onSubmit={onSubmit} />
-                <Button variant="contained" color="primary" component="span" onClick = {() => props.onRouteChange22('bookappointment')} >
-                 GO Back
+                <Grid style={{display:'flex',justifyContent:"center", padding: "10px",}}>
+                <Button  onClick = {() => props.onRouteChange22('bookappointment')}   >
+                 Go Back
                 </Button>
+                <UploadButtons onSubmit={onSubmit} />
+                </Grid>
+                
+                
 
             </form>
 

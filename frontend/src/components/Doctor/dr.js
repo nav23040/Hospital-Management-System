@@ -4,6 +4,8 @@ import Doc from './button'
 import Doc2 from './buttonpro';
 import Diagnosis from './diagnosis';
 import Grid from '@material-ui/core/Grid';
+// import PatientReport from './userprofile'
+
 
 function App () {
   const[route,setRoute]=useState('pendings');
@@ -51,7 +53,7 @@ function App () {
       <div >
           <Grid container spacing={100}>
               <Grid>  
-         <div className="card" style={{marginLeft:"20%",marginTop:"25%"}}>
+         <div className="card" style={{marginLeft:"20%",marginTop:"25%",marginBottom:"10%"}}>
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
@@ -82,7 +84,12 @@ function App () {
         <Diagnosis  onRouteChange22={onRouteChange22}/>
     );
   }
-   
+  // else if(route === 'patientdetailbydoctor'){
+  //   return(
+  //       <PatientReport  onRouteChange22={onRouteChange22}/>
+  //   );
+  // }
+
   
 }
 
