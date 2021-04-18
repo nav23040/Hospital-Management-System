@@ -59,7 +59,7 @@ export default function Profile(props) {
                     <button className="btn btn-primary" style={{height: 40, width: 165}} onClick = {() => props.onRouteChange('patientdetailbypatient')}>User Profile</button>
                     </div>
                    <div className='button2' style={{marginRight:150}}>
-                   <button className="btn btn-primary" style={{height: 40, width: 165}}>Previous Reports</button>
+                   <button className="btn btn-primary" style={{height: 40, width: 165}}onClick = {() => props.onRouteChange('patienthistory')}>Previous Reports</button>
                    </div>
                   </div>
                 </div>

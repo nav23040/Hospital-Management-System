@@ -7,13 +7,13 @@ import Grid from '@material-ui/core/Grid';
 // import PatientReport from './userprofile'
 
 
-function App () {
+function App (props) {
   const[route,setRoute]=useState('pendings');
 
   function onRouteChange22(route) {
 		setRoute(route);
   }
-
+ 
   if(route==='pendings'){
     return (
       <div >
@@ -33,14 +33,14 @@ function App () {
             </div>
             </Grid>
                 <Grid style={{marginLeft:"10%",marginTop:"4%"}} >
-                    <Carrd onRouteChange ={onRouteChange22} route={route} />
+                    <Carrd onRouteChange22 ={onRouteChange22} route={route} />
                 </Grid>
           
           
          </Grid>
          <div>
             
-             <Doc/>
+             <Doc />
          </div>
       </div>
     );
@@ -67,7 +67,7 @@ function App () {
             </div>
             </Grid>
                 <Grid style={{marginLeft:"10%",marginTop:"4%"}} >
-                    <Carrd onRouteChange ={onRouteChange22} route={route} />
+                    <Carrd onRouteChange22 ={onRouteChange22} route={route} />
                 </Grid>
           
          </Grid>
@@ -84,11 +84,7 @@ function App () {
         <Diagnosis  onRouteChange22={onRouteChange22}/>
     );
   }
-  // else if(route === 'patientdetailbydoctor'){
-  //   return(
-  //       <PatientReport  onRouteChange22={onRouteChange22}/>
-  //   );
-  // }
+ 
 
   
 }

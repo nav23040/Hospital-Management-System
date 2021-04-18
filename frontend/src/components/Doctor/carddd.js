@@ -18,13 +18,7 @@ import {
 
 function Dashboard(props) {
 
-  function ChangeRoute(){
-    props.onRouteChange('bookappointment');
- }
- function ChangeRoute1()
- {
-   props.onRouteChange('pendings');
- }
+
   return (
     <>
 
@@ -90,7 +84,7 @@ Report</Button>
                 <hr></hr>
                 <div className="stats">
               
-                  <Button variant="contained"onClick={ChangeRoute1}>  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-app-indicator" viewBox="0 0 16 16">
+                  <Button variant="contained" onClick = {() => props.onRouteChange22('pendings')}>  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-app-indicator" viewBox="0 0 16 16">
   <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/>
   <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 </svg>Pending Appointment</Button>
@@ -124,7 +118,7 @@ Report</Button>
                 <div className="stats">
                 
                 
-<Button variant="contained" onClick={ChangeRoute}>
+<Button variant="contained" onClick = {() => props.onRouteChange22('bookappointment')}>
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>

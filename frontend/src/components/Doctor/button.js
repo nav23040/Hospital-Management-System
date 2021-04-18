@@ -59,13 +59,13 @@ const TablePage = (props) => {
       'mail' : 'nikhil@xyz.com',
       'Date' : '23-04-2021',
       'Time' : '12-00 PM',
-      'Action':  <Button variant="contained" color="primary"onClick = {() => props.onRouteChange22('diagnosis')}>
+      'Action':  <Button variant="contained" color="primary">
       Confirm
     </Button>,
     'Cancel':   <Button variant="contained" color="secondary" >
     Cancel
   </Button>,
-  'View':   <Button variant="contained" color="lightsecondary">
+  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patientview')}>
   View
 </Button>
 
@@ -84,7 +84,7 @@ const TablePage = (props) => {
     'Cancel':   <Button variant="contained" color="secondary">
     Cancel
   </Button>,
-  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange22('patientdetailbydoctor')}>
+  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patientview')}>
   View
 </Button>
     },
@@ -103,7 +103,7 @@ const TablePage = (props) => {
     'Cancel':   <Button variant="contained" color="secondary">
     Cancel
   </Button>,
-  'View':   <Button variant="contained" color="lightsecondary " onClick = {() => props.onRouteChange22('patientdetailbydoctor')}>
+  'View':   <Button variant="contained" color="lightsecondary " onClick = {() => props.onRouteChange('patientview')}>
   View
 </Button>
     }

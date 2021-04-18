@@ -3,8 +3,17 @@ const container = document.querySelector(".container");
   const count = document.getElementById("count");
   const total = document.getElementById("total");
   const floorSelect = document.getElementById("floor");
+
   
-  let tPrice = parseInt(floorSelect.value);
+  let tPrice 
+  if(tPrice!=null)
+  {
+    tPrice=parseInt(floorSelect.value);
+  }
+  else{
+    tPrice=null;
+  }
+ 
   
   function updateSelectedCount() {
     const selectedSeats = document.querySelectorAll(".row .selected");
@@ -14,13 +23,20 @@ const container = document.querySelector(".container");
   }
   
   floorSelect.addEventListener("change", (e) => {
-    tPrice = parseInt(e.target.value);
-    updateSelectedCount();
+    
+      tPrice = parseInt(e.target.value);
+      updateSelectedCount(); 
+    
   });
   
   container.addEventListener("click", (e) => {
     console.log(e);
-    if (
+    if(e===null)
+    {
+      e.target.classList.toggle("occupied");
+      updateSelectedCount();
+    }
+   else if (
       e.target.classList.contains("seat") &&
       !e.target.classList.contains("occupied")
     ) {

@@ -12,6 +12,7 @@ import Data from "./components/Admin/data"
 import Docreg from "./components/Registration/doctorregistration";
 import Diagnosis from "./components/Doctor/diagnosis";
 import Dr from "./components/Doctor/dr"
+import PatientHistory from "./components/history2"
 import PatientDetails from"./components/UserProfile/userprofile"
 const useStyles = makeStyles({
   appMain : {
@@ -118,6 +119,26 @@ function App() {
          </div> 
       )
    }
+   else if(route==='patienthistory')
+   {
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <PatientHistory onRouteChange={onRouteChange}/>
+         </div> 
+      )
+   }
+   else if(route==='patientview')
+   {
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            
+         </div> 
+      )
+   }
+   
+  
  
    
   
