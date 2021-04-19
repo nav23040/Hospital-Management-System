@@ -37,6 +37,7 @@ app.post("/login", async (req, res) => {
                     id: doctor.id,
                     name: doctor.name
                 };
+                console.log(payload.id);
 
                 // Sign token
                 jwt.sign(
@@ -62,5 +63,17 @@ app.post("/login", async (req, res) => {
         });
     });
 });
+
+app.get('/me', verifyToken, (req, res) => {
+    Doctor.findById(req.userId, { password: 0 }, function (err, user) {
+        if (err) return res.status(500).send("There was a problem finding the doctor.");
+        if (!user) return res.status(404).send("No doctor found.");
+
+        res.status(200).send(user);
+    });
+
+});
+
+
 
 module.exports = app;

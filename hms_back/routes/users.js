@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const cors = require('cors');
 const User = require("../models/User");
+const Doctor = require("../models/Doctor");
+
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 const verifyToken = require("../auth/verifytoken");
@@ -119,5 +121,14 @@ app.get('/me', verifyToken, (req, res) => {
     });
 
 });
+
+app.get('/all_doctors', verifyToken, async (req, res) => {
+    await Doctor.find(function (err, user) {
+        if (err) return res.status(500).send("There was a problem finding the doctor.");
+        if (!user) return res.status(404).send("No doctor found.");
+        res.status(200).send(user);
+
+    })
+})
 
 module.exports = app;

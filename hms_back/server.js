@@ -7,7 +7,8 @@ const cors = require('cors');
 const User = require("./models/User");
 const users = require('../hms_back/routes/users')
 const admin = require('../hms_back/routes/admin')
-const doctor=require('../hms_back/routes/doctor')
+const doctor = require('../hms_back/routes/doctor')
+const appointment = require('../hms_back/routes/appointments')
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const jwt = require("jsonwebtoken");
@@ -62,103 +63,7 @@ app.use('/admin', admin);
 
 app.use('/doctor', doctor);
 
-
-/*app.post("/register", (req, res) => {
-    
-  //Form validation
-  console.log(req.body);
-  /*const {errors, isValid} = validateRegisterInput(req.body.email, req.body.password);
-  
-  if(!isValid){
-      return res.status(400).json(errors);
-  } 
- 
-  User.findOne({email:req.body.email}).then(user=>{
-
-      if(user){
-          return res.status(400).json({email:"Email already exists"});
-      } else{
-          const newUser = new User({
-              name:req.body.name,
-              father_name:req.body.fatherName,
-              mother_name:req.body.motherName,
-              password:req.body.password,
-              email:req.body.email,
-              dob: Date.parse(req.body.age),gender:req.body.gender,
-              address:req.body.address,mobile_number:req.body.mobile,father_phone_number:req.body.parentMobile
-          });
-
-          // Hash password before storing in database
-          const rounds  = 10;
-          bcrypt.genSalt(rounds, (err, salt) => {
-              bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err;
-              newUser.password = hash;
-              newUser
-                  .save()
-                  .then(user => res.json('success'))
-                  .catch(err => console.log(err));
-              });
-          });
-      }
-        
-  });
-    
-});
-// Routes
-//app.use("/users", users);
-
-app.post("/signin",(req,res) => {
-
-  //Form Valdiation
- /*  const {errors, isValid} = validateLoginInput(req.body);
-
-  if (!isValid) {
-      return res.status(400).json(errors);
-  } 
-
-  const email = req.body.email;
-  const password = req.body.password;
- 
-  //Find user by Email
-  User.findOne({email}).then(user=>{
-      if(!user){
-          return res.status(404).json({ emailnotfound: "Email not found" });
-      }
-
-  // Check password
-  bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-          // Create JWT Payload
-          const payload = {
-              id: user.id,
-              name: user.name
-          };
-
-          // Sign token
-          jwt.sign(
-              payload,
-              keys.secretOrKey,
-              {
-               expiresIn: 31556926 
-              },
-              (err, token) => {
-              res.json({
-                  success: true,
-                  token: "Bearer " + token
-              });
-              }
-          );
-
-          res.json('success');
-      }
-      else {
-       res.status(400).json({ passwordincorrect: "Password incorrect" });
-      }
-    });
-  });
-});*/
-
+app.use('/appointment', appointment);
 
 if(process.env.NODE_ENV === 'production') {
    

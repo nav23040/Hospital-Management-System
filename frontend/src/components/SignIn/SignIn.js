@@ -83,8 +83,7 @@ export default function SignIn(props) {
     }
 
     else{
-      props.onRouteChange('doctorProfile');
-   /* fetch('http://localhost:3000/doctor/login', {
+    fetch('http://localhost:3000/doctor/login', {
       method: 'post',
       
       headers: { 'Content-Type': 'application/json' },
@@ -99,7 +98,7 @@ export default function SignIn(props) {
         if (data.success===true)
         {
           sessionStorage.setItem('jwtToken', data.token);
-          props.onRouteChange('patientprofile');
+          props.onRouteChange('doctorProfile');
           
         }
         else if (data.emailnotfound)
@@ -108,7 +107,7 @@ export default function SignIn(props) {
           alert('Incorrect Password');
         else
           alert('Invalid');
-      })*/
+      })
     }
   }
 
