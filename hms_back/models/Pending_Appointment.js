@@ -11,7 +11,8 @@ const pendingAppointment = new Schema({
     doctorname: String,
     app_date: { type: String },
    // app_date: {type: String, required: true},
-    app_time: {type: String},
+    app_time: { type: String },
+    app_status: {type:String,default:"pending"}
 
 });
 

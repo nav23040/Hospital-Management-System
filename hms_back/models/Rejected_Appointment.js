@@ -10,7 +10,8 @@ const rejectedAppointment = new Schema({
     doctorname: String,
     Doctor_Reg_ID: { type: String },
     app_date: { type: String},
-    app_time: { type: String}
+    app_time: { type: String },
+    app_status: { type: String, default: "rejected" }
     
 });
 

@@ -9,6 +9,7 @@ const users = require('../hms_back/routes/users')
 const admin = require('../hms_back/routes/admin')
 const doctor = require('../hms_back/routes/doctor')
 const appointment = require('../hms_back/routes/appointments')
+const room=require('../hms_back/routes/room')
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const jwt = require("jsonwebtoken");
@@ -64,6 +65,9 @@ app.use('/admin', admin);
 app.use('/doctor', doctor);
 
 app.use('/appointment', appointment);
+
+app.use('/room', room);
+
 
 if(process.env.NODE_ENV === 'production') {
    
