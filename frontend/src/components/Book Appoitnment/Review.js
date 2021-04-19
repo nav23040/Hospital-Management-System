@@ -29,7 +29,7 @@ export default function Review(props) {
       <List disablePadding>
         <ListItem className={classes.listItem} key='Dr'>
             <ListItemText primary={props.doctorname} />
-            <Typography variant="body2">Specialization</Typography>
+            <Typography variant="body2">{props.specialization}</Typography>
           </ListItem>
       </List>
       <Grid container spacing={2}>

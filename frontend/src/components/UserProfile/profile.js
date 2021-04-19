@@ -26,22 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Profile(props) {
-  var token = sessionStorage.getItem('jwtToken');
-  const[name, setName] = useState();
-
-  useEffect(() =>{
-    fetch('http://localhost:3000/me', {
-      method: 'get',
-      headers: { 'Content-Type': 'application/json','jwttoken' : token},
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setName(data.name);
-        props.onProfileChange(data);
-      });
-}, []);
-
+  
   return (
 
     <div className="container">
@@ -54,7 +39,7 @@ export default function Profile(props) {
                 <div className="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
                   <div className="mt-3">
-                    <h4>{name}</h4>
+                    <h4>{props.data.name}</h4>
                     <div className='button1' style={{padding: '20px', marginRight:150}}>
                     <button className="btn btn-primary" style={{height: 40, width: 165}} onClick = {() => props.onRouteChange('patientdetailbypatient')}>User Profile</button>
                     </div>

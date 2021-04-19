@@ -1,70 +1,33 @@
 import React from "react";
 import Button from '@material-ui/core/Button';
 
-import {
-  Badge,
- 
-  Card,
-  Navbar,
-  Nav,
-  Table,
-  Container,
-  Row,
-  Col,
-  Form,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Badge, Card, Navbar, Nav, Table, Container, Row, Col, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 
 function Dashboard(props) {
+  
+  var cases2, cases1;
+  //console.log(props.confirmedcases);
+  //console.log(props.pendingcases);
 
+  if(props.confirmedcases === undefined)
+      cases2 = 0;
+  else 
+      cases2 = props.confirmedcases
+  
+  if(props.pendingcases === undefined)
+      cases1 = 0;
+  else 
+      cases1 = props.pendingcases   
+        
 
   return (
-    <>
-
       <Container fluid>
         <Row>
-          <Col lg="3" sm="6">
-            <Card className="card-stats">
-              <Card.Body>
-                <Row>
-                  <Col xs="5">
-                    <div className="icon-big text-center icon-warning">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
-  <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-</svg>
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category"><h5>Done</h5></p>
-                      <Card.Title as="h4">150</Card.Title>
-                    </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                
-                
-<Button variant="contained">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-</svg>
-Report</Button>
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
           <Col lg="5" sm="6" >
             <Card className="card-stats">
               <Card.Body>
                 <Row>
-                  <Col xs="55">
-                      
+                  <Col xs="55">  
                     <div className="icon-big text-center icon-warning">
                         
                     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
@@ -75,7 +38,7 @@ Report</Button>
                   <Col xs="">
                     <div className="numbers">
                       <p className="card-category">Pending</p>
-                      <Card.Title as="h4">15</Card.Title>
+                      <Card.Title as="h4">{cases1}</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -93,7 +56,7 @@ Report</Button>
             </Card>
           </Col>
         
-          <Col lg="4" sm="6">
+          <Col lg="5" sm="6">
             <Card className="card-stats">
               <Card.Body>
                 <Row>
@@ -105,10 +68,10 @@ Report</Button>
 </svg>
                     </div>
                   </Col>
-                  <Col xs="7">
+                  <Col xs="">
                     <div className="numbers">
                       <p className="card-category"><h15>Confirm</h15></p>
-                      <Card.Title as="h4">69</Card.Title>
+                      <Card.Title as="h4">{cases2}</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -122,8 +85,7 @@ Report</Button>
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-</svg>
-Appointments</Button>
+</svg>Confirmed Appointments</Button>
                 </div>
               </Card.Footer>
             </Card>
@@ -132,7 +94,6 @@ Appointments</Button>
         </Row>
         
       </Container>
-    </>
   );
 }
 

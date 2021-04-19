@@ -53,11 +53,18 @@ export default function SignIn(props) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-
+        //console.log(data);
         if (data.success === true) {
           sessionStorage.setItem('jwtToken', data.token);
-          props.onRouteChange('patientprofile');
+
+            fetch('http://localhost:3000/me', {
+              method: 'get',
+              headers: { 'Content-Type': 'application/json','jwttoken' : data.token},
+            })
+              .then(response => response.json())
+              .then(data => {
+                props.onProfileChange(data, 'patientprofile');
+              });
         }
         else if (data.emailnotfound)
           alert(data.emailnotfound);
@@ -98,7 +105,15 @@ export default function SignIn(props) {
         if (data.success===true)
         {
           sessionStorage.setItem('jwtToken', data.token);
-          props.onRouteChange('doctorProfile');
+
+            fetch('http://localhost:3000/doctor/me', {
+              method: 'get',
+              headers: { 'Content-Type': 'application/json','jwttoken' : data.token},
+            })
+              .then(response => response.json())
+              .then(data => {
+                props.onProfileChange(data, 'doctorProfile');
+              });
           
         }
         else if (data.emailnotfound)

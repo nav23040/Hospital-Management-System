@@ -116,6 +116,17 @@ export default function ButtonAppBar(props) {
                 </div>
                 </div>
               : 
+                props.route === 'doctordetailbydoctor'
+                ?
+                  <div>
+                  <div class="dropdown" >
+                  <button class="dropbtnmain" onClick = {() => props.onRouteChange('doctorProfile')} >Go Back</button>
+                  </div> 
+                  <div class="dropdown" >
+                  <button class="dropbtnmain" style={{marginRight: 50}} onClick = {() => props.onRouteChange('doctorsignin')} >Sign Out</button>
+                  </div>
+                  </div>
+                :
                 <div>
                 <div class="dropdown" >
                 <button class="dropbtnmain" onClick = {() => props.onRouteChange('patientprofile')} >Go Back</button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -68,16 +68,32 @@ const steps = ['Search Doctor', 'Personal Details', 'Review'];
 const initialPatientValues={
   name:'',
   age:'',
-  gender:'male',
+  gender:'Male',
   doctorname: '',
   time: '',
-  date: ''
-
+  date: '',
+  reg_id: '',
+  specialization: ''
 }
 
 export default function Checkout(props) {
   const classes = useStyles();
-  const [patient, setPatientData] = React.useState(initialPatientValues);
+ // console.log(initialPatientValues);
+  const [patient, setPatientData] = useState(initialPatientValues);
+  const [doctorDetails, setDoctorDetails] = useState([]);
+  var token = sessionStorage.getItem('jwtToken');
+
+  useEffect(() =>{
+    fetch('http://localhost:3000/all_doctors', {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json','jwttoken': token },
+    })
+      .then(response => response.json())
+      .then(data => {
+        //console.log(data);
+        setDoctorDetails(data);
+      });
+}, []);
 
   const handleInputChange = e =>{
     const{name,value} = e.target
@@ -99,29 +115,37 @@ export default function Checkout(props) {
     else{
     setPatientData({
       ...patient,
-      doctorname:e.name
+      doctorname:e.name.split('- ')[0],
+      specialization: e.name.split('- ')[1],
+      reg_id: e.reg_id
      }) 
     } 
   }
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     if(activeStep === steps.length - 1){
-      alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
-      props.onAppointChange(patient);
-      props.onRouteChange('patientprofile');
-      
-     /* fetch('http://localhost:3000/bookappointment', {
+     
+     fetch('http://localhost:3000/appointment/book_appointment', {
         method: 'post',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'jwttoken': token},
         body: JSON.stringify({
-            data: patient
+            data: patient,
+            email: props.email
         })
         })
       .then(response => response.json())
       .then(data => {
-        })*/
+          if(data === 'success'){
+            alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
+            props.onRouteChange('patientprofile');
+          }
+          else if(data === 'Appointment Exists')
+            alert(patient.doctorname + 'already has an appointment on the mentioned date and time')
+          else  
+            alert('Error!!! Kindly fix the appointment again!!!')  
+        })
     }
     else
      setActiveStep(activeStep + 1);
@@ -134,18 +158,21 @@ export default function Checkout(props) {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <DoctorForm patient={patient} handleInputChange={handleInputChange} handleDoctorName={handleDoctorName}/>;
+        if(doctorDetails.length === 0)
+         return <p></p>
+        else 
+        return <DoctorForm patient={patient} doctorDetails={doctorDetails} handleInputChange={handleInputChange} handleDoctorName={handleDoctorName}/> ;
       case 1:
         return <PersonalDetailsForm patient={patient} handleInputChange={handleInputChange}/>;
       case 2:
-        return <Review name={patient.name} age={patient.age} gender={patient.gender} doctorname={patient.doctorname} date={patient.date} time={patient.time} />;
+        return <Review name={patient.name} age={patient.age} gender={patient.gender} doctorname={patient.doctorname} date={patient.date} time={patient.time} specialization={patient.specialization}/>;
       default:
         throw new Error('Unknown step');
     }
   }
 
   return (
-    <React.Fragment>
+    <div>
       <CssBaseline />
       
       <main className={classes.layout}>
@@ -160,18 +187,18 @@ export default function Checkout(props) {
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
+          <div>
             {activeStep === steps.length ? (
-              <React.Fragment>
+              <div>
                 <Typography variant="h5" gutterBottom>
                   Thank you .
                 </Typography>
                 <Typography variant="subtitle1">
                   Your Appointment number is #2001539.
                 </Typography>
-              </React.Fragment>
+              </div>
             ) : (
-              <React.Fragment>
+              <div>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
@@ -188,12 +215,12 @@ export default function Checkout(props) {
                     {activeStep === steps.length - 1 ? 'Book Appointment' : 'Next'}
                   </Button>
                 </div>
-              </React.Fragment>
+              </div>
             )}
-          </React.Fragment>
+          </div>
         </Paper>
         <Copyright />
       </main>
-    </React.Fragment>
+    </div>
   );
 }

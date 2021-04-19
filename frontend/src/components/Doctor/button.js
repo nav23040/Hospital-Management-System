@@ -20,10 +20,6 @@ const TablePage = (props) => {
          field: 'Gender',
     },
     {
-        label: 'Mobile Number',
-         field: 'num',
-    },
-    {
         label: 'Email',
          field: 'mail',
     },
@@ -49,70 +45,31 @@ const TablePage = (props) => {
       field: 'View',
     }
   ];
+ 
+  const rows_regular = () => {
 
-  const rows_regular_btn = [
-    {
-      'Name':'Rasanpreet',
-      'Age': '22',
-      'Gender': 'Male',
-      'num' : '8053768745',
-      'mail' : 'nikhil@xyz.com',
-      'Date' : '23-04-2021',
-      'Time' : '12-00 PM',
-      'Action':  <Button variant="contained" color="primary">
-      Confirm
-    </Button>,
-    'Cancel':   <Button variant="contained" color="secondary" >
-    Cancel
-  </Button>,
-  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patientview')}>
-  View
-</Button>
-
-    },
-    {
-      'first': 'Dilpreet',
-      'Age': '23',
-      'Gender': 'Male',
-      'num' : '8053768745',
-      'mail' : 'nikhil@xyz.com',
-      'Date' : '23-04-2021',
-      'Time' : '12-00 PM',
-      'Action': <Button variant="contained" color="primary">
-      Confirm
-    </Button>,
-    'Cancel':   <Button variant="contained" color="secondary">
-    Cancel
-  </Button>,
-  'View':   <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patientview')}>
-  View
-</Button>
-    },
-    {
-
-      'first': 'Ballu',
-      'Age': '34',
-      'Gender': 'Male',
-      'num' : '8053768745',
-      'mail' : 'nikhil@xyz.com',
-      'Date' : '23-04-2021',
-      'Time' : '12-00 PM',
-      'Action':<Button variant="contained" color="primary">
-      Confirm
-    </Button>,
-    'Cancel':   <Button variant="contained" color="secondary">
-    Cancel
-  </Button>,
-  'View':   <Button variant="contained" color="lightsecondary " onClick = {() => props.onRouteChange('patientview')}>
-  View
-</Button>
-    }
-  ];
+   const rows_regular = [];
+     props.pendingApp.map((details, index) => (
+          rows_regular.push({
+            'Name':details.name,
+            'Age': details.age,
+            'Gender': details.gender,
+            'mail' : details.email,
+            'Date' : details.app_date,
+            'Time' : details.app_time,
+            'Action':  <Button variant="contained" color="primary" onClick={ () => props.onStatusChange('confirm', details._id)} >Confirm</Button>,
+            'Cancel':   <Button variant="contained" color="secondary" onClick={() => props.onStatusChange('cancel', details._id)} >Cancel</Button>,
+            'View':   <Button variant="contained" color="lightsecondary" /*onClick = {() => props.onRouteChange('patientview')} */> View </Button>
+          })
+      ))
+     return rows_regular
+  }
+ 
 
   return(
     <MDBTable btn>
       <MDBTableHead columns={columns} />
-      <MDBTableBody rows={rows_regular_btn} />
+      <MDBTableBody rows={rows_regular()} />
     </MDBTable>
   );
 };

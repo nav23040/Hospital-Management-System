@@ -8,9 +8,11 @@ const pendingAppointment = new Schema({
     gender: { type: String },
     email: String,
     Doctor_Reg_ID: { type: String },
-    app_date_time: { type: Date, required: true },
-    app_day: { type: String}
-    
+    doctorname: String,
+    app_date: { type: String },
+   // app_date: {type: String, required: true},
+    app_time: {type: String},
+
 });
 
 module.exports = mongoose.model("PendingAppointments", pendingAppointment);

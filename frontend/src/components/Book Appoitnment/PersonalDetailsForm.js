@@ -41,18 +41,13 @@ export default function PaymentForm(props) {
         
         <Grid item xs={12} md={6}>
         <FormLabel required>Gender</FormLabel>
-                <RadioGroup onClick={props.handleInputChange}  row>
+                <RadioGroup onClick={props.handleInputChange} row>
                     <FormControlLabel value= "Male" name='gender' control = {<Radio/>} label="Male"/>
                     <FormControlLabel value= "Female" name='gender' control = {<Radio/>} label="Female"/>
                     <FormControlLabel value= "Others" name='gender' control = {<Radio/>} label="Others"/>
                 </RadioGroup>
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember details for next time"
-          />
-        </Grid>
+      
       </Grid>
     </>
   );

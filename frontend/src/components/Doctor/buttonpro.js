@@ -19,10 +19,6 @@ const TablePage = (props) => {
          field: 'Gender',
     },
     {
-        label: 'Mobile Number',
-         field: 'num',
-    },
-    {
         label: 'Email',
          field: 'mail',
     },
@@ -35,63 +31,40 @@ const TablePage = (props) => {
          field: 'Time',
     },
     {
-      label: 'Status',
-      field: 'Status',
-    },
-    {
       label: 'Add Prescription',
       field: 'Add ',
     },
-  ];
-
-  const rows_regular_btn = [
     {
-      'Name':'Rasanpreet',
-      'Age': '22',
-      'Gender': 'Male',
-      'num' : '8053768745',
-      'mail' : 'nikhil@xyz.com',
-      'Date' : '23-04-2021',
-      'Time' : '12-00 PM',
-      'Status':  'Confirmed',
-      'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
-       Add
-       </Button>,
-
-    },
-    {
-      'first': 'Dilpreet',
-      'Age': '23',
-      'Gender': 'Male',
-      'num' : '8053768745',
-      'mail' : 'nikhil@xyz.com',
-      'Date' : '23-04-2021',
-      'Time' : '12-00 PM',
-      'Status': 'Confirmed',
-     'Add ': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
-       Add
-      </Button>,
-    },
-    {
-
-      'first': 'Ballu',
-      'Age': '34',
-      'Gender': 'Male',
-      'num' : '8053768745',
-      'mail' : 'nikhil@xyz.com',
-      'Date' : '23-04-2021',
-      'Time' : '12-00 PM',
-      'Status':'Confirmed',
-      'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange22('diagnosis')}>
-       Add
-       </Button>,
+      label: 'View Profile',
+      field: 'View',
     }
   ];
+
+  const rows_regular = () => {
+    const rows_regular = [];
+
+    if(props.confirmApp !== undefined){
+      props.confirmApp.map((details, index) => (
+            rows_regular.push({
+              'Name':details.name,
+              'Age': details.age,
+              'Gender': details.gender,
+              'mail' : details.email,
+              'Date' : details.app_date,
+              'Time' : details.app_time,
+              'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange22('diagnosis')}>Add </Button>,
+              'View':   <Button variant="contained" color="lightsecondary" /*onClick = {() => props.onRouteChange('patientview')} */> View </Button>
+            })
+      ))
+      }
+     return rows_regular
+  }
+
 
   return(
     <MDBTable btn >
       <MDBTableHead columns={columns} />
-      <MDBTableBody rows={rows_regular_btn} />
+      <MDBTableBody rows={rows_regular()} />
     </MDBTable>
   );
 };

@@ -29,8 +29,8 @@ const values = {
     name: '',
     age: '',
     gender: '',
-    days: '',
-    date: ''
+    startDate: '',
+    endDate: '',
 
 }
 
@@ -72,13 +72,25 @@ function Room() {
           <TextField id="outlined-basic" label="Name" variant="outlined" name="name" type='text' value={details.name} onChange={handleInputChange} />
           <TextField id="outlined-basic" label="Age" variant="outlined" name="age" type='text' value={details.age} onChange={handleInputChange} />
           <TextField id="outlined-basic" label="Gender" variant="outlined" name="gender" type='text' value={details.gender} onChange={handleInputChange} />
-          <TextField id="outlined-basic" label="Number of day" variant="outlined" name="days" type='number' value={details.days} onChange={handleInputChange} />
-            <TextField
+          <TextField
               id="date"
-              label="Booking Date"
+              label="Start Date"
               type="date"
-              name="date"
-              value={details.date}
+              name="startDate"
+              value={details.startDate}
+              onChange={handleInputChange}
+              defaultValue="xxxx-xx-xx"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+           <TextField
+              id="date"
+              label="End Date"
+              type="date"
+              name="endDate"
+              value={details.endDate}
               onChange={handleInputChange}
               defaultValue="xxxx-xx-xx"
               className={classes.textField}

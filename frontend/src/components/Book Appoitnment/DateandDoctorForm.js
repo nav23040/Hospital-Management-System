@@ -25,16 +25,25 @@ const useStyles = makeStyles((theme) => ({
 
   }));
 
-  const list = [
-    { name: 'Dr Rasanpreet Singh' },
-    { name: 'Dr Nikhil' },
-    { name: 'Dr Abhishek' },
-    { name: 'Dr Dilpreet Singh' },
-    { name: 'Dr Naveen' }
-  ];
+
+  function addDoctorData(data){
+    const l = [];
+    //console.log(data);
+    for(var i=0; i<data.length; i++){
+        l.push({
+          name: 'Dr.' + data[i].name + ' - ' + data[i].specialization,
+          reg_id: data[i].registrationid
+        })
+    }
+
+    return l;
+  }
 
 export default function AddressForm(props) {
     const classes = useStyles();
+    const list = React.useState(addDoctorData(props.doctorDetails));
+
+    //console.log(list);
 
   return (
      
@@ -86,7 +95,7 @@ export default function AddressForm(props) {
      <Grid item xs ={6} style={{paddingTop: '20px'}}>   
       <Autocomplete
           id="Search Doctor"
-          options={list}
+          options={list[0]}
           getOptionLabel={(option) => option.name}
           style={{ width: 300 }}
           onChange={(event, value) => props.handleDoctorName(value)}

@@ -30,8 +30,9 @@ function App() {
 		setRoute(route);
   }
 
-  function onProfileChange(data) {
+  function onProfileChange(data, route) {
       setData(data);
+      setRoute(route);
   }
 
   function onAppointChange(data){
@@ -42,7 +43,7 @@ function App() {
      return(
       <div className={classes.appMain}>
          <Header onRouteChange={onRouteChange} route ={route}/>
-         <SignIn onRouteChange={onRouteChange} route={route} />
+         <SignIn onRouteChange={onRouteChange} route={route} onProfileChange={onProfileChange} />
         </div> 
      );
   }
@@ -67,7 +68,7 @@ function App() {
    return(
     <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Profile onRouteChange={onRouteChange} onProfileChange={onProfileChange} data={userdata} appoint={appoint}/>
+       <Profile onRouteChange={onRouteChange} data={userdata} appoint={appoint}/>
       </div> 
     );
    }
@@ -77,7 +78,7 @@ function App() {
       return(
          <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Start onRouteChange={onRouteChange} onAppointChange={onAppointChange}/>
+       <Start onRouteChange={onRouteChange} onAppointChange={onAppointChange} email={userdata.email}/>
       </div> 
       );
    }
@@ -100,12 +101,12 @@ function App() {
       );
    }
 
-   else if(route==='patientdetailbypatient')
+   else if(route==='patientdetailbypatient' || route === 'doctordetailbydoctor')
    {
       return(
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
-            <PatientDetails onRouteChange={onRouteChange} userdata={userdata}/>
+            <PatientDetails onRouteChange={onRouteChange} userdata={userdata} route={route}/>
          </div> 
       )
    }
@@ -115,7 +116,7 @@ function App() {
       return(
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
-            <Dr onRouteChange={onRouteChange}/>
+            <Dr onRouteChange={onRouteChange} data={userdata}/>
          </div> 
       )
    }
@@ -133,7 +134,6 @@ function App() {
       return(
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
-            
          </div> 
       )
    }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const confirmedAppointment = new Schema({
+const rejectedAppointment = new Schema({
     name: String,
     age: Number,
     specialization: String,
@@ -14,4 +14,4 @@ const confirmedAppointment = new Schema({
     
 });
 
-module.exports = mongoose.model("ConfirmedAppointments", confirmedAppointment);
+module.exports = mongoose.model("RejectedAppointments", rejectedAppointment);

@@ -54,6 +54,8 @@ export default function Profile(props) {
             </div>
             
           </div>
+      {  props.route === 'patientdetailbypatient'
+          ?
           <div className="col-md-8">
             <div className="card mb-3">
               <div className="card-body">
@@ -131,8 +133,98 @@ export default function Profile(props) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          :
+        <div className="col-md-8">
+            <div className="card mb-3">
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Name</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                    {props.userdata.name}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Email</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.email}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">DOB</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.dob}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Gender</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.gender}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Mobile Number</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.mobile_number}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Registration ID</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.registrationid}
+                  </div>
+                </div>
+                <hr/>
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Specialization</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.specialization}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Address</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.address}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">State</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  {props.userdata.state}
+                  </div>
+                </div>
+          
+              </div>
+            </div>
+          </div>
+           }
+     </div>
+         
+          </div>
     </div>
   );
  
