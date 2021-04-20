@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+import { CenterFocusStrong } from '@material-ui/icons';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,9 +22,9 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, Age, Gender, dr, date, days, symptons, diagnosis, med) {
+function createData(name, Age, Gender, dr, date) {
    
-    return {name, Age, Gender, dr, date, days, symptons, diagnosis, med};
+    return {name, Age, Gender, dr, date};
   }
 
 
@@ -67,15 +63,12 @@ export default function CustomizedTables(props) {
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right" style={{width: 50}}>Age </StyledTableCell>
-            <StyledTableCell align="right" >Gender</StyledTableCell>
-            <StyledTableCell align="right" >Doctor</StyledTableCell>
-            <StyledTableCell align="right" >Appointment Date</StyledTableCell>
-            <StyledTableCell align="right" >Addmitted Day's</StyledTableCell>
-            <StyledTableCell align="right" >Symptoms</StyledTableCell>
-            <StyledTableCell align="right">Diagnosis</StyledTableCell>
-            <StyledTableCell align="right">Medicine</StyledTableCell>
+            <StyledTableCell style={{width: 50}}>Name </StyledTableCell>
+            <StyledTableCell align="center" style={{width: 50}}>Age </StyledTableCell>
+            <StyledTableCell align="center" style={{width: 50}}>Gender</StyledTableCell>
+            <StyledTableCell align="center" style={{width: 50}}>Doctor</StyledTableCell>
+            <StyledTableCell align="center" style={{width: 50}}>Appointment Date</StyledTableCell>
+            <StyledTableCell align="center" style={{width: 50}} >View Report</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -84,14 +77,11 @@ export default function CustomizedTables(props) {
             <StyledTableCell component="th" scope="row">
               {row.name}
             </StyledTableCell>
-            <StyledTableCell align="right">{row.Age}</StyledTableCell>
-            <StyledTableCell align="right">{row.Gender}</StyledTableCell>
-            <StyledTableCell align="right">{row.dr}</StyledTableCell>
-            <StyledTableCell align="right">{row.date}</StyledTableCell>
-            <StyledTableCell align="right">{row.days}</StyledTableCell>
-            <StyledTableCell align="right">{row.symptons}</StyledTableCell>
-            <StyledTableCell align="right">{row.diagnosis}</StyledTableCell>
-            <StyledTableCell align="right">{row.med}</StyledTableCell>
+            <StyledTableCell align="center">{row.Age}</StyledTableCell>
+            <StyledTableCell align="center">{row.Gender}</StyledTableCell>
+            <StyledTableCell align="center">{row.dr}</StyledTableCell>
+            <StyledTableCell align="center">{row.date}</StyledTableCell>
+            <Button variant="contained" color="lightsecondary"  style={{marginLeft: '35%', marginTop:'8px' }}/*onClick = {() => props.onRouteChange('patientview')} */> View </Button>
           </StyledTableRow>
           ))}
         </TableBody>

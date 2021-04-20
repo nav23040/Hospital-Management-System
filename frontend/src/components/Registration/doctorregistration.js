@@ -229,6 +229,8 @@ export default function Docreg(props) {
                             label="Address "
                             name="address"
                             type='text'
+                            multiline={true}
+                            rows={2}
                             value={values.address}
                             onChange={handleInputChange}
                         />

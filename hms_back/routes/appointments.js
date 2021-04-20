@@ -68,7 +68,7 @@ app.post('/confirm_appointment', verifyToken, async (req, res) => {
             gender: appointment.gender,
             email: appointment.email,
             Doctor_Reg_ID: appointment.Doctor_Reg_ID,
-            doctorname: req.body.doctorname,
+            doctorname: appointment.doctorname,
             app_date: appointment.app_date,
             app_time: appointment.app_time
         })
@@ -92,7 +92,7 @@ app.post('/rejected_appointment', verifyToken, async (req, res) => {
             gender: appointment.gender,
             email: appointment.email,
             Doctor_Reg_ID: appointment.Doctor_Reg_ID,
-            doctorname: req.body.doctorname,
+            doctorname: appointment.doctorname,
             app_date: appointment.app_date,
             app_time: appointment.app_time
         })
@@ -137,8 +137,6 @@ app.get('/user_appointments', verifyToken, async (req, res) => {
 
              appointments = appointments.concat(appointment);
              return res.json(appointments);
-
-
 
          });
 

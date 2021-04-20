@@ -57,7 +57,7 @@ export default function SignIn(props) {
         if (data.success === true) {
           sessionStorage.setItem('jwtToken', data.token);
 
-            fetch('http://localhost:3000/me', {
+          fetch('http://localhost:3000/me', {
               method: 'get',
               headers: { 'Content-Type': 'application/json','jwttoken' : data.token},
             })

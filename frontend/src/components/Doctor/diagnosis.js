@@ -4,16 +4,8 @@ import { makeStyles, Paper } from "@material-ui/core";
 import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Button } from "@material-ui/core";
 import UploadButtons from '../Registration/submitbutton';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Details } from "@material-ui/icons";
 
-const list = [
-    { title: 'Dilpreet Singh' },
-    { title: 'Nikhil Mahla' },
-    { title: 'Rasanpreet Singh' },
-    { title: 'Abhishek Balu' },
-    { title: 'Naveen Yadav' },
-    
-
-];
 const listdisease = [
     { title: 'Fever' },
     { title: 'Cough' },
@@ -49,18 +41,18 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const initiealPatientValues = {
-    patientid: '',
-    password: '',
-    prescription: '',
-    gender: 'male',
-    symptoms:'',
-    patientname: '',
-}
 
 export default function Docreg(props) {
     
-    const [values, setvalues] = useState(initiealPatientValues);
+    const [values, setvalues] = useState({
+        name: props.details.name,
+        age: props.details.age,
+        gender: props.details.gender,
+        disease: '',
+        symptoms:'',
+        prescription: '',
+    });
+
     const classes = useStyles();
     const handleInputChange = e => {
         const{ name,value} = e.target
@@ -73,8 +65,8 @@ export default function Docreg(props) {
     
 
     function onSubmit() {
-        props.onRouteChange22('bookappointment');
-        //console.log(values);
+       // props.onRouteChange22('bookappointment');
+        console.log(values);
 
        /* fetch('http://localhost:3000/doctor/diagnosis', {
             method: 'post',
@@ -115,45 +107,42 @@ export default function Docreg(props) {
             <form className={classes.root}>
                 <Grid container>
                     <Grid item xs={6}>
-                    <Autocomplete
-                            id="patientname"
-                            options={list}
-                            getOptionLabel={(option) => option.title}
-                            style={{ width: 700 }}
-                            onChange={(event, value) => setvalues({ ...values, patientname: value.title })}
-                            renderInput={(params) => <TextField {...params} label="  Patient Name  " variant="outlined" />}
-                        />
-
-                        <TextField required
+                       <TextField required
                             variant="outlined"
-                            label="Patient ID"
-                            name="patientid"
-                            
+                            label="Patient Name "
+                            name="name"
                             type='text'
-                            value={values.patientid}
+                            value={values.name}
                             onChange={handleInputChange}
                         />
 
                         <TextField required
                             variant="outlined"
-                            label="Date of Birth"
-                            name='dob'
-                            type="date"
-                            value={values.dob}
+                            label="Age(in Years)"
+                            name='age'
+                            type="number"
+                            value={values.age}
                             onChange={handleInputChange}
-                            className={classes.textField}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
+                        />
+                      
+                      <TextField required
+                            variant="outlined"
+                            label="Medical prescription "
+                            name="prescription"
+                            type='text'
+                            multiline={true}
+                            rows={3}
+                            value={values.prescription}
+                            onChange={handleInputChange}
                         />
 
                     </Grid>
                     <Grid item xs={6}>
                         <FormLabel required>Gender</FormLabel>
-                        <RadioGroup row>
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
-                            <FormControlLabel value="others" control={<Radio />} label="Others" />
+                        <RadioGroup row value={values.gender} onChange={handleInputChange} >
+                            <FormControlLabel value="male" name='gender' control={<Radio />} label="Male" />
+                            <FormControlLabel value="female" name='gender' control={<Radio />} label="Female" />
+                            <FormControlLabel value="others" name='gender' control={<Radio />} label="Others" />
                         </RadioGroup>
 
                         <TextField required
@@ -161,6 +150,8 @@ export default function Docreg(props) {
                             label="Symptoms "
                             name="symptoms"
                             type='text'
+                            multiline={true}
+                            rows={2}
                             value={values.symptoms}
                             onChange={handleInputChange}
                         />
@@ -174,25 +165,6 @@ export default function Docreg(props) {
                             renderInput={(params) => <TextField {...params} label=" Disease" variant="outlined" />}
                         />
                     </Grid>
-                </Grid>
-
-                <Grid container>
-                
-                    <Grid item xs={6}>
-                        <TextField required
-                            variant="outlined"
-                            label="Medical prescription "
-                            name="prescription"
-                            type='text'
-                            value={values.prescription}
-                            onChange={handleInputChange}
-                        />
-                        
-                        
-                      
-
-                    </Grid>
-
                 </Grid>
                 <Grid style={{display:'flex',justifyContent:"center", padding: "10px",}}>
                 <Button  onClick = {() => props.onRouteChange22('bookappointment')}   >

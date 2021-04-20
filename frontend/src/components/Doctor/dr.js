@@ -10,6 +10,7 @@ function App (props) {
   const[route,setRoute]=useState('pendings');
   const[pendingApp, setPending] = useState([]);
   const[confirmApp, setConfirm] = useState([]);
+  const[patientSelected, setPatientSelected] = useState([]);
 
   var token = sessionStorage.getItem('jwtToken');
 
@@ -38,13 +39,15 @@ function App (props) {
      setValues(); 
   }, []);
 
-  function onRouteChange22(route) {
+  function onRouteChange22(route, details) {
+
+    if(route === 'diagnosis')
+      setPatientSelected(details);
+
 		setRoute(route);
   }
 
   function onStatusChange(type, data){
-    //console.log(type);
-    //console.log(data);
 
     if(type === 'confirm'){
 
@@ -160,7 +163,7 @@ function App (props) {
 
   else if(route === 'diagnosis'){
     return(
-        <Diagnosis  onRouteChange22={onRouteChange22}/>
+        <Diagnosis  onRouteChange22={onRouteChange22} details={patientSelected}/>
     );
   }
    

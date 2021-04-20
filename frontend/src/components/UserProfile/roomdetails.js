@@ -3,7 +3,8 @@ import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
 import {Button, Typography} from '@material-ui/core';
 
 const TablePage = (props) => {
-  
+  console.log(props.roomdetails)
+
   const columns= [
     
     {
@@ -19,16 +20,16 @@ const TablePage = (props) => {
          field: 'Gender',
     },
     {
-        label: 'Doctor Name',
-         field: 'doc',
+        label: 'Room Number',
+         field: 'num',
     },
     {
-        label: 'Appointment Date',
-         field: 'Date',
+        label: 'Start Date',
+         field: 'startDate',
     },
     {
-        label: 'Appointment TIme',
-         field: 'Time',
+      label: 'End Date',
+       field: 'endDate',
     },
     {
       label: 'Status',
@@ -40,38 +41,38 @@ const TablePage = (props) => {
 
   const rows_regular_btn = [];
 
-    props.appoint.map((details, index) => (
-      details.app_status === 'confirmed'
+    props.roomdetails.map((details, index) => (
+      details.room_status === 'booked'
         ?
           rows_regular_btn.push({
             'Name': details.name,
             'Age': details.age,
             'Gender': details.gender,
-            'doc': details.doctorname,
-            'Date' : details.app_date,
-            'Time' : details.app_time,
-            'Action':   <Button color="primary" ><b>{details.app_status}</b></Button>
+            'num': details.room_no,
+            'startDate' : details.booking_date.substring(0,10),
+            'endDate' : details.release_date.substring(0,10),
+            'Action':   <Button color="primary" ><b>{details.room_status}</b></Button>
           })
-        : details.app_status === 'rejected'
+        : details.room_status === 'rejected'
            ?
            rows_regular_btn.push({
             'Name': details.name,
             'Age': details.age,
             'Gender': details.gender,
-            'doc': details.doctorname,
-            'Date' : details.app_date,
-            'Time' : details.app_time,
-            'Action':   <Button color="secondary" ><b>{details.app_status}</b></Button>
+            'num': details.room_no,
+            'startDate' : details.booking_date.substring(0,10),
+            'endDate' : details.release_date.substring(0,10),
+            'Action':   <Button color="secondary" ><b>{details.room_status}</b></Button>
             })
             : 
             rows_regular_btn.push({
               'Name': details.name,
               'Age': details.age,
               'Gender': details.gender,
-              'doc': details.doctorname,
-              'Date' : details.app_date,
-              'Time' : details.app_time,
-              'Action':   <Button color="lightsecondary" ><b>{details.app_status}</b></Button>
+              'num': details.room_no,
+              'startDate' : details.booking_date.substring(0,10),
+              'endDate' : details.release_date.substring(0,10),
+              'Action':   <Button color="lightsecondary" ><b>{details.room_status}</b></Button>
               })
           
     ))
@@ -80,7 +81,7 @@ const TablePage = (props) => {
 
   return(
     <div>
-    <Typography component="h1" variant="h4" align="left" style={{marginLeft:'10%', padding: '10px'}}>Appointment Details </Typography>
+    <Typography component="h1" variant="h4" align="left" style={{marginLeft:'10%', padding: '10px'}}>Room Details</Typography>
     <MDBTable btn >
       <MDBTableHead columns={columns} />
       <MDBTableBody rows={rows_regular()} />

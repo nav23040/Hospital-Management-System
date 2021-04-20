@@ -139,7 +139,7 @@ export default function Checkout(props) {
       .then(data => {
           if(data === 'success'){
             alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
-            props.onRouteChange('patientprofile');
+               props.onRouteChange('patientprofile');
           }
           else if(data === 'Appointment Exists')
             alert(patient.doctorname + 'already has an appointment on the mentioned date and time')

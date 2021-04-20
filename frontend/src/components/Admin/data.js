@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 
 const TablePage = (props) => {
   
+  console.log(props.pendingReq);
+  
   const columns= [
     
     {
@@ -19,67 +21,55 @@ const TablePage = (props) => {
          field: 'Gender',
     },
     {
-        label: 'Room Number Requested',
+        label: 'Room Number',
          field: 'num',
     },
     {
-        label: 'No. of days for Room Booked',
-         field: 'number',
-    },
-  
-    {
-      label: 'Status',
-      field: 'Status',
-    },
-  
-  ];
-
-  const rows_regular_btn = [
-    {
-      'Name':'Rasanpreet',
-      'Age': '22',
-      'Gender': 'Male',
-      'num' : '106',
-      'number' : '1',
-      
-      'Status':  <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
-       confirm
-       </Button>,
-      
-
+        label: 'Start Date',
+         field: 'startDate',
     },
     {
-      'first': 'Dilpreet',
-      'Age': '23',
-      'Gender': 'Male',
-      'num' : '106',
-      'number' : '5',
-      
-      'Status': <Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
-       confirm
-       </Button>,
-  
+      label: 'End Date',
+       field: 'endDate',
     },
     {
-
-      'first': 'Ballu',
-      'Age': '34',
-      'Gender': 'Male',
-      'num' : '106',
-      'number' : '7',
-      
-      'Status':<Button variant="contained" color="lightprimary"onClick = {() => props.onRouteChange22('diagnosis')}>
-       confirm
-       </Button>,
-      
+      label: 'Confirm',
+      field: 'Action',
+    },
+    {
+      label: 'Cancel',
+      field: 'Cancel',
     }
+  
   ];
+
+  const rows_regular = () => { 
+    const rows_regular_btn = [];
+    
+    props.pendingReq.map((details, index) => (
+       rows_regular_btn.push({
+          'Name':details.name,
+          'Age': details.age,
+          'Gender': details.gender,
+          'num' : details.room_no,
+          'startDate' : details.booking_date.substring(0,10),
+          'endDate' : details.release_date.substring(0,10),
+          'Action':  <Button variant="contained" color="primary" onClick={ () => props.onStatusChange('confirm', details._id)} >
+            confirm
+          </Button>,
+          'Cancel':  <Button variant="contained" color="secondary" onClick={() => props.onStatusChange('cancel', details._id)}>
+          cancel
+        </Button>,
+       })
+    ))
+  return rows_regular_btn
+}
 
   return(
     <div className= "Status" >
       <MDBTable btn >
       <MDBTableHead columns={columns} />
-      <MDBTableBody rows={rows_regular_btn} />
+      <MDBTableBody rows={rows_regular()} />
     </MDBTable>
     </div>
     

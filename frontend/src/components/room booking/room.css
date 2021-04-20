@@ -20,7 +20,6 @@ body {
 
 .room-container {
   margin: 20px 0px;
-  
 }
 
 .room-container select {
@@ -40,8 +39,6 @@ body {
   height: 75px;
   width: 75px;
   margin: 7px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
 .row {

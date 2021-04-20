@@ -8,12 +8,13 @@ import Profile from "./components/UserProfile/profile";
 import Start from "./components/Book Appoitnment/Checkout";
 import BookRoom from "./components/room booking/room";
 import Admin from "./components/Admin/admin"
-import Data from "./components/Admin/data"
 import Docreg from "./components/Registration/doctorregistration";
-import Diagnosis from "./components/Doctor/diagnosis";
 import Dr from "./components/Doctor/dr"
 import PatientHistory from "./components/history2"
 import PatientDetails from"./components/UserProfile/userprofile"
+import Appointment from "./components/UserProfile/appointment"
+import RoomDetails from "./components/UserProfile/roomdetails"
+
 const useStyles = makeStyles({
   appMain : {
     width:'100%'
@@ -23,11 +24,18 @@ const useStyles = makeStyles({
 function App() {
    const[userdata, setData] = useState([]);
    const[appoint, setAppoint] = useState([]);
+   const[roomdetails, setRoom] = useState([]);
    const [route, setRoute] = useState('signin');
    const classes = useStyles();
 
-  function onRouteChange(route) {
+  function onRouteChange(route, data) {
 		setRoute(route);
+
+      if(route === 'appointmentdetails')
+         setAppoint(data);
+      
+      if(route === 'roomdetails')
+         setRoom(data);   
   }
 
   function onProfileChange(data, route) {
@@ -35,9 +43,6 @@ function App() {
       setRoute(route);
   }
 
-  function onAppointChange(data){
-      setAppoint(data);
-  }
 
   if(route === 'signin' || route === 'adminlogin' || route === 'doctorsignin') {
      return(
@@ -68,7 +73,7 @@ function App() {
    return(
     <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Profile onRouteChange={onRouteChange} data={userdata} appoint={appoint}/>
+       <Profile onRouteChange={onRouteChange} data={userdata} email={userdata.email} />
       </div> 
     );
    }
@@ -78,7 +83,7 @@ function App() {
       return(
          <div className={classes.appMain}>
        <Header onRouteChange={onRouteChange} route ={route}/>
-       <Start onRouteChange={onRouteChange} onAppointChange={onAppointChange} email={userdata.email}/>
+       <Start onRouteChange={onRouteChange} email={userdata.email}/>
       </div> 
       );
    }
@@ -87,7 +92,7 @@ function App() {
       return(
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
-            <BookRoom onRouteChange={onRouteChange}/>
+            <BookRoom onRouteChange={onRouteChange} email={userdata.email}/>
       </div> 
       );
    }
@@ -96,7 +101,6 @@ function App() {
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
             <Admin  onRouteChange={onRouteChange}/>
-            <Data/>
       </div> 
       );
    }
@@ -137,13 +141,30 @@ function App() {
          </div> 
       )
    }
+
+   else if(route === 'appointmentdetails')
+   {  
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <Appointment appoint={appoint} />
+         </div> 
+      )
+
+   }
+
+   else if(route === 'roomdetails')
+   {  
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <RoomDetails roomdetails={roomdetails} />
+         </div> 
+      )
+
+   }
    
   
- 
-   
-  
-   
- 
 
 }
 

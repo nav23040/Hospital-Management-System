@@ -129,7 +129,7 @@ export default function Patient(props){
             </Grid>
             <Grid item xs ={6}>
                 <FormLabel required >Gender</FormLabel>
-                <RadioGroup row  onChange={handleInputChange}>
+                <RadioGroup row onChange={handleInputChange}>
                     <FormControlLabel value= "male" name='gender' control = {<Radio/>} label="Male"/>
                     <FormControlLabel value= "female" name='gender' control = {<Radio/>} label="Female"/>
                     <FormControlLabel value= "others" name='gender' control = {<Radio/>} label="Others"/>
@@ -195,6 +195,8 @@ export default function Patient(props){
                  label="Address"
                  name="address"
                  type = 'text'
+                 multiline={true}
+                 rows={2}
                  value={values.addrress}
                  onChange={handleInputChange}
                  /> 

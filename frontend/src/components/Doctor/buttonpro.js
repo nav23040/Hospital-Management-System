@@ -52,7 +52,7 @@ const TablePage = (props) => {
               'mail' : details.email,
               'Date' : details.app_date,
               'Time' : details.app_time,
-              'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange22('diagnosis')}>Add </Button>,
+              'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange22('diagnosis', details)}>Add </Button>,
               'View':   <Button variant="contained" color="lightsecondary" /*onClick = {() => props.onRouteChange('patientview')} */> View </Button>
             })
       ))

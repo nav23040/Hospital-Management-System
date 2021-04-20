@@ -1,11 +1,11 @@
-
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Data from "./data"
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
@@ -35,10 +35,96 @@ const useStyles = makeStyles({
 export default function SimpleCard(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const [name, setName] = React.useState('');
+  const [roomno, setRoom] = useState('');
+  const [pendingReq, setPendingReq] = useState([]);
+  
+  var token = sessionStorage.getItem('jwtToken');
+  
+  function setValues(){
+    fetch('http://localhost:3000/room/pending_rooms', {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json','jwttoken': token },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setPendingReq(data);
+      });
+  }
+
+  useEffect(() =>{
+    setValues();
+   }, []);
+
   const handleChange = (event) => {
-    setName(event.target.value);
+    setRoom(event.target.value);
   };
+
+ function onSubmit(){
+      fetch('http://localhost:3000/room/add_room', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          room_no: roomno
+        })
+      })
+        .then(response => response.json())
+        .then( data => {
+            if(data === 'Room exists')
+               alert('Room-' + roomno + ' already exists');
+            else if(data === 'success')
+               alert('Room-' + roomno + ' successfully added in the database')
+            else
+               alert('Error in adding room in the database');      
+        })
+  }
+
+  function onStatusChange(type, data){
+
+    if(type === 'confirm'){
+
+      if(window.confirm("Click 'OK' to confirm this booking, else click 'Cancel' ")){
+
+        fetch('http://localhost:3000/room/confirm_room', {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json','jwttoken' : token},
+          body: JSON.stringify({
+            roomid : data
+          })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data === 'success'){
+              alert('Room has been booked !!!')
+              setValues();
+            }
+            else 
+              alert('Error in confirming room')  
+          });
+       }
+     }
+
+    else{
+      if(window.confirm("Click 'OK' to cancel this booking, else click 'Cancel' ")){
+
+        fetch('http://localhost:3000/room/reject_room', {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json','jwttoken' : token},
+          body: JSON.stringify({
+            roomid : data
+          })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data === 'success'){
+              alert('Booking Room has been cancelled !!!')
+              setValues();
+            }
+            else 
+              alert('Error in cancelling booking of room')  
+          });
+       }
+    }
+  }
 
 
   return (
@@ -53,8 +139,6 @@ export default function SimpleCard(props) {
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
                   <div className="mt-3">
                     <h4>ADMIN</h4>
-                    {/* <p className="text-secondary mb-1"></p> */}
-                    
                   </div>
                 </div>
               </div>
@@ -87,7 +171,7 @@ export default function SimpleCard(props) {
           Book Room Requests
         </Typography>
         <Typography variant="h5" component="h2">
-       4
+         {pendingReq.length}
         </Typography>
       </CardContent>
       <CardActions>
@@ -107,23 +191,25 @@ export default function SimpleCard(props) {
         <TextField
          id="outlined-name"
          label="Enter Room Number"
-         value={name}
-           onChange={handleChange}
+         type='number'
+         value={roomno}
+         onChange={handleChange}
          />
         </Typography>
       </CardContent>
       <CardActions>
      
-        <Button size="small" >Submit</Button>
+        <Button size="small" onClick={onSubmit}>Submit</Button>
       </CardActions>
     </Card>
     </div>
         </Grid>
-        
       </Grid>
+     <div style={{padding: '20px'}}> 
+      <Data pendingReq={pendingReq} onStatusChange={onStatusChange}/>
+      </div>
     </div>,
       
-   
     </>
   );
 }
