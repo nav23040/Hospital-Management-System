@@ -21,6 +21,10 @@ const TablePage = (props) => {
          field: 'Gender',
     },
     {
+       label: 'Email',
+       field: 'email',
+     },
+    {
         label: 'Room Number',
          field: 'num',
     },
@@ -51,6 +55,7 @@ const TablePage = (props) => {
           'Name':details.name,
           'Age': details.age,
           'Gender': details.gender,
+          'email': details.email,
           'num' : details.room_no,
           'startDate' : details.booking_date.substring(0,10),
           'endDate' : details.release_date.substring(0,10),
