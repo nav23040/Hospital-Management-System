@@ -67,7 +67,6 @@ function Room(props) {
 
   function onSubmit(){
     
-    console.log(props.email);
     if(details.name === '' || details.age === '' || details.gender === '')
       alert('Kindly Fill all the details');
     
@@ -115,7 +114,7 @@ function Room(props) {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            //console.log(data);
             if(data === 'No room found')
               alert('All rooms are booked for these dates!!!!')
             else if(data === 'There was a problem finding the room')
