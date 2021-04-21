@@ -113,12 +113,8 @@ app.get('/all_rooms',verifyToken, async (req, res) => {
     })
 })
 
-<<<<<<< HEAD
-app.post('/get_rooms', verifyToken, async (req, res) => {
-=======
 /*
 app.post('/get_rooms', verifyToken,async (req, res) => {
->>>>>>> 58693c4ea8b44c15ffce43be2b80043df4252c58
     //console.log(req.body.booking_date);
     var rooms = []
     await Room.find({ release_date: { $gte: Date.parse(req.body.booking_date),$lte: Date.parse(req.body.release_date) }, room_status: { $nin: ["added","rejected"] } }, function (err, room) {
