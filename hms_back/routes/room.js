@@ -113,12 +113,18 @@ app.get('/all_rooms',verifyToken, async (req, res) => {
     })
 })
 
-app.post('/get_rooms', verifyToken,async (req, res) => {
+app.post('/get_rooms', verifyToken, async (req, res) => {
     //console.log(req.body.booking_date);
-
-    Room.find({ $or:[ { booking_date: { $lte: Date.parse(req.body.booking_date) } }, { release_date: { $gte: Date.parse(req.body.release_date) }}] ,room_status:{$ne: "added"}}, function (err, rooms) {
+    var rooms = []
+    await Room.find({ release_date: { $gte: Date.parse(req.body.booking_date),$lte: Date.parse(req.body.release_date) }, room_status: { $nin: ["added","rejected"] } }, function (err, room) {
         if (err) return res.status(500).send("There was a problem finding the room");
-        if (!rooms) return res.status(404).send("No room found.");
+        rooms = rooms.concat(room)
+    })
+        
+    
+    await Room.find({ booking_date: { $lte: Date.parse(req.body.release_date) }, release_date: { $gt: Date.parse(req.body.release_date) }, room_status: { $nin: ["added","rejected"] } }, function (err, room) {
+        if (err) return res.status(500).send("There was a problem finding the room");
+        rooms=rooms.concat(room)
         res.json(rooms);
     })
 })
