@@ -1,6 +1,6 @@
-import  React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import './room.css';
-import { Button, Typography, TextField} from '@material-ui/core';
+import { Button, Typography, TextField, Select,MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -9,10 +9,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     marginBottom: '0%',
-    marginTop : '1%',
+    marginTop: '1%',
     color: 'white',
-    alignItems:'center',
-    marginLeft:'25%',
+    alignItems: 'center',
+    marginLeft: '25%',
     height: '100%',
   },
   textField: {
@@ -21,16 +21,16 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
     textDecorationColor: 'white',
   },
- 
+
 
 }));
 
 const values = {
-    name: '',
-    age: '',
-    gender: '',
-    startDate: '',
-    endDate: '',
+  name: '',
+  age: '',
+  gender: 'Select Gender',
+  startDate: '',
+  endDate: '',
 
 }
 
@@ -38,112 +38,112 @@ const values = {
 function Room(props) {
   const [details, setDetails] = useState(values);
   const classes = useStyles();
-  const[flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [room_booked, setRoomBooked] = useState([]);
-  const [room_selected, setRoomSelected] = useState({room: '', id: ''});
+  const [room_selected, setRoomSelected] = useState({ room: '', id: '' });
   //const floor1 = useState(['Room 101', 'Room 102', 'Room 103', 'Room 104', 'Room 105','Room 106', 'Room 107', 'Room 108', 'Room 109', 'Room 110', 'Room 111', 'Room 112', 'Room 113', 'Room 114', 'Room 115','Room 116']);
- 
+
   var token = sessionStorage.getItem('jwtToken');
 
-  useEffect(() =>{
+  useEffect(() => {
     fetch('http://localhost:3000/room/all_rooms', {
       method: 'get',
-      headers: { 'Content-Type': 'application/json','jwttoken': token },
+      headers: { 'Content-Type': 'application/json', 'jwttoken': token },
     })
       .then(response => response.json())
       .then(data => {
         setRooms(data);
       });
-}, []);
+  }, []);
 
-  const handleInputChange = e =>{
-    const{ name, value} = e.target
+  const handleInputChange = e => {
+    const { name, value } = e.target
     setDetails({
-        ...details,
-        [name]:value
+      ...details,
+      [name]: value
     })
   }
 
-  function onSubmit(){
-    
-    if(details.name === '' || details.age === '' || details.gender === '')
+  function onSubmit() {
+
+    if (details.name === '' || details.age === '' || details.gender === '')
       alert('Kindly Fill all the details');
-    
-    else if(room_selected.room === '' || room_selected.id === '')
-       alert('Kindly Select Room number');
-    
-    else{   
-    
+
+    else if (room_selected.room === '' || room_selected.id === '')
+      alert('Kindly Select Room number');
+
+    else {
+
       fetch('http://localhost:3000/room/book_room', {
         method: 'post',
-        headers: {'Content-Type': 'application/json', 'jwttoken': token},
+        headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({
-           details: details,
-           room_no: room_selected.room,
-           email: props.email
+          details: details,
+          room_no: room_selected.room,
+          email: props.email
         })
-        })
-      .then(response => response.json())
-      .then(data => {
-          if(data === 'success'){
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data === 'success') {
             alert('Book room request has been successfully submitted!!!\nWait for the Confirmation');
-               props.onRouteChange('patientprofile');
+            props.onRouteChange('patientprofile');
           }
-          else  
-            alert('Error!!! Kindly book the room again!!!')  
+          else
+            alert('Error!!! Kindly book the room again!!!')
         })
     }
   }
 
-  function onSearch(){
-    if(details.startDate === '')
+  function onSearch() {
+    if (details.startDate === '')
       alert('Start Date is missing')
 
-    else if(details.endDate === '') 
-      alert('End Date is missing') 
-    
-    else{
+    else if (details.endDate === '')
+      alert('End Date is missing')
+
+    else {
       fetch('http://localhost:3000/room/get_rooms', {              // Rooms which are booked in this period
-          method: 'post',
-          headers: { 'Content-Type': 'application/json','jwttoken': token },
-          body: JSON.stringify({
-            booking_date: details.startDate,
-            release_date: details.endDate
-          })
+        method: 'post',
+        headers: { 'Content-Type': 'application/json', 'jwttoken': token },
+        body: JSON.stringify({
+          booking_date: details.startDate,
+          release_date: details.endDate
         })
-          .then(response => response.json())
-          .then(data => {
-            //console.log(data);
-            if(data === 'No room found')
-              alert('All rooms are booked for these dates!!!!')
-            else if(data === 'There was a problem finding the room')
-              alert('Kindly search it again')
-            else{
-              setRoomBooked(data);
-              setFlag(true);
-            }    
-          });
-        }
-  }
-  
-  function check(val){
-
-    for(var i=0; i<room_booked.length; i++){
-        if(room_booked[i].room_no === val.room_no)
-          return true;
+      })
+        .then(response => response.json())
+        .then(data => {
+          //console.log(data);
+          if (data === 'No room found')
+            alert('All rooms are booked for these dates!!!!')
+          else if (data === 'There was a problem finding the room')
+            alert('Kindly search it again')
+          else {
+            setRoomBooked(data);
+            setFlag(true);
+          }
+        });
     }
-    
-   return false;
   }
 
-  function onChangeRoom(val){
-    var r = {room: val.room_no, id: val._id};
+  function check(val) {
 
-    if(room_selected.room === '')
+    for (var i = 0; i < room_booked.length; i++) {
+      if (room_booked[i].room_no === val.room_no)
+        return true;
+    }
+
+    return false;
+  }
+
+  function onChangeRoom(val) {
+    var r = { room: val.room_no, id: val._id };
+
+    if (room_selected.room === '')
       setRoomSelected(r);
-    else if(room_selected.room === r.room){
-      var r1 = {room: '', id: ''};
+    else if (room_selected.room === r.room) {
+      var r1 = { room: '', id: '' };
       setRoomSelected(r1);
     }
     else
@@ -155,14 +155,14 @@ function Room(props) {
   return (
     <div>
       <div class="room-container">
-      <Typography component="h1" variant="h4" align="left" style={{marginLeft:'10%', padding: '10px'}}>
-            Book Room
+        <Typography component="h1" variant="h4" align="left" style={{ marginLeft: '10%', padding: '10px' }}>
+          Book Room
           </Typography>
       </div>
       <div>
-      <div >  
+        <div >
           <form className={classes.container} noValidate>
-          <TextField
+            <TextField
               id="date"
               label="Start Date"
               type="date"
@@ -175,7 +175,7 @@ function Room(props) {
                 shrink: true,
               }}
             />
-           <TextField
+            <TextField
               id="date"
               label="End Date"
               type="date"
@@ -188,22 +188,25 @@ function Room(props) {
                 shrink: true,
               }}
             />
-            <Button variant="contained" color="primary" style={{marginLeft: '10%'}} onClick={onSearch}>
-               Search
+            <Button variant="contained" color="primary" style={{ marginLeft: '10%' }} onClick={onSearch}>
+              Search
             </Button>
-            </form> 
-          </div>
-          </div>
-          {
-            flag === false
-            ? <p></p>
-            :
+          </form>
+        </div>
+      </div>
+      {
+        flag === false
+          ? <p></p>
+          :
               <div>
                 <div>  
               <form className={classes.container} noValidate>
               <TextField id="outlined-basic" label="Name" variant="outlined" name="name" type='text' value={details.name} onChange={handleInputChange} />
               <TextField id="outlined-basic" label="Age" variant="outlined" name="age" type='number' value={details.age} onChange={handleInputChange} />
-              <TextField id="outlined-basic" label="Gender" variant="outlined" name="gender" type='text' value={details.gender} onChange={handleInputChange} />
+                <Select id="outlined-basic" label="Gender" variant="outlined" name="gender" displayEmpty={true} value={details.gender} onChange={handleInputChange} renderValue={(value)=>(value)} ><MenuItem value="Male">Male</MenuItem>
+          <MenuItem value="Female">Female</MenuItem>
+                  <MenuItem value="Others">Others</MenuItem>
+                  </Select>
               </form>
               </div>
               <ul class="showcase">
@@ -238,18 +241,18 @@ function Room(props) {
               </div>
 
             <p class="text" style={{marginLeft: '5%'}}>
-            You have selected <span id="count">Room-{room_selected.room}</span>
+              You have selected <span id="count">Room-{room_selected.room}</span>
             </p>
             <div className="btn">
                   <Button variant="contained" color="primary" onClick={onSubmit}>
-                  Submit
+                Submit
                   </Button>
             </div>
           </div>
                     </div>
           }
       
-    </div>
+    </div >
     
 
   );
