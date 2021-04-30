@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect } from 'react';
-import Appointments from './appointment';
 import {Grid, Card, CardActions, CardContent, Typography, Button }from '@material-ui/core';
 import './profile_style.css';
 

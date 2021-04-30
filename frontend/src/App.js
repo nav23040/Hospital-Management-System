@@ -25,6 +25,7 @@ function App() {
    const[userdata, setData] = useState([]);
    const[appoint, setAppoint] = useState([]);
    const[roomdetails, setRoom] = useState([]);
+   const[history, setHistory] = useState([]);
    const [route, setRoute] = useState('signin');
    const classes = useStyles();
 
@@ -34,8 +35,42 @@ function App() {
       if(route === 'appointmentdetails')
          setAppoint(data);
       
-      if(route === 'roomdetails')
-         setRoom(data);   
+      else if(route === 'roomdetails')
+         setRoom(data); 
+      
+      else if(route === 'patienthistory'){
+         //console.log(userdata._id);
+         let token = sessionStorage.getItem('jwtToken');
+         fetch('http://localhost:3000/case_history/user_case_history', {
+             method: 'get',
+             headers: { 'Content-Type': 'application/json' ,'jwttoken': token}
+            })
+             .then(response => response.json())
+             .then(data => {
+                 if(data === 'Error in getting diagnosis history')
+                  alert('Error in adding patient details!!!\nKindly add it again');
+                 else
+                   setHistory(data);   
+             })
+      } 
+      
+      else if(route === 'patienthistory2'){
+         let token = sessionStorage.getItem('jwtToken');
+         fetch('http://localhost:3000/case_history/patient_case_history', {
+             method: 'post',
+             headers: { 'Content-Type': 'application/json' ,'jwttoken': token},
+             body: JSON.stringify({
+               patient_email : data
+             })
+            })
+             .then(response => response.json())
+             .then(data => {
+                 if(data === 'Error in getting diagnosis history')
+                  alert('Error in adding patient details!!!\nKindly add it again');
+                 else
+                   setHistory(data);   
+             })
+      }
   }
 
   function onProfileChange(data, route) {
@@ -124,20 +159,12 @@ function App() {
          </div> 
       )
    }
-   else if(route==='patienthistory')
+   else if(route==='patienthistory' || route==='patienthistory2')
    {
       return(
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
-            <PatientHistory onRouteChange={onRouteChange}/>
-         </div> 
-      )
-   }
-   else if(route==='patientview')
-   {
-      return(
-         <div className={classes.appMain}>
-            <Header onRouteChange={onRouteChange} route ={route}/>
+            <PatientHistory onRouteChange={onRouteChange} history={history}/>
          </div> 
       )
    }

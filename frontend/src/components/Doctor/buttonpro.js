@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
 import Button from '@material-ui/core/Button';
 
 const TablePage = (props) => {
@@ -53,7 +53,7 @@ const TablePage = (props) => {
               'Date' : details.app_date,
               'Time' : details.app_time,
               'Add ': <Button variant="contained" color="lightprimary" onClick = {() => props.onRouteChange22('diagnosis', details)}>Add </Button>,
-              'View':   <Button variant="contained" color="lightsecondary" /*onClick = {() => props.onRouteChange('patientview')} */> View </Button>
+              'View':  <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patienthistory2', details.email)} > View </Button>
             })
       ))
       }

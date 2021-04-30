@@ -33,8 +33,7 @@ const useStyles = makeStyles({
 });
 
 export default function SimpleCard(props) {
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  const classes = useStyles()
   const [roomno, setRoom] = useState('');
   const [pendingReq, setPendingReq] = useState([]);
   
@@ -53,7 +52,7 @@ export default function SimpleCard(props) {
 
   useEffect(() =>{
     setValues();
-   }, []);
+   });
 
   const handleChange = (event) => {
     setRoom(event.target.value);

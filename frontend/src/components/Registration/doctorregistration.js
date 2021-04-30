@@ -102,8 +102,11 @@ export default function Docreg(props) {
     }
 
     function onSubmit() {
-        //console.log(values);
+      
+      if(values.name === '' || values.registrationid === '' || values.dob === '' || values.mobile_number === '' || values.email === '' || values.password === '' || values.address === '' || values.state === '' || values.specialization === '' )
+        alert('Kindly fill all the deatils')
 
+      else{  
         fetch('http://localhost:3000/admin/register_doctor', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
@@ -124,7 +127,7 @@ export default function Docreg(props) {
                     alert('Error in registering doctor! Please try again');
 
             })
-
+        }
     }
 
     return (
@@ -177,10 +180,10 @@ export default function Docreg(props) {
                     </Grid>
                     <Grid item xs={6}>
                         <FormLabel required>Gender</FormLabel>
-                        <RadioGroup row>
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
-                            <FormControlLabel value="others" control={<Radio />} label="Others" />
+                        <RadioGroup row value={values.gender} onChange={handleInputChange} >
+                            <FormControlLabel value="male" name='gender' control={<Radio />} label="Male" />
+                            <FormControlLabel value="female" name='gender' control={<Radio />} label="Female" />
+                            <FormControlLabel value="others" name='gender' control={<Radio />} label="Others" />
                         </RadioGroup>
 
                         <TextField required

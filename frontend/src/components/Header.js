@@ -116,7 +116,7 @@ export default function ButtonAppBar(props) {
                 </div>
                 </div>
               : 
-                props.route === 'doctordetailbydoctor'
+                props.route === 'doctordetailbydoctor' || props.route === 'patienthistory2'
                 ?
                   <div>
                   <div class="dropdown" >

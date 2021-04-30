@@ -1,10 +1,9 @@
 import { React, useState } from "react";
 import PageHeader from "../Registration/PageHeader"
-import { makeStyles, Paper } from "@material-ui/core";
-import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Button } from "@material-ui/core";
+import { makeStyles, withStyles, Paper } from "@material-ui/core";
+import { Grid, TextField, Button } from "@material-ui/core";
 import UploadButtons from '../Registration/submitbutton';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Details } from "@material-ui/icons";
 
 const listdisease = [
     { title: 'Fever' },
@@ -26,6 +25,15 @@ const listdisease = [
 ];
 
 
+const DarkerDisabledTextField = withStyles({
+    root: {
+      marginRight: 8,
+      "& .MuiInputBase-root.Mui-disabled": {
+        color: "rgba(0, 0, 0, 0.9)" // (default alpha is 0.38)
+      }
+    }
+  })(TextField);
+
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -45,18 +53,24 @@ const useStyles = makeStyles(theme => ({
 export default function Docreg(props) {
     
     const [values, setvalues] = useState({
-        name: props.details.name,
-        age: props.details.age,
+        patient_name: props.details.name,
+        patient_age: props.details.age,
+        email: props.details.email,
         gender: props.details.gender,
+        doctor_id: props.details.Doctor_Reg_ID,
+        doctor_name: props.name,
+        app_date: props.details.app_date,
+        app_time: props.details.app_time,
+        appointmentid  :props.details._id,
         disease: '',
         symptoms:'',
         prescription: '',
     });
-
+    
     const classes = useStyles();
+
     const handleInputChange = e => {
         const{ name,value} = e.target
-        
         setvalues({
             ...values,
             [name]: value
@@ -65,33 +79,32 @@ export default function Docreg(props) {
     
 
     function onSubmit() {
-       // props.onRouteChange22('bookappointment');
-        console.log(values);
+     
+       if(values.disease === '' || values.symptoms === '' || values.prescription === '')
+         alert('Kindly fill all the details ')
 
-       /* fetch('http://localhost:3000/doctor/diagnosis', {
+       else { 
+        var token = sessionStorage.getItem('jwtToken');
+        fetch('http://localhost:3000/case_history/add_prescription', {
             method: 'post',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' ,'jwttoken': token},
             body: JSON.stringify({
                 data: values
-            })
-        })
+             })
+           })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                if (data === 'success')
-                    alert('New Doctor added in the database');
-                else if (data === 'patientid already exists')
-                    alert('patientid already exists');
-                else if (data === 'Registration ID already exists')
-                    alert('Registration ID already exists');
+               if (data === 'success'){
+                    alert('Patient Details Successfully Added!!!!');
+                    props.onRouteChange('bookappointment');
+               }
                 else
-                    alert('Error in registering doctor! Please try again');
-
+                    alert('Error in adding patient details!!!\nKindly add it again');
             })
-            */
+          }
     }
-
-    
+ 
     return (
         <Paper style={{marginTop:"3%",marginLeft:"4"}}>
             <PageHeader
@@ -107,22 +120,23 @@ export default function Docreg(props) {
             <form className={classes.root}>
                 <Grid container>
                     <Grid item xs={6}>
-                       <TextField required
+                       <DarkerDisabledTextField required
                             variant="outlined"
                             label="Patient Name "
                             name="name"
                             type='text'
-                            value={values.name}
-                            onChange={handleInputChange}
+                            disabled
+                            value={values.patient_name}
                         />
 
-                        <TextField required
+                        <DarkerDisabledTextField required
                             variant="outlined"
                             label="Age(in Years)"
                             name='age'
                             type="number"
-                            value={values.age}
-                            onChange={handleInputChange}
+                            disabled
+                            value={values.patient_age}
+                           
                         />
                       
                       <TextField required
@@ -138,12 +152,14 @@ export default function Docreg(props) {
 
                     </Grid>
                     <Grid item xs={6}>
-                        <FormLabel required>Gender</FormLabel>
-                        <RadioGroup row value={values.gender} onChange={handleInputChange} >
-                            <FormControlLabel value="male" name='gender' control={<Radio />} label="Male" />
-                            <FormControlLabel value="female" name='gender' control={<Radio />} label="Female" />
-                            <FormControlLabel value="others" name='gender' control={<Radio />} label="Others" />
-                        </RadioGroup>
+                    <DarkerDisabledTextField required
+                            variant="outlined"
+                            label="Gender"
+                            name="gender"
+                            type='text'
+                            disabled
+                            value={values.gender}
+                      /> 
 
                         <TextField required
                             variant="outlined"
@@ -161,13 +177,13 @@ export default function Docreg(props) {
                             options={listdisease}
                             getOptionLabel={(option) => option.title}
                             style={{ width: 500 }}
-                            onChange={(event, value) => setvalues({ ...values, patientname: value.title })}
+                            onChange={(event, value) => setvalues({ ...values, disease: value.title })}
                             renderInput={(params) => <TextField {...params} label=" Disease" variant="outlined" />}
                         />
                     </Grid>
                 </Grid>
                 <Grid style={{display:'flex',justifyContent:"center", padding: "10px",}}>
-                <Button  onClick = {() => props.onRouteChange22('bookappointment')}   >
+                <Button  onClick = {() => props.onRouteChange('bookappointment')}   >
                  Go Back
                 </Button>
                 <UploadButtons onSubmit={onSubmit} />

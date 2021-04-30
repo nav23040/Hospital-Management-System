@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
 import Button from '@material-ui/core/Button';
 
 
@@ -57,9 +57,9 @@ const TablePage = (props) => {
             'mail' : details.email,
             'Date' : details.app_date,
             'Time' : details.app_time,
-            'Action':  <Button variant="contained" color="primary" onClick={ () => props.onStatusChange('confirm', details._id)} >Confirm</Button>,
-            'Cancel':   <Button variant="contained" color="secondary" onClick={() => props.onStatusChange('cancel', details._id)} >Cancel</Button>,
-            'View':   <Button variant="contained" color="lightsecondary" /*onClick = {() => props.onRouteChange('patientview')} */> View </Button>
+            'Action': <Button variant="contained" color="primary" onClick={ () => props.onStatusChange('confirm', details._id)} >Confirm</Button>,
+            'Cancel': <Button variant="contained" color="secondary" onClick={() => props.onStatusChange('cancel', details._id)} >Cancel</Button>,
+            'View': <Button variant="contained" color="lightsecondary" onClick = {() => props.onRouteChange('patienthistory2', details.email)} > View </Button>
           })
       ))
      return rows_regular

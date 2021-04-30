@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
+import {MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
 import {Button, Typography} from '@material-ui/core';
 
 const TablePage = (props) => {

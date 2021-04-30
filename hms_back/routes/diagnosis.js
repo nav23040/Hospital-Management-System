@@ -15,21 +15,23 @@ const app = router;
 
 app.post('/add_prescription', verifyToken, async (req, res) => {
 
-    await ConfirmedAppointments.findByIdAndDelete(req.body.appointmentid, (err, appointment) => {
+    const{data} = req.body;
+    await ConfirmedAppointments.findByIdAndDelete(data.appointmentid, (err, appointment) => {
+        console.log(appointment);
         const newPrescription = new Diagnosis_Details({
-            patient_name: req.body.patient_name,
-            patient_age: req.body.patient_age,
-            patient_email: appointment.email,
-            patient_age: req.body.age,
-            prescription: req.body.prescription,
-            gender: req.body.gender,
-            symptoms: req.body.symptoms,
-            disease: req.body.disease,
-            doctor_id: req.body.doctor_id,
-            doctor_name: req.body.doctor_name,
-            app_date: appointment.app_date,
-            app_time: appointment.app_time
+            patient_name: data.patient_name,
+            patient_age: data.patient_age,
+            patient_email: data.email,
+            prescription: data.prescription,
+            gender: data.gender,
+            symptoms: data.symptoms,
+            disease: data.disease,
+            doctor_id: data.doctor_id,
+            doctor_name: data.doctor_name,
+            app_date: data.app_date,
+            app_time: data.app_time
         })
+       // console.log(newPrescription)
         newPrescription.save()
             .then(data => res.json('success'))
             .catch(err => res.json('failure'))
@@ -37,11 +39,12 @@ app.post('/add_prescription', verifyToken, async (req, res) => {
 })
 
 app.get('/user_case_history', verifyToken, async (req, res) => {
+   // console.log(req.userId);
     User.findById(req.userId, (err, user) => {
         Diagnosis_Details.find({ patient_email: user.email }, (err, prescriptions) => {
             if (err) return res.json("Error in getting diagnosis history")
+            //console.log(prescriptions);
             res.json(prescriptions);
-
         })
     })
 

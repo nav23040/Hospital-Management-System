@@ -37,7 +37,7 @@ function App (props) {
 
   useEffect(() =>{
      setValues(); 
-  }, []);
+  });
 
   function onRouteChange22(route, details) {
 
@@ -46,7 +46,19 @@ function App (props) {
 
 		setRoute(route);
   }
+  
+  function onRouteChange2(route) {
+    fetch('http://localhost:3000/appointment/confirmed_appointments', {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json','jwttoken' : token},
+      })
+        .then(response => response.json())
+        .then(data => {
+          setConfirm(data);
+        }); 
 
+		setRoute(route);
+  }
   function onStatusChange(type, data){
 
     if(type === 'confirm'){
@@ -121,7 +133,7 @@ function App (props) {
                 </Grid>
          </Grid>
          <div>
-         <Doc pendingApp={pendingApp} onStatusChange={onStatusChange} />
+         <Doc pendingApp={pendingApp} onRouteChange={props.onRouteChange} onStatusChange={onStatusChange} />
          </div>
       </div>
     );
@@ -154,7 +166,7 @@ function App (props) {
           
          </Grid>
          <div>
-             <Doc2 onRouteChange22={onRouteChange22} confirmApp={confirmApp} onStatusChange={onStatusChange}/>
+             <Doc2 onRouteChange22={onRouteChange22} onRouteChange={props.onRouteChange} confirmApp={confirmApp} onStatusChange={onStatusChange}/>
              
          </div>
       </div>
@@ -163,7 +175,7 @@ function App (props) {
 
   else if(route === 'diagnosis'){
     return(
-        <Diagnosis  onRouteChange22={onRouteChange22} details={patientSelected}/>
+        <Diagnosis  onRouteChange={onRouteChange2} details={patientSelected} name={props.data.name}/>
     );
   }
    

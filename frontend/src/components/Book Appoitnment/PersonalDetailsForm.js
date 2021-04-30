@@ -1,9 +1,9 @@
-import {React,useState} from 'react';
+import {React} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import {  FormLabel, Radio, RadioGroup } from "@material-ui/core";
 
 
@@ -41,7 +41,7 @@ export default function PaymentForm(props) {
         
         <Grid item xs={12} md={6}>
         <FormLabel required>Gender</FormLabel>
-                <RadioGroup onClick={props.handleInputChange} row>
+                <RadioGroup onClick={props.handleInputChange} value={props.patient.gender} row>
                     <FormControlLabel value= "Male" name='gender' control = {<Radio/>} label="Male"/>
                     <FormControlLabel value= "Female" name='gender' control = {<Radio/>} label="Female"/>
                     <FormControlLabel value= "Others" name='gender' control = {<Radio/>} label="Others"/>

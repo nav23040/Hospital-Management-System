@@ -47,36 +47,39 @@ export default function Patient(props){
 
     function onSubmit(){
         console.log(values);
-        
-        fetch('http://localhost:3000/register', {
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                name: values.fullName,
-                email: values.email,
-                password: values.password,
-                age: values.age,
-                gender: values.gender,
-                mobile: values.mobile,
-                address: values.address,
-                fatherName: values.fatherName,
-                motherName: values.motherName,
-                parentMobile: values.parentMobile
-            })
-        })
-       .then(response => response.json())
-       .then(data => {
-           console.log(data);
-         if(data === 'success')
-         props.onRouteChange('signin');
-         
-         else if(data==='Email already exists')
-             alert('Email already exists');
-         else
-             alert('Registration Failed! Please try again.')
-              
-       })
 
+        if(values.fullName === '' || values.age === '' || values.mobile === '' || values.email === '' || values.password === '' || values.address === '' || values.fatherName === '' || values.motherName === '' || values.parentMobile === '')
+            alert('Kindly fill all the deatils')
+        
+        else{
+            fetch('http://localhost:3000/register', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: values.fullName,
+                    email: values.email,
+                    password: values.password,
+                    age: values.age,
+                    gender: values.gender,
+                    mobile: values.mobile,
+                    address: values.address,
+                    fatherName: values.fatherName,
+                    motherName: values.motherName,
+                    parentMobile: values.parentMobile
+                })
+            })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data === 'success')
+            props.onRouteChange('signin');
+            
+            else if(data==='Email already exists')
+                alert('Email already exists');
+            else
+                alert('Registration Failed! Please try again.')   
+         })
+        }
     }
 
     return(  
@@ -129,7 +132,7 @@ export default function Patient(props){
             </Grid>
             <Grid item xs ={6}>
                 <FormLabel required >Gender</FormLabel>
-                <RadioGroup row onChange={handleInputChange}>
+                <RadioGroup row onChange={handleInputChange} value = {values.gender}>
                     <FormControlLabel value= "male" name='gender' control = {<Radio/>} label="Male"/>
                     <FormControlLabel value= "female" name='gender' control = {<Radio/>} label="Female"/>
                     <FormControlLabel value= "others" name='gender' control = {<Radio/>} label="Others"/>
