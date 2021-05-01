@@ -44,7 +44,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 //const uri = process.env.DBURL;
 
-const uri = "mongodb+srv://naveen:naveen@cluster0.e6pk5.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://naveen:hmsadnnr@hms.l1pgi.mongodb.net/HMS_Database?retryWrites=true&w=majority";
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useLayoutEffect} from 'react';
 import Carrd from './carddd'
 import Doc from './button'
 import Doc2 from './buttonpro';
@@ -37,7 +37,7 @@ function App (props) {
 
   useEffect(() =>{
      setValues(); 
-  });
+  },[]);
 
   function onRouteChange22(route, details) {
 

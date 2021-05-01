@@ -93,7 +93,7 @@ export default function Checkout(props) {
         //console.log(data);
         setDoctorDetails(data);
       });
-   });
+   },[]);
 
   const handleInputChange = e =>{
     const{name,value} = e.target

@@ -84,7 +84,7 @@ const initialDoctorValues = {
     email: '',
     password: '',
     address: '',
-    gender: 'male',
+    gender: '',
     state: '',
     specialization: ''
 }

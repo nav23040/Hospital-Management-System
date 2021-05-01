@@ -55,7 +55,7 @@ function Room(props) {
       .then(data => {
         setRooms(data);
       });
-  });
+  },[]);
 
   const handleInputChange = e => {
     const { name, value } = e.target

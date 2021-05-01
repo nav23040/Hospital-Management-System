@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -12,9 +12,9 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles({
   root: {
     minWidth: 2,
-    marginLeft:'20%',
-    marginTop:'15%',
-    display:'card',
+    marginLeft: '20%',
+    marginTop: '15%',
+    display: 'card',
 
     flexGrow: 1,
     // padding: theme.spacing(2)
@@ -36,179 +36,189 @@ export default function SimpleCard(props) {
   const classes = useStyles()
   const [roomno, setRoom] = useState('');
   const [pendingReq, setPendingReq] = useState([]);
-  
+  const [total_doc, setdoc] = useState(0);
+
   var token = sessionStorage.getItem('jwtToken');
-  
-  function setValues(){
+
+  function setValues() {
     fetch('http://localhost:3000/room/pending_rooms', {
       method: 'get',
-      headers: { 'Content-Type': 'application/json','jwttoken': token },
+      headers: { 'Content-Type': 'application/json', 'jwttoken': token },
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         setPendingReq(data);
       });
-  }
+    fetch('http://localhost:3000/all_doctors',{
+      method: 'get',
+      headers: { 'Content-Type': 'application/json', 'jwttoken': token },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setdoc(data.length)
+    })
+}
 
-  useEffect(() =>{
-    setValues();
-   });
+useEffect(() => {
+  setValues();
+},[]);
 
-  const handleChange = (event) => {
-    setRoom(event.target.value);
-  };
+const handleChange = (event) => {
+  setRoom(event.target.value);
+};
 
- function onSubmit(){
-      fetch('http://localhost:3000/room/add_room', {
+function onSubmit() {
+  fetch('http://localhost:3000/room/add_room', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      room_no: roomno
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data === 'Room exists')
+        alert('Room-' + roomno + ' already exists');
+      else if (data === 'success')
+        alert('Room-' + roomno + ' successfully added in the database')
+      else
+        alert('Error in adding room in the database');
+    })
+}
+
+function onStatusChange(type, data) {
+
+  if (type === 'confirm') {
+
+    if (window.confirm("Click 'OK' to confirm this booking, else click 'Cancel' ")) {
+
+      fetch('http://localhost:3000/room/confirm_room', {
         method: 'post',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({
-          room_no: roomno
+          roomid: data
         })
       })
         .then(response => response.json())
-        .then( data => {
-            if(data === 'Room exists')
-               alert('Room-' + roomno + ' already exists');
-            else if(data === 'success')
-               alert('Room-' + roomno + ' successfully added in the database')
-            else
-               alert('Error in adding room in the database');      
-        })
-  }
-
-  function onStatusChange(type, data){
-
-    if(type === 'confirm'){
-
-      if(window.confirm("Click 'OK' to confirm this booking, else click 'Cancel' ")){
-
-        fetch('http://localhost:3000/room/confirm_room', {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json','jwttoken' : token},
-          body: JSON.stringify({
-            roomid : data
-          })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if(data === 'success'){
-              alert('Room has been booked !!!')
-              setValues();
-            }
-            else 
-              alert('Error in confirming room')  
-          });
-       }
-     }
-
-    else{
-      if(window.confirm("Click 'OK' to cancel this booking, else click 'Cancel' ")){
-
-        fetch('http://localhost:3000/room/reject_room', {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json','jwttoken' : token},
-          body: JSON.stringify({
-            roomid : data
-          })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if(data === 'success'){
-              alert('Booking Room has been cancelled !!!')
-              setValues();
-            }
-            else 
-              alert('Error in cancelling booking of room')  
-          });
-       }
+        .then(data => {
+          if (data === 'success') {
+            alert('Room has been booked !!!')
+            setValues();
+          }
+          else
+            alert('Error in confirming room')
+        });
     }
   }
 
+  else {
+    if (window.confirm("Click 'OK' to cancel this booking, else click 'Cancel' ")) {
 
-  return (
+      fetch('http://localhost:3000/room/reject_room', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json', 'jwttoken': token },
+        body: JSON.stringify({
+          roomid: data
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data === 'success') {
+            alert('Booking Room has been cancelled !!!')
+            setValues();
+          }
+          else
+            alert('Error in cancelling booking of room')
+        });
+    }
+  }
+}
+
+
+return (
 
   <>
-   <div>
-     <Grid container spacing={24}>
-         <Grid>
-         <div className="card" style={{marginLeft:"10%",marginTop:"10%"}}>
-              <div className="card-body">
-                <div className="d-flex flex-column align-items-center text-center">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
-                  <div className="mt-3">
-                    <h4>ADMIN</h4>
-                  </div>
+    <div>
+      <Grid container spacing={24}>
+        <Grid>
+          <div className="card" style={{ marginLeft: "10%", marginTop: "10%" }}>
+            <div className="card-body">
+              <div className="d-flex flex-column align-items-center text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width={150} />
+                <div className="mt-3">
+                  <h4>ADMIN</h4>
                 </div>
               </div>
             </div>
-         </Grid>
-      
+          </div>
+        </Grid>
+
         <Grid item md={3} >
-        <div className="doctor" style={{marginLeft:"3"}} > 
-    <Card className={classes.root} style={{backgroundColor:'red'}}>
-      <CardContent >
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Total Doctors
+          <div className="doctor" style={{ marginLeft: "3" }} >
+            <Card className={classes.root} style={{ backgroundColor: 'red' }}>
+              <CardContent >
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  Total Doctors
         </Typography>
-        <Typography variant="h5" component="h2">
-          3
+                <Typography variant="h5" component="h2">
+                  {total_doc}
         </Typography>
-      </CardContent>
-      <CardActions>
-     
-        <Button size="small" onClick = {() => props.onRouteChange('doctorregistration')}>Add Doctor</Button>
-      </CardActions>
-    </Card>
-    </div>
+              </CardContent>
+              <CardActions>
+
+                <Button size="small" onClick={() => props.onRouteChange('doctorregistration')}>Add Doctor</Button>
+              </CardActions>
+            </Card>
+          </div>
         </Grid>
         <Grid item md={3}>
-        <div className ="patient" style ={{display:"flex"}}>
-          <Card className={classes.root}style={ {backgroundColor:"lightblue"}}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Book Room Requests
+          <div className="patient" style={{ display: "flex" }}>
+            <Card className={classes.root} style={{ backgroundColor: "lightblue" }}>
+              <CardContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  Book Room Requests
         </Typography>
-        <Typography variant="h5" component="h2">
-         {pendingReq.length}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Confirm Requests</Button>
-      </CardActions>
-    </Card>
-    </div>
+                <Typography variant="h5" component="h2">
+                  {pendingReq.length}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Confirm Requests</Button>
+              </CardActions>
+            </Card>
+          </div>
         </Grid>
         <Grid item md={3} >
-        <div className="doctor" style={{marginLeft:"3"}} > 
-    <Card className={classes.root} style={{backgroundColor:'lightgreen'}}>
-      <CardContent >
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Add Room Number
+          <div className="doctor" style={{ marginLeft: "3" }} >
+            <Card className={classes.root} style={{ backgroundColor: 'lightgreen' }}>
+              <CardContent >
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  Add Room Number
         </Typography>
-        <Typography variant="h5" component="h2">
-        <TextField
-         id="outlined-name"
-         label="Enter Room Number"
-         type='number'
-         value={roomno}
-         onChange={handleChange}
-         />
-        </Typography>
-      </CardContent>
-      <CardActions>
-     
-        <Button size="small" onClick={onSubmit}>Submit</Button>
-      </CardActions>
-    </Card>
-    </div>
+                <Typography variant="h5" component="h2">
+                  <TextField
+                    id="outlined-name"
+                    label="Enter Room Number"
+                    type='number'
+                    value={roomno}
+                    onChange={handleChange}
+                  />
+                </Typography>
+              </CardContent>
+              <CardActions>
+
+                <Button size="small" onClick={onSubmit}>Submit</Button>
+              </CardActions>
+            </Card>
+          </div>
         </Grid>
       </Grid>
-     <div style={{padding: '20px'}}> 
-      <Data pendingReq={pendingReq} onStatusChange={onStatusChange}/>
+      <div style={{ padding: '20px' }}>
+        <Data pendingReq={pendingReq} onStatusChange={onStatusChange} />
       </div>
     </div>,
-      
-    </>
-  );
+
+  </>
+);
 }

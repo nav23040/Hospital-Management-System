@@ -115,7 +115,7 @@ app.get('/me', verifyToken, (req, res) => {
 
 });
 
-app.get('/all_doctors', verifyToken, async (req, res) => {
+app.get('/all_doctors', async (req, res) => {
     await Doctor.find(function (err, user) {
         if (err) return res.status(500).send("There was a problem finding the doctor.");
         if (!user) return res.status(404).send("No doctor found.");
