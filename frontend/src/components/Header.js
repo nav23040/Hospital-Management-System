@@ -54,12 +54,9 @@ export default function ButtonAppBar(props) {
             <div class="dropdown" >
             <button class="dropbtn"  onClick = {() => props.onRouteChange('adminlogin')}>Admin</button>
             </div>
-            <div class="dropdown" >
-            <button class="dropbtnmain"  >Contact Us</button>
-            </div>
-                    </Toolbar>
-                  </AppBar>
-                </div>
+            </Toolbar>
+           </AppBar>
+         </div>
               );
            }
   

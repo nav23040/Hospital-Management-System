@@ -3,6 +3,10 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import PageHeader from "./Registration/PageHeader"
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Grid, TextField} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,19 +30,37 @@ function createData(name, Age, Gender, dr, date, time, disease, prescription, sy
     return {name, Age, Gender, dr, date, time, disease, prescription, symptoms};
   }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
+
+
+const useStyles = makeStyles((theme) => ({
+  listItem: {
+    padding: theme.spacing(1, 0),
   },
-  root1: {
-    '& .MuiFormControl-root': {
-        width: '60%',
-        margin: theme.spacing(1),
-        // leftMargin:'100px'
-    }
-   },   
-  container: {
-    maxHeight: '100%',
+  total: {
+    fontWeight: 700,
+  },
+  title: {
+    marginTop: theme.spacing(2),
+  },
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 600,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
   },
 }));
 
@@ -110,86 +132,86 @@ export default function CustomizedTables(props) {
     }
   
   else if(route === 'patient'){
-    return (
-      <Paper style={{marginTop:"3%",marginLeft:"4"}}>
-          <PageHeader
-              title=" PATIENT HISTORY  :"
-          />
+    console.log(selectedData)
+    return (  
+              <main className={classes.layout}>
+        <Paper className={classes.paper} >
+      <Typography variant="h6" gutterBottom style={{marginLeft: "38%"} }>
+        Review Report 
+      </Typography>
+      <List disablePadding>
+        <ListItem className={classes.listItem} key='Dr'>
+        <Typography variant="h6" style={{color: "blue"}}>Dr. {selectedData.dr}  </Typography>
+            
+          </ListItem>
+      </List>
 
-          <form className={classes.root1}>
-              <Grid container>
-                  <Grid item xs={6}>
-                     <DarkerDisabledTextField required
-                          variant="outlined"
-                          label="Patient Name "
-                          name="name"
-                          type='text'
-                          disabled
-                          value={selectedData.name}
-                      />
-
-                      <DarkerDisabledTextField required
-                          variant="outlined"
-                          label="Age(in Years)"
-                          name='age'
-                          type="number"
-                          disabled
-                          value={selectedData.Age}
-                      />
-                    
-                    <DarkerDisabledTextField required
-                          variant="outlined"
-                          label="Medical prescription "
-                          name="prescription"
-                          type='text'
-                          multiline={true}
-                          rows={3}
-                          disabled
-                          value={selectedData.prescription}
-                      />
-
-                  </Grid>
-                  <Grid item xs={6}>
-                      <DarkerDisabledTextField required
-                            variant="outlined"
-                            label="Gender"
-                            name="gender"
-                            type='text'
-                            disabled
-                            value={selectedData.Gender}
-                      /> 
-
-                      <DarkerDisabledTextField required
-                          variant="outlined"
-                          label="Symptoms "
-                          name="symptoms"
-                          type='text'
-                          multiline={true}
-                          rows={2}
-                          disabled
-                          value={selectedData.symptoms}
-                        
-                      />
-
-                      <DarkerDisabledTextField required
-                          variant="outlined"
-                          label="Disease"
-                          type='text'
-                          disabled
-                          value={selectedData.disease}
-                        
-                      />
-                     
-
-                  </Grid>
-              </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+        <Typography variant="h6" gutterBottom className={classes.title}>
+            Patient Details
+          </Typography>
+          <Grid container>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Name</Typography>
+                  <Typography gutterBottom>Age</Typography>
+                  <Typography gutterBottom>Gender</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{selectedData.name}</Typography>
+                  <Typography gutterBottom>{selectedData.Age}</Typography>
+                  <Typography gutterBottom>{selectedData.Gender}</Typography>
+                </Grid>
+          </Grid>
+        </Grid>
+        <Grid item container direction="column" xs={12} sm={6}>
+          
+        <Typography variant="h6" gutterBottom className={classes.title}>
+            Appointment Time
+          </Typography>
+           <Grid container>
+           <Grid item xs={6}>
+                  <Typography gutterBottom>Date</Typography>
+                  <Typography gutterBottom>Time</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{selectedData.date}</Typography>
+                  <Typography gutterBottom>{selectedData.time}</Typography>
+                </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid >
+          <Typography variant="h6" gutterBottom className={classes.title}>
+             Disease
+            </Typography>
+             <Typography>{selectedData.disease}</Typography>
+          </Grid>
+          <Grid >
+          
+          <Typography variant="h6" gutterBottom className={classes.title}>
+            Symptom
+            </Typography>
+             <Typography>{selectedData.symptoms}</Typography>
+          </Grid>
+          <Grid >
+          
+          <Typography variant="h6" gutterBottom className={classes.title}>
+          Prescription
+            </Typography>
+             <Typography>{selectedData.prescription}</Typography>
+          </Grid>
+      
+          
+    
               <Grid style={{display:'flex',justifyContent:"center", padding: "10px",}}>
-              <Button  onClick = {() => onRouteChange('all')}   >
+              <Button  variant="contained" onClick = {() => onRouteChange('all')}   >
                Go Back
               </Button>
               </Grid>
-          </form>
+          
       </Paper>
+      </main>
      )
 
   } 
