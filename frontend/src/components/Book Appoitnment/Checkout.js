@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import DoctorForm from './DateandDoctorForm';
 import PersonalDetailsForm from './PersonalDetailsForm';
 import Review from './Review';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 function Copyright() {
   return (
@@ -84,7 +87,7 @@ export default function Checkout(props) {
   var token = sessionStorage.getItem('jwtToken');
 
   useEffect(() =>{
-    fetch('http://localhost:3000/all_doctors', {
+    fetch(uri+'/all_doctors', {
       method: 'get',
       headers: { 'Content-Type': 'application/json','jwttoken': token },
     })
@@ -127,7 +130,7 @@ export default function Checkout(props) {
   const handleNext = () => {
     if(activeStep === steps.length - 1){
      
-     fetch('http://localhost:3000/appointment/book_appointment', {
+     fetch(uri+'/appointment/book_appointment', {
         method: 'post',
         headers: {'Content-Type': 'application/json', 'jwttoken': token},
         body: JSON.stringify({

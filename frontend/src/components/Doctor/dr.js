@@ -4,6 +4,9 @@ import Doc from './button'
 import Doc2 from './buttonpro';
 import Diagnosis from './diagnosis';
 import Grid from '@material-ui/core/Grid';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 
 function App (props) {
@@ -16,7 +19,7 @@ function App (props) {
 
   function setValues(){
 
-    fetch('http://localhost:3000/appointment/pending_appointments', {
+    fetch(uri+'/appointment/pending_appointments', {
       method: 'get',
       headers: { 'Content-Type': 'application/json','jwttoken' : token},
     })
@@ -25,7 +28,7 @@ function App (props) {
         setPending(data);
       });
      
-    fetch('http://localhost:3000/appointment/confirmed_appointments', {
+    fetch(uri+'/appointment/confirmed_appointments', {
         method: 'get',
         headers: { 'Content-Type': 'application/json','jwttoken' : token},
       })
@@ -48,7 +51,7 @@ function App (props) {
   }
   
   function onRouteChange2(route) {
-    fetch('http://localhost:3000/appointment/confirmed_appointments', {
+    fetch(uri+'/appointment/confirmed_appointments', {
         method: 'get',
         headers: { 'Content-Type': 'application/json','jwttoken' : token},
       })
@@ -65,7 +68,7 @@ function App (props) {
 
       if(window.confirm("Click 'OK' to confirm this appointment, else click 'Cancel' ")){
 
-        fetch('http://localhost:3000/appointment/confirm_appointment', {
+        fetch(uri+'/appointment/confirm_appointment', {
           method: 'post',
           headers: { 'Content-Type': 'application/json','jwttoken' : token},
           body: JSON.stringify({
@@ -87,7 +90,7 @@ function App (props) {
     else{
       if(window.confirm("Click 'OK' to cancel this appointment, else click 'Cancel' ")){
 
-        fetch('http://localhost:3000/appointment/rejected_appointment', {
+        fetch(uri+'/appointment/rejected_appointment', {
           method: 'post',
           headers: { 'Content-Type': 'application/json','jwttoken' : token},
           body: JSON.stringify({

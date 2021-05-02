@@ -1,3 +1,7 @@
 node_modules/
 .env
 .DS_Store
+build/
+app.yaml
+../hms_back/app.yaml
+.gcloudignore

@@ -5,12 +5,12 @@ const path = require("path");
 const bcrypt = require("bcryptjs");
 const cors = require('cors');
 const User = require("./models/User");
-const users = require('../hms_back/routes/users')
-const admin = require('../hms_back/routes/admin')
-const doctor = require('../hms_back/routes/doctor')
-const appointment = require('../hms_back/routes/appointments')
-const room = require('../hms_back/routes/room')
-const diagnosis=require('../hms_back/routes/diagnosis')
+const users = require('./routes/users')
+const admin = require('./routes/admin')
+const doctor = require('./routes/doctor')
+const appointment = require('./routes/appointments')
+const room = require('./routes/room')
+const diagnosis=require('./routes/diagnosis')
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const jwt = require("jsonwebtoken");
@@ -26,7 +26,9 @@ app.use(
 );
 app.use(cors(
     {origin: true ,credentials: true }
-    ));
+));
+    
+//app.use(express.static(path.join(__dirname, './client/build')));
 
 const validateRegisterInput = require("./validation/register");
 /*
@@ -34,7 +36,7 @@ const port = process.env.PORT || 3000;
 
 app.listen(port,()=>console.log(`Server up and running on port ${port}`));*/
 
-app.listen(3000, ()=> { console.log('app is running on port 3000') });
+
 
 
 //connect to MongoDB
@@ -42,9 +44,8 @@ const MongoClient = require('mongodb').MongoClient;
 
     //make sure to check connection string is correct here, since this depends on the whether you are running standalone, replica, sharded cluster 
 
-//const uri = process.env.DBURL;
+const uri = process.env.Mongo_URI;
 
-const uri = "mongodb+srv://naveen:hmsadnnr@hms.l1pgi.mongodb.net/HMS_Database?retryWrites=true&w=majority";
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -71,13 +72,10 @@ app.use('/room', room);
 
 app.use('/case_history', diagnosis);
 
+/*app.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
+});*/
+
+app.listen(8080, ()=> { console.log('app is running on port 8080') });
 
 
-if(process.env.NODE_ENV === 'production') {
-   
-  app.use(express.static(path.join(__dirname, "client", "build")))
-
-  app.get('*',(req, res) => {
-      res.sendFile(path.join(__dirname,'client','build','index.html'));
-  });
-}

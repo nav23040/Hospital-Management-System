@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import './room.css';
 import { Button, Typography, TextField, Select,MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +51,7 @@ function Room(props) {
   var token = sessionStorage.getItem('jwtToken');
 
   useEffect(() => {
-    fetch('http://localhost:3000/room/all_rooms', {
+    fetch(uri+'/room/all_rooms', {
       method: 'get',
       headers: { 'Content-Type': 'application/json', 'jwttoken': token },
     })
@@ -75,7 +79,7 @@ function Room(props) {
 
     else {
 
-      fetch('http://localhost:3000/room/book_room', {
+      fetch(uri+'/room/book_room', {
         method: 'post',
         headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({
@@ -104,7 +108,7 @@ function Room(props) {
       alert('End Date is missing')
 
     else {
-      fetch('http://localhost:3000/room/get_rooms', {              // Rooms which are booked in this period
+      fetch(uri+'/room/get_rooms', {              // Rooms which are booked in this period
         method: 'post',
         headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({

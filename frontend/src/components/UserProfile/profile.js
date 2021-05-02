@@ -2,6 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Card, CardActions, CardContent, Typography, Button }from '@material-ui/core';
 import './profile_style.css';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +29,7 @@ export default function Profile(props) {
     //console.log(r);
 
     if(r==='app'){
-      fetch('http://localhost:3000/appointment/user_appointments', {
+      fetch(uri+'/appointment/user_appointments', {
         method: 'get',
         headers: { 'Content-Type': 'application/json','jwttoken': token },
       })
@@ -37,7 +40,7 @@ export default function Profile(props) {
     }
 
     else{        
-      fetch('http://localhost:3000/room/get_rooms_request', {
+      fetch(uri+'/room/get_rooms_request', {
         method: 'get',
         headers: { 'Content-Type': 'application/json','jwttoken': token },
       })

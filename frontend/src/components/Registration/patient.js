@@ -3,6 +3,9 @@ import PageHeader from "./PageHeader"
 import { makeStyles, Paper } from "@material-ui/core";
 import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from "@material-ui/core";
 import UploadButtons from './submitbutton'
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const useStyles = makeStyles(theme=>({
     pageContent:{
@@ -52,7 +55,7 @@ export default function Patient(props){
             alert('Kindly fill all the deatils')
         
         else{
-            fetch('http://localhost:3000/register', {
+            fetch(uri+'/register', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({

@@ -4,6 +4,9 @@ import { makeStyles, Paper } from "@material-ui/core";
 import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from "@material-ui/core";
 import UploadButtons from './submitbutton';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const list = [
     { title: 'Pediatrician' },
@@ -107,7 +110,7 @@ export default function Docreg(props) {
         alert('Kindly fill all the deatils')
 
       else{  
-        fetch('http://localhost:3000/admin/register_doctor', {
+        fetch(uri+'/admin/register_doctor', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

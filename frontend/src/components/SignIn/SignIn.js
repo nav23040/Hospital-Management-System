@@ -9,6 +9,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +46,7 @@ export default function SignIn(props) {
     e.preventDefault();
 
     
-    fetch('http://localhost:3000/login', {
+    fetch(uri+'/login', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -57,7 +60,7 @@ export default function SignIn(props) {
         if (data.success === true) {
           sessionStorage.setItem('jwtToken', data.token);
 
-          fetch('http://localhost:3000/me', {
+          fetch(uri+'/me', {
               method: 'get',
               headers: { 'Content-Type': 'application/json','jwttoken' : data.token},
             })
@@ -90,7 +93,7 @@ export default function SignIn(props) {
     }
 
     else{
-    fetch('http://localhost:3000/doctor/login', {
+    fetch(uri+'/doctor/login', {
       method: 'post',
       
       headers: { 'Content-Type': 'application/json' },
@@ -106,7 +109,7 @@ export default function SignIn(props) {
         {
           sessionStorage.setItem('jwtToken', data.token);
 
-            fetch('http://localhost:3000/doctor/me', {
+            fetch(uri+'/doctor/me', {
               method: 'get',
               headers: { 'Content-Type': 'application/json','jwttoken' : data.token},
             })

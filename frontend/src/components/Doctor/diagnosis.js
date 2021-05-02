@@ -4,6 +4,9 @@ import { makeStyles, withStyles, Paper } from "@material-ui/core";
 import { Grid, TextField, Button } from "@material-ui/core";
 import UploadButtons from '../Registration/submitbutton';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const listdisease = [
     { title: 'Fever' },
@@ -85,7 +88,7 @@ export default function Docreg(props) {
 
        else { 
         var token = sessionStorage.getItem('jwtToken');
-        fetch('http://localhost:3000/case_history/add_prescription', {
+        fetch(uri+'/case_history/add_prescription', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' ,'jwttoken': token},
             body: JSON.stringify({

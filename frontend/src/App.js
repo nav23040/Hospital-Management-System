@@ -14,6 +14,9 @@ import PatientHistory from "./components/history2"
 import PatientDetails from"./components/UserProfile/userprofile"
 import Appointment from "./components/UserProfile/appointment"
 import RoomDetails from "./components/UserProfile/roomdetails"
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const useStyles = makeStyles({
   appMain : {
@@ -41,7 +44,7 @@ function App() {
       else if(route === 'patienthistory'){
          //console.log(userdata._id);
          let token = sessionStorage.getItem('jwtToken');
-         fetch('http://localhost:3000/case_history/user_case_history', {
+         fetch(uri+'/case_history/user_case_history', {
              method: 'get',
              headers: { 'Content-Type': 'application/json' ,'jwttoken': token}
             })
@@ -56,7 +59,7 @@ function App() {
       
       else if(route === 'patienthistory2'){
          let token = sessionStorage.getItem('jwtToken');
-         fetch('http://localhost:3000/case_history/patient_case_history', {
+         fetch(uri+'/case_history/patient_case_history', {
              method: 'post',
              headers: { 'Content-Type': 'application/json' ,'jwttoken': token},
              body: JSON.stringify({

@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button';
 import Data from "./data"
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const useStyles = makeStyles({
   root: {
@@ -41,7 +44,7 @@ export default function SimpleCard(props) {
   var token = sessionStorage.getItem('jwtToken');
 
   function setValues() {
-    fetch('http://localhost:3000/room/pending_rooms', {
+    fetch(uri+'/room/pending_rooms', {
       method: 'get',
       headers: { 'Content-Type': 'application/json', 'jwttoken': token },
     })
@@ -50,7 +53,7 @@ export default function SimpleCard(props) {
         console.log(data)
         setPendingReq(data);
       });
-    fetch('http://localhost:3000/all_doctors',{
+    fetch(uri+'/all_doctors',{
       method: 'get',
       headers: { 'Content-Type': 'application/json', 'jwttoken': token },
     })
@@ -69,7 +72,7 @@ const handleChange = (event) => {
 };
 
 function onSubmit() {
-  fetch('http://localhost:3000/room/add_room', {
+  fetch(uri+'/room/add_room', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -93,7 +96,7 @@ function onStatusChange(type, data) {
 
     if (window.confirm("Click 'OK' to confirm this booking, else click 'Cancel' ")) {
 
-      fetch('http://localhost:3000/room/confirm_room', {
+      fetch(uri+'/room/confirm_room', {
         method: 'post',
         headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({
@@ -115,7 +118,7 @@ function onStatusChange(type, data) {
   else {
     if (window.confirm("Click 'OK' to cancel this booking, else click 'Cancel' ")) {
 
-      fetch('http://localhost:3000/room/reject_room', {
+      fetch(uri+'/room/reject_room', {
         method: 'post',
         headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({
