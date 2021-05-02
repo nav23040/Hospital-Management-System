@@ -10,6 +10,7 @@ import BookRoom from "./components/room booking/room";
 import Admin from "./components/Admin/admin"
 import Docreg from "./components/Registration/doctorregistration";
 import Dr from "./components/Doctor/dr"
+import ViewReport from "./components/Doctor/viewReport"
 import PatientHistory from "./components/history2"
 import PatientDetails from"./components/UserProfile/userprofile"
 import Appointment from "./components/UserProfile/appointment"
@@ -186,6 +187,17 @@ function App() {
          <div className={classes.appMain}>
             <Header onRouteChange={onRouteChange} route ={route}/>
             <RoomDetails roomdetails={roomdetails} />
+         </div> 
+      )
+
+   }
+
+   else if(route === 'checkReport')
+   {  
+      return(
+         <div className={classes.appMain}>
+            <Header onRouteChange={onRouteChange} route ={route}/>
+            <ViewReport />
          </div> 
       )
 

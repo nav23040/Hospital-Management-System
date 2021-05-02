@@ -50,6 +50,7 @@ export default function SimpleCard(props) {
         console.log(data)
         setPendingReq(data);
       });
+      
     fetch('http://localhost:3000/all_doctors',{
       method: 'get',
       headers: { 'Content-Type': 'application/json', 'jwttoken': token },

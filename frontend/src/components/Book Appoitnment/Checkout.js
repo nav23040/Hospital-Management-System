@@ -12,6 +12,7 @@ import DoctorForm from './DateandDoctorForm';
 import PersonalDetailsForm from './PersonalDetailsForm';
 import Review from './Review';
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -121,32 +122,40 @@ export default function Checkout(props) {
      }) 
     } 
   }
-
+  
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     if(activeStep === steps.length - 1){
-     
-     fetch('http://localhost:3000/appointment/book_appointment', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json', 'jwttoken': token},
-        body: JSON.stringify({
-            data: patient,
-            email: props.email
-        })
-        })
-      .then(response => response.json())
-      .then(data => {
-          if(data === 'success'){
-            alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
-               props.onRouteChange('patientprofile');
-          }
-          else if(data === 'Appointment Exists')
-            alert(patient.doctorname + 'already has an appointment on the mentioned date and time')
-          else  
-            alert('Error!!! Kindly fix the appointment again!!!')  
-        })
-    }
+      const yesterday = new Date()
+      yesterday.setDate(yesterday.getDate() - 1)
+      yesterday.toDateString()
+    
+       if(new Date(patient.date).getTime() <= yesterday.getTime())
+           alert("Appointment Date must be bigger than the current date!!!")
+
+       else{
+
+         fetch('http://localhost:3000/appointment/book_appointment', {
+          method: 'post',
+          headers: {'Content-Type': 'application/json', 'jwttoken': token},
+          body: JSON.stringify({
+              data: patient,
+              email: props.email
+          })
+          })
+        .then(response => response.json())
+        .then(data => {
+            if(data === 'success'){
+              alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
+                props.onRouteChange('patientprofile');
+            }
+            else if(data === 'Appointment Exists')
+              alert(patient.doctorname + 'already has an appointment on the mentioned date and time')
+            else  
+              alert('Error!!! Kindly fix the appointment again!!!')  
+          })
+        } }
     else
      setActiveStep(activeStep + 1);
   };

@@ -2,6 +2,7 @@ import React from 'react';
 import {Typography, TextField, Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   function addDoctorData(data){
+   
     const l = [];
     //console.log(data);
     for(var i=0; i<data.length; i++){
@@ -42,9 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddressForm(props) {
     const classes = useStyles();
     const list = React.useState(addDoctorData(props.doctorDetails));
-
-    //console.log(list);
-
+   
   return (
      
     <React.Fragment>
@@ -62,6 +62,7 @@ export default function AddressForm(props) {
         type="date"
         name='date'
         defaultValue="yyyy-MM-dd"
+        minDate={moment().toDate()}
         value={props.patient.date}
         onChange={props.handleInputChange}
         className={classes.textField}
