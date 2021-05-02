@@ -16,6 +16,7 @@
     "react-profile-card": "^0.1.4",
     "react-scripts": "4.0.3",
     "react-table": "^7.6.3",
+    "react-tilt": "^0.1.4",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
