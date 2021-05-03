@@ -46,8 +46,7 @@ function Room(props) {
   const [rooms, setRooms] = useState([]);
   const [room_booked, setRoomBooked] = useState([]);
   const [room_selected, setRoomSelected] = useState({ room: '', id: '' });
-  //const floor1 = useState(['Room 101', 'Room 102', 'Room 103', 'Room 104', 'Room 105','Room 106', 'Room 107', 'Room 108', 'Room 109', 'Room 110', 'Room 111', 'Room 112', 'Room 113', 'Room 114', 'Room 115','Room 116']);
-
+ 
   var token = sessionStorage.getItem('jwtToken');
 
   useEffect(() => {
@@ -71,7 +70,7 @@ function Room(props) {
 
   function onSubmit() {
 
-    if (details.name === '' || details.age === '' || details.gender === '')
+    if (details.name === '' || details.age === '' || details.gender === 'Select Gender')
       alert('Kindly Fill all the details');
 
     else if (room_selected.room === '' || room_selected.id === '')
@@ -101,11 +100,15 @@ function Room(props) {
   }
 
   function onSearch() {
+    
     if (details.startDate === '')
       alert('Start Date is missing')
 
     else if (details.endDate === '')
       alert('End Date is missing')
+    
+    else if (new Date(details.startDate).getTime() >= new Date(details.endDate).getTime())
+        alert("End Date must be bigger than the start date")
 
     else {
       fetch(uri+'/room/get_rooms', {              // Rooms which are booked in this period

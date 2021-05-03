@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar(props) {
   const classes = useStyles();
+
   function ChangeRoute1(){
+    sessionStorage.removeItem("jwttoken");
     props.onRouteChange('signin');
   }
   function ChangeRoute(){
@@ -73,14 +75,22 @@ export default function ButtonAppBar(props) {
             { props.route === 'admin'
               ?  
                 <div class="dropdown" >
-                <button class="dropbtnmain" onClick = {() => props.onRouteChange('adminlogin')} >Sign Out</button>
+                <button class="dropbtnmain" onClick = {() => {
+                  sessionStorage.removeItem("jwttoken");
+                  props.onRouteChange('adminlogin')}} > Sign Out</button>
                 </div>
               :
                props.route === 'doctorProfile'
-               ? 
-               <div class="dropdown" >
-               <button class="dropbtnmain" onClick = {() => props.onRouteChange('doctorsignin')} >Sign Out</button>
-               </div>
+               ?  <div>
+                  <div class="dropdown" >
+                  <button class="dropbtnmain" onClick = {() => props.onRouteChange('checkReport')} >Previous Report</button>
+                  </div>
+                  <div class="dropdown" >
+                  <button class="dropbtnmain" onClick = {() => {
+                    sessionStorage.removeItem("jwttoken");
+                    props.onRouteChange('doctorsignin')}} >Sign Out</button>
+                  </div>
+                  </div>
                :
                 <div class="dropdown" >
                 <button class="dropbtnmain" onClick = {ChangeRoute1} >Sign Out</button>
@@ -109,18 +119,22 @@ export default function ButtonAppBar(props) {
                 <button class="dropbtnmain" onClick = {() => props.onRouteChange('admin')} >Go Back</button>
                 </div>
                 <div class="dropdown" >
-                <button class="dropbtnmain" onClick = {() => props.onRouteChange('adminlogin')}  >Sign Out</button>
+                <button class="dropbtnmain" onClick = {() => {
+                  sessionStorage.removeItem("jwttoken");
+                  props.onRouteChange('adminlogin')} } >Sign Out</button>
                 </div>
                 </div>
               : 
-                props.route === 'doctordetailbydoctor' || props.route === 'patienthistory2'
+                props.route === 'doctordetailbydoctor' || props.route === 'patienthistory2' || props.route === 'checkReport'
                 ?
                   <div>
                   <div class="dropdown" >
                   <button class="dropbtnmain" onClick = {() => props.onRouteChange('doctorProfile')} >Go Back</button>
                   </div> 
                   <div class="dropdown" >
-                  <button class="dropbtnmain" style={{marginRight: 50}} onClick = {() => props.onRouteChange('doctorsignin')} >Sign Out</button>
+                  <button class="dropbtnmain" style={{marginRight: 50}} onClick = {() => {
+                    sessionStorage.removeItem("jwttoken");
+                    props.onRouteChange('doctorsignin')}} >Sign Out</button>
                   </div>
                   </div>
                 :
