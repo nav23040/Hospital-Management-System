@@ -52,7 +52,7 @@ export default function Patient(props){
         console.log(values);
 
         if(values.fullName === '' || values.age === '' || values.mobile === '' || values.email === '' || values.password === '' || values.address === '' || values.fatherName === '' || values.motherName === '' || values.parentMobile === '')
-            alert('Kindly fill all the deatils')
+            alert('Kindly fill all the details')
         
         else{
             fetch(uri+'/register', {

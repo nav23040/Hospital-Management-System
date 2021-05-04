@@ -107,7 +107,7 @@ export default function Docreg(props) {
     function onSubmit() {
       
       if(values.name === '' || values.registrationid === '' || values.dob === '' || values.mobile_number === '' || values.email === '' || values.password === '' || values.address === '' || values.state === '' || values.specialization === '' )
-        alert('Kindly fill all the deatils')
+        alert('Kindly fill all the details')
 
       else{  
         fetch(uri+'/admin/register_doctor', {

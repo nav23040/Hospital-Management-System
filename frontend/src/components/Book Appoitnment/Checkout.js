@@ -72,7 +72,7 @@ const steps = ['Search Doctor', 'Personal Details', 'Review'];
 const initialPatientValues={
   name:'',
   age:'',
-  gender:'Male',
+  gender:'',
   doctorname: '',
   time: '',
   date: '',
@@ -129,36 +129,40 @@ export default function Checkout(props) {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
-    if(activeStep === steps.length - 1){
+    if (activeStep === steps.length - 1) {
       const yesterday = new Date()
       yesterday.setDate(yesterday.getDate() - 1)
       yesterday.toDateString()
     
-       if(new Date(patient.date).getTime() <= yesterday.getTime())
-           alert("Appointment Date must be bigger than the current date!!!")
+      if (new Date(patient.date).getTime() <= yesterday.getTime())
+        alert("Appointment Date must be bigger than the current date!!!")
 
-       else{
-
-         fetch(uri+'/appointment/book_appointment', {
-          method: 'post',
-          headers: {'Content-Type': 'application/json', 'jwttoken': token},
-          body: JSON.stringify({
+      else {
+        if (patient.name === '' || patient.age === '' || patient.gender === '' || patient.doctorname === '' || patient.date === '' || patient.time === '')
+          alert('Kindly fill all the details')
+        else {
+          fetch(uri + '/appointment/book_appointment', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json', 'jwttoken': token },
+            body: JSON.stringify({
               data: patient,
               email: props.email
+            })
           })
-          })
-        .then(response => response.json())
-        .then(data => {
-            if(data === 'success'){
-              alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
+            .then(response => response.json())
+            .then(data => {
+              if (data === 'success') {
+                alert('Your Appointment has been successfully submitted!!!\nWait for the Confirmation');
                 props.onRouteChange('patientprofile');
-            }
-            else if(data === 'Appointment Exists')
-              alert(patient.doctorname + 'already has an appointment on the mentioned date and time')
-            else  
-              alert('Error!!! Kindly fix the appointment again!!!')  
-          })
-        } }
+              }
+              else if (data === 'Appointment Exists')
+                alert(patient.doctorname + 'already has an appointment on the mentioned date and time')
+              else
+                alert('Error!!! Kindly fix the appointment again!!!')
+            })
+        }
+      }
+    }
     else
      setActiveStep(activeStep + 1);
   };
