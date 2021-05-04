@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Button, Typography, TextField} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PatientHistory from "../history2"
+const dotenv = require('dotenv');
+dotenv.config();
+const uri = process.env.React_App_URL;
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,7 +48,7 @@ function Room(props) {
      alert('Kindly add the email address!!!!')
 
     else {
-      fetch('http://localhost:3000/case_history/patient_case_history', {              
+      fetch(uri+'/case_history/patient_case_history', {              
         method: 'post',
         headers: { 'Content-Type': 'application/json', 'jwttoken': token },
         body: JSON.stringify({

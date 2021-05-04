@@ -139,7 +139,7 @@ export default function Checkout(props) {
 
        else{
 
-         fetch('http://localhost:3000/appointment/book_appointment', {
+         fetch(uri+'/appointment/book_appointment', {
           method: 'post',
           headers: {'Content-Type': 'application/json', 'jwttoken': token},
           body: JSON.stringify({
